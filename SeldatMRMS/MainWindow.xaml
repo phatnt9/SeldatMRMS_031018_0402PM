@@ -106,6 +106,8 @@
                             <MenuItem  Header="_Open" />
                             <MenuItem  Header="_Save" />
                             <Separator />
+                            <MenuItem Name="signinout_menu"  Header="_Sign in" Click="SignInOut_Click"/>
+                            <Separator />
                             <MenuItem  Header="_Exit" />
                         </MenuItem>
                         <!--<MenuItem Header="_Edit">

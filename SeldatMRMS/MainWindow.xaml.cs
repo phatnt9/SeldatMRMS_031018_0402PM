@@ -31,6 +31,19 @@ namespace SeldatMRMS
         private bool MouseMove;
         private string permission = "guess";
 
+        public void ChangeToAdmin()
+        {
+            permission = "admin";
+            signinout_menu.Header = "_Sign out";
+            Normal_mode();
+        }
+        public void ChangeToGuess()
+        {
+            permission = "guess";
+            signinout_menu.Header = "_Sign in";
+            Normal_mode();
+        }
+
         public string MyImageSource
         {
             get;
@@ -212,57 +225,59 @@ namespace SeldatMRMS
 
         private void map_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var mouseWasDownOn = e.Source as FrameworkElement;
-            if (mouseWasDownOn != null)
+            if (permission == "admin")
             {
-                string elementName = mouseWasDownOn.Name;
-                if (elementName != "")
+                var mouseWasDownOn = e.Source as FrameworkElement;
+                if (mouseWasDownOn != null)
                 {
+                    string elementName = mouseWasDownOn.Name;
+                    if (elementName != "")
+                    {
 
-                    HalfPoint ptemp_halfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint(elementName);
-                    PathModel ptemp_pathmodel = RegistrationAgent.interfacePointer.findobjecthalfpath(elementName);
-                    StationModel ptemp_station = RegistrationAgent.interfacePointer.findobjectstation(elementName);
-                    ChargerModel ptemp_charger = RegistrationAgent.interfacePointer.findobjectcharger(elementName);
-                    ReadyModel ptemp_ready = RegistrationAgent.interfacePointer.findobjectready(elementName);
-                    CheckinModel ptemp_checkin = RegistrationAgent.interfacePointer.findobjectcheckin(elementName);
-                    CheckoutModel ptemp_checkout = RegistrationAgent.interfacePointer.findobjectcheckout(elementName);
-                    RobotModel ptemp_rm = RegistrationAgent.interfacePointer.findRobotModel(elementName);
-                    Point ep = e.GetPosition(map);
+                        HalfPoint ptemp_halfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint(elementName);
+                        PathModel ptemp_pathmodel = RegistrationAgent.interfacePointer.findobjecthalfpath(elementName);
+                        StationModel ptemp_station = RegistrationAgent.interfacePointer.findobjectstation(elementName);
+                        ChargerModel ptemp_charger = RegistrationAgent.interfacePointer.findobjectcharger(elementName);
+                        ReadyModel ptemp_ready = RegistrationAgent.interfacePointer.findobjectready(elementName);
+                        CheckinModel ptemp_checkin = RegistrationAgent.interfacePointer.findobjectcheckin(elementName);
+                        CheckoutModel ptemp_checkout = RegistrationAgent.interfacePointer.findobjectcheckout(elementName);
+                        RobotModel ptemp_rm = RegistrationAgent.interfacePointer.findRobotModel(elementName);
+                        Point ep = e.GetPosition(map);
 
-                    if (ptemp_station != null)
-                    {
-                        //MessageBox.Show("get "+ ptemp_station.properties.NameID);
-                        RegistrationAgent.interfacePointer.SetObjectStation(ptemp_station);
-                        showContextMenuStation(ptemp_station);
-                    }
-                    else if (ptemp_charger != null)
-                    {
-                        showContextMenuCharger(ptemp_charger);
-                        RegistrationAgent.interfacePointer.SetObjectCharger(ptemp_charger);
-                    }
-                    else if (ptemp_ready != null)
-                    {
-                        showContextMenuReady(ptemp_ready);
-                        RegistrationAgent.interfacePointer.SetObjectReady(ptemp_ready);
-                    }
-                    else if (ptemp_checkin != null)
-                    {
-                        showContextMenuCheckin(ptemp_checkin);
-                        RegistrationAgent.interfacePointer.SetObjectCheckin(ptemp_checkin);
-                    }
-                    else if (ptemp_checkout != null)
-                    {
-                        showContextMenuCheckout(ptemp_checkout);
-                        RegistrationAgent.interfacePointer.SetObjectCheckout(ptemp_checkout);
-                    }
-                    else if (ptemp_rm != null)
-                    {
-                        showContextMenuRobotinStore();
-                    }
+                        if (ptemp_station != null)
+                        {
+                            //MessageBox.Show("get "+ ptemp_station.properties.NameID);
+                            RegistrationAgent.interfacePointer.SetObjectStation(ptemp_station);
+                            showContextMenuStation(ptemp_station);
+                        }
+                        else if (ptemp_charger != null)
+                        {
+                            showContextMenuCharger(ptemp_charger);
+                            RegistrationAgent.interfacePointer.SetObjectCharger(ptemp_charger);
+                        }
+                        else if (ptemp_ready != null)
+                        {
+                            showContextMenuReady(ptemp_ready);
+                            RegistrationAgent.interfacePointer.SetObjectReady(ptemp_ready);
+                        }
+                        else if (ptemp_checkin != null)
+                        {
+                            showContextMenuCheckin(ptemp_checkin);
+                            RegistrationAgent.interfacePointer.SetObjectCheckin(ptemp_checkin);
+                        }
+                        else if (ptemp_checkout != null)
+                        {
+                            showContextMenuCheckout(ptemp_checkout);
+                            RegistrationAgent.interfacePointer.SetObjectCheckout(ptemp_checkout);
+                        }
+                        else if (ptemp_rm != null)
+                        {
+                            showContextMenuRobotinStore();
+                        }
 
+                    }
                 }
             }
-
         }
 
         public void showContextMenuStation(StationModel ps)
@@ -888,33 +903,42 @@ namespace SeldatMRMS
 
         private void AddHalfpointOP_Click(object sender, RoutedEventArgs e)
         {
-            ContextMenu cm = this.FindResource("TYPE-POINTS") as ContextMenu;
-            cm.PlacementTarget = sender as Button;
-            cm.IsOpen = true;
-
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_HALFPOINT;
+            if (permission == "admin")
+            {
+                ContextMenu cm = this.FindResource("TYPE-POINTS") as ContextMenu;
+                cm.PlacementTarget = sender as Button;
+                cm.IsOpen = true;
+                valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_HALFPOINT;
+            }
         }
 
         private void AddPath_Click(object sender, RoutedEventArgs e)
         {
-            ContextMenu cm = this.FindResource("TYPE-PATHS") as ContextMenu;
-            cm.PlacementTarget = sender as Button;
-            cm.IsOpen = true;
-
+            if (permission == "admin")
+            {
+                ContextMenu cm = this.FindResource("TYPE-PATHS") as ContextMenu;
+                cm.PlacementTarget = sender as Button;
+                cm.IsOpen = true;
+            }
         }
 
         private void AddStation_Click(object sender, RoutedEventArgs e)
         {
-            ContextMenu cm = this.FindResource("TYPE-STATIONS") as ContextMenu;
-            cm.PlacementTarget = sender as Button;
-            cm.IsOpen = true;
-
+            if (permission == "admin")
+            {
+                ContextMenu cm = this.FindResource("TYPE-STATIONS") as ContextMenu;
+                cm.PlacementTarget = sender as Button;
+                cm.IsOpen = true;
+            }
         }
 
         private void Selectmode_Click(object sender, RoutedEventArgs e)
         {
-            MoveToggle(false);
-            Select_mode();
+            if (permission == "admin")
+            {
+                MoveToggle(false);
+                Select_mode();
+            }
         }
 
         private void typepoints_Click(object sender, RoutedEventArgs e)
@@ -1007,21 +1031,30 @@ namespace SeldatMRMS
 
         private void loadmodel_Click(object sender, RoutedEventArgs e)
         {
-            LoadModel p = new LoadModel(RegistrationAgent.interfacePointer);
-            p.LoadFileModel();
-            p.ParseInfo();
+            if (permission == "admin")
+            {
+                LoadModel p = new LoadModel(RegistrationAgent.interfacePointer);
+                p.LoadFileModel();
+                p.ParseInfo();
+            }
         }
 
         private void savemodel_Click(object sender, RoutedEventArgs e)
         {
-            SaveModel.savedata();
+            if (permission == "admin")
+            {
+                SaveModel.savedata();
+            }
         }
 
         private void load3dmap_Click(object sender, RoutedEventArgs e)
         {
-            probot3dmap = new RobotView3D();
-            probot3dmap.Show();
-            probot3dmap.loadAWareHouseMap();
+            if (permission == "admin")
+            {
+                probot3dmap = new RobotView3D();
+                probot3dmap.Show();
+                probot3dmap.loadAWareHouseMap();
+            }
         }
 
         private void pathdirect_Click(object sender, RoutedEventArgs e)
@@ -1040,7 +1073,10 @@ namespace SeldatMRMS
 
         private void addrobotconfig_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationAgent.interfacePointer.setRobotProperties();
+            if (permission == "admin")
+            {
+                RegistrationAgent.interfacePointer.setRobotProperties();
+            }
         }
 
 
@@ -1171,57 +1207,67 @@ namespace SeldatMRMS
 
         private void trv_paths_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            if (permission == "admin")
+            {
+            }
         }
-
         private void trv_vehclies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            // double click to robot object to edit
-            var hit = e.OriginalSource as DependencyObject;
-            while (hit != null && !(hit is TreeViewItem))
-                hit = VisualTreeHelper.GetParent(hit);
-            if (hit == null)
-                return;
-            TreeViewItem tv_robot = hit as TreeViewItem;
-            string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
-            if (header != "Vehicles")
+            if (permission == "admin")
             {
-                RobotAgent ptempRobotAgent = RegistrationAgent.interfacePointer.findobjectrobot_updatevalue(tv_robot.Header.ToString().Split(new string[] { " --- " }, StringSplitOptions.None)[0]);
-                ptempRobotAgent.Show();
+                // double click to robot object to edit
+                var hit = e.OriginalSource as DependencyObject;
+                while (hit != null && !(hit is TreeViewItem))
+                    hit = VisualTreeHelper.GetParent(hit);
+                if (hit == null)
+                    return;
+                TreeViewItem tv_robot = hit as TreeViewItem;
+                string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
+                if (header != "Vehicles")
+                {
+                    RobotAgent ptempRobotAgent = RegistrationAgent.interfacePointer.findobjectrobot_updatevalue(tv_robot.Header.ToString().Split(new string[] { " --- " }, StringSplitOptions.None)[0]);
+                    ptempRobotAgent.Show();
+                }
             }
         }
 
         private void trv_points_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var hit = e.OriginalSource as DependencyObject;
-            while (hit != null && !(hit is TreeViewItem))
-                hit = VisualTreeHelper.GetParent(hit);
-            if (hit == null)
-                return;
-
-            TreeViewItem tv_robot = hit as TreeViewItem;
-            string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
-            if (header != "Point")
+            if (permission == "admin")
             {
-                HalfPoint ptemphalfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint_updatevalue(tv_robot.Header.ToString());
-                HalfPointProperties php = new HalfPointProperties(this, ptemphalfpoint);
-                php.Show();
+                var hit = e.OriginalSource as DependencyObject;
+                while (hit != null && !(hit is TreeViewItem))
+                    hit = VisualTreeHelper.GetParent(hit);
+                if (hit == null)
+                    return;
+
+                TreeViewItem tv_robot = hit as TreeViewItem;
+                string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
+                if (header != "Point")
+                {
+                    HalfPoint ptemphalfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint_updatevalue(tv_robot.Header.ToString());
+                    HalfPointProperties php = new HalfPointProperties(this, ptemphalfpoint);
+                    php.Show();
+                }
             }
         }
 
         private void trv_stations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var hit = e.OriginalSource as DependencyObject;
-            while (hit != null && !(hit is TreeViewItem))
-                hit = VisualTreeHelper.GetParent(hit);
-            if (hit == null)
-                return;
-            TreeViewItem tv_robot = hit as TreeViewItem;
-            string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
-            if (header != "Station")
+            if (permission == "admin")
             {
-                StationModel ptempstation = RegistrationAgent.interfacePointer.findobjectstation_updatevalue(header);
-                ptempstation.ShowDialog();
+                var hit = e.OriginalSource as DependencyObject;
+                while (hit != null && !(hit is TreeViewItem))
+                    hit = VisualTreeHelper.GetParent(hit);
+                if (hit == null)
+                    return;
+                TreeViewItem tv_robot = hit as TreeViewItem;
+                string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
+                if (header != "Station")
+                {
+                    StationModel ptempstation = RegistrationAgent.interfacePointer.findobjectstation_updatevalue(header);
+                    ptempstation.ShowDialog();
+                }
             }
         }
 
@@ -1229,65 +1275,77 @@ namespace SeldatMRMS
 
         private void trv_ready_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var hit = e.OriginalSource as DependencyObject;
-            while (hit != null && !(hit is TreeViewItem))
-                hit = VisualTreeHelper.GetParent(hit);
-            if (hit == null)
-                return;
-            TreeViewItem tv_robot = hit as TreeViewItem;
-            string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
-            if (header != "Ready")
+            if (permission == "admin")
             {
-                ReadyModel ptempready = RegistrationAgent.interfacePointer.findobjectready_updatevalue(tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0]);
-                ptempready.ShowDialog();
+                var hit = e.OriginalSource as DependencyObject;
+                while (hit != null && !(hit is TreeViewItem))
+                    hit = VisualTreeHelper.GetParent(hit);
+                if (hit == null)
+                    return;
+                TreeViewItem tv_robot = hit as TreeViewItem;
+                string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
+                if (header != "Ready")
+                {
+                    ReadyModel ptempready = RegistrationAgent.interfacePointer.findobjectready_updatevalue(tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0]);
+                    ptempready.ShowDialog();
+                }
             }
         }
 
         private void trv_checkin_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var hit = e.OriginalSource as DependencyObject;
-            while (hit != null && !(hit is TreeViewItem))
-                hit = VisualTreeHelper.GetParent(hit);
-            if (hit == null)
-                return;
-            TreeViewItem tv_robot = hit as TreeViewItem;
-            string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
-            if (header != "Checkin")
+            if (permission == "admin")
             {
-                CheckinModel ptempcheckin = RegistrationAgent.interfacePointer.findobjectcheckin_updatevalue(tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0]);
-                ptempcheckin.ShowDialog();
+                var hit = e.OriginalSource as DependencyObject;
+                while (hit != null && !(hit is TreeViewItem))
+                    hit = VisualTreeHelper.GetParent(hit);
+                if (hit == null)
+                    return;
+                TreeViewItem tv_robot = hit as TreeViewItem;
+                string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
+                if (header != "Checkin")
+                {
+                    CheckinModel ptempcheckin = RegistrationAgent.interfacePointer.findobjectcheckin_updatevalue(tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0]);
+                    ptempcheckin.ShowDialog();
+                }
             }
         }
 
         private void trv_checkout_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var hit = e.OriginalSource as DependencyObject;
-            while (hit != null && !(hit is TreeViewItem))
-                hit = VisualTreeHelper.GetParent(hit);
-            if (hit == null)
-                return;
-            TreeViewItem tv_robot = hit as TreeViewItem;
-            string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
-            if (header != "Checkout")
+            if (permission == "admin")
             {
-                CheckoutModel ptempcheckout = RegistrationAgent.interfacePointer.findobjectcheckout_updatevalue(tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0]);
-                ptempcheckout.ShowDialog();
+                var hit = e.OriginalSource as DependencyObject;
+                while (hit != null && !(hit is TreeViewItem))
+                    hit = VisualTreeHelper.GetParent(hit);
+                if (hit == null)
+                    return;
+                TreeViewItem tv_robot = hit as TreeViewItem;
+                string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
+                if (header != "Checkout")
+                {
+                    CheckoutModel ptempcheckout = RegistrationAgent.interfacePointer.findobjectcheckout_updatevalue(tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0]);
+                    ptempcheckout.ShowDialog();
+                }
             }
         }
 
         private void trv_charger_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var hit = e.OriginalSource as DependencyObject;
-            while (hit != null && !(hit is TreeViewItem))
-                hit = VisualTreeHelper.GetParent(hit);
-            if (hit == null)
-                return;
-            TreeViewItem tv_robot = hit as TreeViewItem;
-            string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
-            if (header != "Charger")
+            if (permission == "admin")
             {
-                ChargerModel ptempcharger = RegistrationAgent.interfacePointer.findobjectcharger_updatevalue(tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0]);
-                ptempcharger.ShowDialog();
+                var hit = e.OriginalSource as DependencyObject;
+                while (hit != null && !(hit is TreeViewItem))
+                    hit = VisualTreeHelper.GetParent(hit);
+                if (hit == null)
+                    return;
+                TreeViewItem tv_robot = hit as TreeViewItem;
+                string header = tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
+                if (header != "Charger")
+                {
+                    ChargerModel ptempcharger = RegistrationAgent.interfacePointer.findobjectcharger_updatevalue(tv_robot.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0]);
+                    ptempcharger.ShowDialog();
+                }
             }
         }
 
@@ -1318,14 +1376,19 @@ namespace SeldatMRMS
 
         private void ipscan_Click(object sender, RoutedEventArgs e)
         {
-            IpScanner pp = new IpScanner();
-            pp.Show();
+            if (permission == "admin")
+            {
+                IpScanner pp = new IpScanner();
+                pp.Show();
+            }
         }
 
         private void setting_Click(object sender, RoutedEventArgs e)
         {
-
-            ptaskManager.Show();
+            if (permission == "admin")
+            {
+                ptaskManager.Show();
+            }
         }
 
 
@@ -1355,13 +1418,19 @@ namespace SeldatMRMS
 
         private void iprun_Click(object sender, RoutedEventArgs e)
         {
-            TrafficForm ptf = new TrafficForm();
-            ptf.Show();
+            if (permission == "admin")
+            {
+                TrafficForm ptf = new TrafficForm();
+                ptf.Show();
+            }
         }
 
         private void groupbox_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationAgent.groupModelPointer.Show();
+            if (permission == "admin")
+            {
+                RegistrationAgent.groupModelPointer.Show();
+            }
         }
 
         private void loadtask_Click(object sender, RoutedEventArgs e)
@@ -1608,7 +1677,9 @@ namespace SeldatMRMS
 
         private void trv_highway_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            if (permission == "admin")
+            {
+            }
         }
 
         private void higwayadd_Click(object sender, RoutedEventArgs e)
@@ -1864,32 +1935,35 @@ namespace SeldatMRMS
             }
         }
 
-        
+
 
         private void trv_items_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var hit = e.OriginalSource as DependencyObject;
-            while (hit != null && !(hit is TreeViewItem))
-                hit = VisualTreeHelper.GetParent(hit);
-            if (hit == null)
-                return;
-            TreeViewItem tv_station = hit as TreeViewItem;
-            string header = tv_station.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
-            if (!header.Equals("Vehicles") &&
-                !header.Equals("Path") &&
-                !header.Equals("HighWay") &&
-                !header.Equals("Point") &&
-                !header.Equals("Station") &&
-                !header.Equals("Charger") &&
-                !header.Equals("Ready") &&
-                !header.Equals("Checkin") &&
-                !header.Equals("Checkout"))
+            if (permission == "admin")
             {
-                //MessageBox.Show(tv_station.Header.ToString());
-                tv_station.IsSelected = true;
-                ContextMenu cm = this.FindResource("TREEVIEW-MENU") as ContextMenu;
-                cm.PlacementTarget = sender as TreeViewItem;
-                cm.IsOpen = true;
+                var hit = e.OriginalSource as DependencyObject;
+                while (hit != null && !(hit is TreeViewItem))
+                    hit = VisualTreeHelper.GetParent(hit);
+                if (hit == null)
+                    return;
+                TreeViewItem tv_station = hit as TreeViewItem;
+                string header = tv_station.Header.ToString().Split(new[] { " --- " }, StringSplitOptions.None)[0];
+                if (!header.Equals("Vehicles") &&
+                    !header.Equals("Path") &&
+                    !header.Equals("HighWay") &&
+                    !header.Equals("Point") &&
+                    !header.Equals("Station") &&
+                    !header.Equals("Charger") &&
+                    !header.Equals("Ready") &&
+                    !header.Equals("Checkin") &&
+                    !header.Equals("Checkout"))
+                {
+                    //MessageBox.Show(tv_station.Header.ToString());
+                    tv_station.IsSelected = true;
+                    ContextMenu cm = this.FindResource("TREEVIEW-MENU") as ContextMenu;
+                    cm.PlacementTarget = sender as TreeViewItem;
+                    cm.IsOpen = true;
+                }
             }
         }
 
@@ -1918,17 +1992,34 @@ namespace SeldatMRMS
 
         private void statistic_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (permission == "admin")
             {
-                string howtogeek = "[n/a]";
-                IPAddress[] addresslist = Dns.GetHostAddresses(howtogeek);
-
-                foreach (IPAddress theaddress in addresslist)
+                try
                 {
-                    Console.WriteLine(theaddress.ToString());
+                    string howtogeek = "[n/a]";
+                    IPAddress[] addresslist = Dns.GetHostAddresses(howtogeek);
+
+                    foreach (IPAddress theaddress in addresslist)
+                    {
+                        Console.WriteLine(theaddress.ToString());
+                    }
                 }
+                catch { }
             }
-            catch { }
+        }
+
+        private void SignInOut_Click(object sender, RoutedEventArgs e)
+        {
+            if (signinout_menu.Header.ToString() == "_Sign in")
+            {
+                SignIn signInForm = new SignIn();
+                signInForm.ShowDialog();
+            }
+            else
+            {
+                ChangeToGuess();
+            }
+
         }
     }
 

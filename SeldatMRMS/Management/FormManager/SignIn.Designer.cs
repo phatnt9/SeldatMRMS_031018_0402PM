@@ -42,22 +42,23 @@
             // tb_user
             // 
             this.tb_user.AccessibleDescription = "";
-            this.tb_user.Location = new System.Drawing.Point(77, 71);
+            this.tb_user.Location = new System.Drawing.Point(63, 69);
             this.tb_user.Name = "tb_user";
-            this.tb_user.Size = new System.Drawing.Size(100, 20);
+            this.tb_user.Size = new System.Drawing.Size(124, 20);
             this.tb_user.TabIndex = 0;
             // 
             // tb_pwd
             // 
-            this.tb_pwd.Location = new System.Drawing.Point(77, 113);
+            this.tb_pwd.Location = new System.Drawing.Point(63, 111);
             this.tb_pwd.Name = "tb_pwd";
-            this.tb_pwd.Size = new System.Drawing.Size(100, 20);
+            this.tb_pwd.Size = new System.Drawing.Size(124, 20);
             this.tb_pwd.TabIndex = 0;
+            this.tb_pwd.UseSystemPasswordChar = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(98, 53);
+            this.label1.Location = new System.Drawing.Point(98, 49);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 1;
@@ -66,7 +67,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(98, 94);
+            this.label2.Location = new System.Drawing.Point(98, 92);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 1;
@@ -110,6 +111,7 @@
             // 
             // SignIn
             // 
+            this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(257, 192);
@@ -120,6 +122,8 @@
             this.Controls.Add(this.tb_pwd);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "SignIn";
             this.Text = "SignIn";
             this.statusStrip1.ResumeLayout(false);
