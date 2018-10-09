@@ -5,6 +5,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="Seldat" Height="654" Width="525"
 		Closing="Window_Closing"
+        WindowStyle="None"
 		>
 	<Grid  >
 		
@@ -237,7 +238,7 @@
 				<ImageBrush/>
 			</Image.OpacityMask>
 		</Image> -->
-			<StackPanel Background="BlanchedAlmond"  HorizontalAlignment="Left" Height="139" Margin="10,0,0,23" VerticalAlignment="Bottom" Width="226" RenderTransformOrigin="-0.193,0.831">
+			<StackPanel Visibility="Hidden" Background="BlanchedAlmond"  HorizontalAlignment="Left" Height="139" Margin="10,0,0,23" VerticalAlignment="Bottom" Width="226" RenderTransformOrigin="-0.193,0.831">
 				<TextBlock Opacity="0.7" Foreground="Blue" x:Name="txt_moveMouseXY" TextWrapping="Wrap" Text="Location:0.0/0.0" FontSize="16" FontWeight="Bold"/>
 				<TextBlock Foreground="Blue" FontWeight="Black" x:Name="txt_moveMouse_pointY" TextWrapping="Wrap" Text="Move:0.0/0.0" FontSize="16"/>
 				<TextBlock Foreground="Blue" FontWeight="Black" x:Name="txt_moveMouse_scaleLength" TextWrapping="Wrap" Text="Scale:10" FontSize="16"/>

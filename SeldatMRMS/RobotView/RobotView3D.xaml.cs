@@ -1284,7 +1284,7 @@ namespace SeldatMRMS.RobotView
 		}*/
 		private void btn_32dclick(object sender, RoutedEventArgs e)
 		{
-
+            this.Hide();
 		/*
 			if (!flag_3dmode)
 			{

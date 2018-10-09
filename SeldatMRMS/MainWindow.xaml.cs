@@ -1019,9 +1019,7 @@ namespace SeldatMRMS
 
         private void load3dmap_Click(object sender, RoutedEventArgs e)
         {
-            probot3dmap = new RobotView3D();
-            probot3dmap.Show();
-            probot3dmap.loadAWareHouseMap();
+            RegistrationAgent.robotview3dPointer.Show();
         }
 
         private void pathdirect_Click(object sender, RoutedEventArgs e)
