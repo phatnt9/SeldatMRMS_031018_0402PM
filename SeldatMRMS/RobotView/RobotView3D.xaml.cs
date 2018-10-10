@@ -226,7 +226,7 @@ namespace SeldatMRMS.RobotView
 
 					MapSettingF psettingform = new MapSettingF();
 					psettingform.Log += setcontrols;
-					psettingform.Show();
+					psettingform.ShowDialog();
 					break;
 				case SELECTEDCONTROL.SELECTED_CONTROL_ESTIMATE_GETPOINT1:
 					RayMeshGeometry3DHitTestResult mesh_estimate_getpoint1 = (RayMeshGeometry3DHitTestResult)pobject;
@@ -319,7 +319,7 @@ namespace SeldatMRMS.RobotView
 					plineinfo.changedLineParamsFinhed += changedLineParamsFinhed;
 					plineinfo.lineParamsCancelled += lineParamsCancelled;
 					plineinfo.lineParam.lineVisual3D = new LinesVisual3D();
-					plineinfo.Show();
+					plineinfo.ShowDialog();
 
 					break;
 				case SELECTEDCONTROL.SELECTED_CONTROL_PATHSTRATEGIC_LINE_SETTING_APPLIED:
@@ -366,7 +366,7 @@ namespace SeldatMRMS.RobotView
 					pcurinfo.setCurveStartPoint += setCurveP1;
 					pcurinfo.setCurveEndPoint += setCurveP2;
 					pcurinfo.curveParamsCancelled += curveParamsCancelled;
-					pcurinfo.Show();
+					pcurinfo.ShowDialog();
 					break;
 				case SELECTEDCONTROL.SELECTED_CONTROL_PATHSTRATEGIC_CURVE_SETTING:
 					pPathSetting.Children.Clear();
@@ -761,14 +761,14 @@ namespace SeldatMRMS.RobotView
 							{
 								if (p.findObject(Nameobj))
 								{
-									p.Show();
+									p.ShowDialog();
 								}
 							}
 							foreach (SetCurveParams p in setCurveParamsList)
 							{
 								if (p.findObject(Nameobj))
 								{
-									p.Show();
+									p.ShowDialog();
 								}
 							}
 						}
@@ -985,7 +985,7 @@ namespace SeldatMRMS.RobotView
 		private void btn_joystick_Click(object sender, RoutedEventArgs e)
 		{
 			Form1 pform = new Form1();
-			pform.Show();
+			pform.ShowDialog();
 			pform.getdatagridview += getdatagridview;
 		}
 
@@ -1452,7 +1452,7 @@ namespace SeldatMRMS.RobotView
 		private void btn_grouppaths_Click(object sender, RoutedEventArgs e)
 		{
 			GroupPaths grouppath = new GroupPaths();
-			grouppath.Show();
+			grouppath.ShowDialog();
 		}
 	}
 }

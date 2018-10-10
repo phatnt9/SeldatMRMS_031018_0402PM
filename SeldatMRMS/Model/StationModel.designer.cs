@@ -185,7 +185,6 @@
             this.Text = "Station properties";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StationModel_FormClosed);
             this.Load += new System.EventHandler(this.Station_Load);
-            this.Shown += new System.EventHandler(this.btn_lineInfo_Click);
             ((System.ComponentModel.ISupportInitialize)(this.dGV_properties)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

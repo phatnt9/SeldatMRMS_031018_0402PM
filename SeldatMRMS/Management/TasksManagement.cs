@@ -32,9 +32,9 @@ namespace SeldatMRMS.Management
 
             createLogFolder();
             //	probot3dmap = new RobotView3D();
-            //	probot3dmap.Show();
+            //	probot3dmap.ShowDialog();
             //RegistrationAgent.robotview3dPointer.loadAWareHouseMap();
-            //RegistrationAgent.robotview3dPointer.Show();
+            //RegistrationAgent.robotview3dPointer.ShowDialog();
             orders = new Orders();
             readyArea = new ReadyArea("Ready", "0");
             readyArea.updateLandMarkPoint(new Point3D(9.54, -6.05, 0));

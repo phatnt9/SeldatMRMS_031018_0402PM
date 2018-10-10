@@ -22,8 +22,8 @@ namespace SeldatMRMS.Model
 			public double X_model, Y_model;
 			public double LengthValue, CostValue;
 			public double Width, Height;
-			public String label;
-			public String NameObj, NameEllipse;
+			public string label;
+			public string NameID, NameEllipse;
 			public int idnum;
 		}
         public FLAGPOINTDEFINED flagpointdefines;
@@ -156,7 +156,7 @@ namespace SeldatMRMS.Model
 		}
         public void setName(String name)
         {
-			properties.NameObj = name;
+			properties.NameID = name;
             pellipse.Name = name;
         }
 		public void setcolor(Color pc)
@@ -165,7 +165,7 @@ namespace SeldatMRMS.Model
 		}
         public bool FindName(String name)
         {
-            if (name.Equals(properties.NameObj))
+            if (name.Equals(properties.NameID))
                 return true;
             else
                 return false;
@@ -210,7 +210,7 @@ namespace SeldatMRMS.Model
 		public JObject createJsonstring()
 		{
 			dynamic product = new JObject();
-			product.Name = properties.NameObj;
+			product.Name = properties.NameID;
 			product.Label = properties.label;
 			product.Width = properties.Width;
 			product.Height = properties.Height;

@@ -20,7 +20,7 @@ namespace SeldatMRMS.Management
 		{
 			try
 			{
-				this.hp.properties.NameObj = txt_halfpoint_nameobj.Text;
+				this.hp.properties.NameID = txt_halfpoint_nameobj.Text;
 				this.hp.properties.label = txt_halfpoint_label.Text;
 				this.hp.setTextlabel(this.hp.properties.label);
 				this.hp.properties.LengthValue = Convert.ToDouble(txt_halfpoint_length.Text);
@@ -37,7 +37,7 @@ namespace SeldatMRMS.Management
 		{
 			try
 			{
-				txt_halfpoint_nameobj.Text = this.hp.properties.NameObj;
+				txt_halfpoint_nameobj.Text = this.hp.properties.NameID;
 				txt_halfpoint_label.Text = this.hp.properties.label;
 				txt_halfpoint_length.Text = this.hp.properties.LengthValue + "";
 				txt_halfpoint_cost.Text = this.hp.properties.CostValue + "";

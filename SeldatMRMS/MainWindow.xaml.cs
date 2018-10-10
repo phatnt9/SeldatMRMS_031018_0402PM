@@ -124,10 +124,10 @@ namespace SeldatMRMS
             RegistrationAgent.interfacePointer.addANewRobotAgent += ptaskManager.addANewRobotAgent;
             RegistrationAgent.interfacePointer.updateRobotAgentProperties += ptaskManager.UpdateRobotAgentProperties;
             MyImageSource = "C:\\Users\\luat.tran\\source\\repos\\SeldatMRMS\\SeldatMRMS\\Resources\\select_op.png";
-            //LogRegistration.consoleForm.Show();
+            //LogRegistration.consoleForm.ShowDialog();
             this.PreviewKeyDown += new KeyEventHandler(HandleEsc);
             //SignIn signInForm = new SignIn();
-            //signInForm.Show();
+            //signInForm.ShowDialog();
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)
@@ -537,37 +537,58 @@ namespace SeldatMRMS
                             CheckoutModel ptemp_checkout = RegistrationAgent.interfacePointer.findobjectcheckout(elementName);
                             if (ptemp_halfpoint != null)
                             {
-                                RegistrationAgent.interfacePointer.removeobject_Halfpoint(ptemp_halfpoint);
+                                if(RegistrationAgent.interfacePointer.removeobject_Halfpoint(ptemp_halfpoint))
+                                {
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_halfpoint.properties.NameID));
+                                }
                                 ptemp_halfpoint = null;
                             }
                             else if (ptemp_pathmodel != null)
                             {
-                                RegistrationAgent.interfacePointer.removeobject_paths(ptemp_pathmodel);
+                                if(RegistrationAgent.interfacePointer.removeobject_paths(ptemp_pathmodel))
+                                {
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_pathmodel.properties.NameID));
+                                }
                                 ptemp_pathmodel = null;
                             }
                             else if (ptemp_station != null)
                             {
-                                RegistrationAgent.interfacePointer.removeobject_station(ptemp_station);
+                                if(RegistrationAgent.interfacePointer.removeobject_station(ptemp_station))
+                                {
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_station.props.NameID));
+                                }
                                 ptemp_station = null;
                             }
                             else if (ptemp_charger != null)
                             {
-                                RegistrationAgent.interfacePointer.removeobject_charger(ptemp_charger);
+                                if(RegistrationAgent.interfacePointer.removeobject_charger(ptemp_charger))
+                                {
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_charger.props.NameID));
+                                }
                                 ptemp_charger = null;
                             }
                             else if (ptemp_ready != null)
                             {
-                                RegistrationAgent.interfacePointer.removeobject_ready(ptemp_ready);
+                                if(RegistrationAgent.interfacePointer.removeobject_ready(ptemp_ready))
+                                {
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_ready.props.NameID));
+                                }
                                 ptemp_ready = null;
                             }
                             else if (ptemp_checkin != null)
                             {
-                                RegistrationAgent.interfacePointer.removeobject_checkin(ptemp_checkin);
+                                if(RegistrationAgent.interfacePointer.removeobject_checkin(ptemp_checkin))
+                                {
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_checkin.props.NameID));
+                                }
                                 ptemp_checkin = null;
                             }
                             else if (ptemp_checkout != null)
                             {
-                                RegistrationAgent.interfacePointer.removeobject_checkout(ptemp_checkout);
+                                if(RegistrationAgent.interfacePointer.removeobject_checkout(ptemp_checkout))
+                                {
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_checkout.props.NameID));
+                                }
                                 ptemp_checkout = null;
                             }
 
@@ -888,7 +909,9 @@ namespace SeldatMRMS
 
         private void contentmap_MouseMove(object sender, MouseEventArgs e)
         {
-
+            if (permission == "admin")
+            {
+            }
         }
 
         private void halfpointOP_Click_1(object sender, RoutedEventArgs e)
@@ -1052,7 +1075,7 @@ namespace SeldatMRMS
             if (permission == "admin")
             {
                 probot3dmap = new RobotView3D();
-                probot3dmap.Show();
+                probot3dmap.ShowDialog();
                 probot3dmap.loadAWareHouseMap();
             }
         }
@@ -1154,12 +1177,12 @@ namespace SeldatMRMS
                     if (ptemp_halfpoint != null)
                     {
                         HalfPointProperties php = new HalfPointProperties(this, ptemp_halfpoint);
-                        php.Show();
+                        php.ShowDialog();
                     }
                     else if (ptemp_pathmodel != null)
                     {
                         PathProperties ppf = new PathProperties(this, ptemp_pathmodel);
-                        ppf.Show();
+                        ppf.ShowDialog();
                     }
                     else if (ptemp_station != null)
                     {
@@ -1226,7 +1249,7 @@ namespace SeldatMRMS
                 if (header != "Vehicles")
                 {
                     RobotAgent ptempRobotAgent = RegistrationAgent.interfacePointer.findobjectrobot_updatevalue(tv_robot.Header.ToString().Split(new string[] { " --- " }, StringSplitOptions.None)[0]);
-                    ptempRobotAgent.Show();
+                    ptempRobotAgent.ShowDialog();
                 }
             }
         }
@@ -1247,7 +1270,7 @@ namespace SeldatMRMS
                 {
                     HalfPoint ptemphalfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint_updatevalue(tv_robot.Header.ToString());
                     HalfPointProperties php = new HalfPointProperties(this, ptemphalfpoint);
-                    php.Show();
+                    php.ShowDialog();
                 }
             }
         }
@@ -1379,7 +1402,7 @@ namespace SeldatMRMS
             if (permission == "admin")
             {
                 IpScanner pp = new IpScanner();
-                pp.Show();
+                pp.ShowDialog();
             }
         }
 
@@ -1387,7 +1410,7 @@ namespace SeldatMRMS
         {
             if (permission == "admin")
             {
-                ptaskManager.Show();
+                ptaskManager.ShowDialog();
             }
         }
 
@@ -1413,7 +1436,7 @@ namespace SeldatMRMS
         private void oderManager_Click(object sender, RoutedEventArgs e)
         {
             //CreateAreaAgent pcreateAreaAgent = new CreateAreaAgent();
-            //pcreateAreaAgent.Show();
+            //pcreateAreaAgent.ShowDialog();
         }
 
         private void iprun_Click(object sender, RoutedEventArgs e)
@@ -1421,7 +1444,7 @@ namespace SeldatMRMS
             if (permission == "admin")
             {
                 TrafficForm ptf = new TrafficForm();
-                ptf.Show();
+                ptf.ShowDialog();
             }
         }
 
@@ -1429,20 +1452,20 @@ namespace SeldatMRMS
         {
             if (permission == "admin")
             {
-                RegistrationAgent.groupModelPointer.Show();
+                RegistrationAgent.groupModelPointer.ShowDialog();
             }
         }
 
         private void loadtask_Click(object sender, RoutedEventArgs e)
         {
             //TaskRegistration p = new TaskRegistration(RegistrationAgent.interfacePointer);
-            //p.Show();
+            //p.ShowDialog();
         }
 
         private void btn_group_Click(object sender, RoutedEventArgs e)
         {
             GroupPathModels groupPathModel = new GroupPathModels();
-            groupPathModel.Show();
+            groupPathModel.ShowDialog();
         }
 
         private void autoScrollLog_Checked(object sender, RoutedEventArgs e)
@@ -1490,6 +1513,7 @@ namespace SeldatMRMS
 
         private void map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             var mouseWasDownOn = e.Source as FrameworkElement;
             if (e.Source.ToString() == "System.Windows.Controls.Canvas")
             {
@@ -1497,12 +1521,15 @@ namespace SeldatMRMS
                 startPoint = e.GetPosition(clipBorder);
                 originalPoint = new Point(canvasTranslateTransform.X, canvasTranslateTransform.Y);
             }
-            statectrl_md(e);
+            if (permission == "admin")
+            {
+                statectrl_md(e);
+            }
         }
 
         private void map_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            map.ReleaseMouseCapture();
+                map.ReleaseMouseCapture();
         }
         private void map_MouseMove(object sender, MouseEventArgs e)
         {
@@ -1822,9 +1849,11 @@ namespace SeldatMRMS
                         StationModel ptemp = RegistrationAgent.interfacePointer.findobjectstation_updatevalue(header);
                         if (ptemp != null)
                         {
-                            RegistrationAgent.interfacePointer.removeobject_station(ptemp);
+                            if (RegistrationAgent.interfacePointer.removeobject_station(ptemp))
+                            {
+                                trv_stations.Items.Remove(mTreeView.SelectedItem);
+                            }
                             ptemp = null;
-                            trv_stations.Items.Remove(mTreeView.SelectedItem);
                         }
                         break;
                     }
@@ -1833,9 +1862,11 @@ namespace SeldatMRMS
                         StationModel ptemp = RegistrationAgent.interfacePointer.findobjectstation_updatevalue(header);
                         if (ptemp != null)
                         {
-                            RegistrationAgent.interfacePointer.removeobject_station(ptemp);
+                            if (RegistrationAgent.interfacePointer.removeobject_station(ptemp))
+                            {
+                                trv_stations.Items.Remove(mTreeView.SelectedItem);
+                            }
                             ptemp = null;
-                            trv_stations.Items.Remove(mTreeView.SelectedItem);
                         }
                         break;
                     }
@@ -1844,9 +1875,11 @@ namespace SeldatMRMS
                         StationModel ptemp = RegistrationAgent.interfacePointer.findobjectstation_updatevalue(header);
                         if (ptemp != null)
                         {
-                            RegistrationAgent.interfacePointer.removeobject_station(ptemp);
+                            if(RegistrationAgent.interfacePointer.removeobject_station(ptemp))
+                            {
+                                trv_stations.Items.Remove(mTreeView.SelectedItem);
+                            }
                             ptemp = null;
-                            trv_stations.Items.Remove(mTreeView.SelectedItem);
                         }
                         break;
                     }
@@ -1855,9 +1888,11 @@ namespace SeldatMRMS
                         CheckinModel ptemp = RegistrationAgent.interfacePointer.findobjectcheckin(header);
                         if (ptemp != null)
                         {
-                            RegistrationAgent.interfacePointer.removeobject_checkin(ptemp);
+                            if(RegistrationAgent.interfacePointer.removeobject_checkin(ptemp))
+                            {
+                                mTreeView.Items.Remove(mTreeView.SelectedItem);
+                            }
                             ptemp = null;
-                            mTreeView.Items.Remove(mTreeView.SelectedItem);
                         }
                         break;
                     }
@@ -1866,9 +1901,11 @@ namespace SeldatMRMS
                         CheckoutModel ptemp = RegistrationAgent.interfacePointer.findobjectcheckout(header);
                         if (ptemp != null)
                         {
-                            RegistrationAgent.interfacePointer.removeobject_checkout(ptemp);
+                            if(RegistrationAgent.interfacePointer.removeobject_checkout(ptemp))
+                            {
+                                mTreeView.Items.Remove(mTreeView.SelectedItem);
+                            }
                             ptemp = null;
-                            mTreeView.Items.Remove(mTreeView.SelectedItem);
                         }
                         break;
                     }
@@ -1877,9 +1914,11 @@ namespace SeldatMRMS
                         ReadyModel ptemp = RegistrationAgent.interfacePointer.findobjectready(header);
                         if (ptemp != null)
                         {
-                            RegistrationAgent.interfacePointer.removeobject_ready(ptemp);
+                            if(RegistrationAgent.interfacePointer.removeobject_ready(ptemp))
+                            {
+                                mTreeView.Items.Remove(mTreeView.SelectedItem);
+                            }
                             ptemp = null;
-                            mTreeView.Items.Remove(mTreeView.SelectedItem);
                         }
                         break;
                     }
@@ -1888,9 +1927,11 @@ namespace SeldatMRMS
                         ChargerModel ptemp = RegistrationAgent.interfacePointer.findobjectcharger(header);
                         if (ptemp != null)
                         {
-                            RegistrationAgent.interfacePointer.removeobject_charger(ptemp);
+                            if(RegistrationAgent.interfacePointer.removeobject_charger(ptemp))
+                            {
+                                mTreeView.Items.Remove(mTreeView.SelectedItem);
+                            }
                             ptemp = null;
-                            mTreeView.Items.Remove(mTreeView.SelectedItem);
                         }
                         break;
                     }
@@ -1899,9 +1940,11 @@ namespace SeldatMRMS
                         RobotAgent ptemp = RegistrationAgent.interfacePointer.findobjectrobot_treeview(header);
                         if (ptemp != null)
                         {
-                            RegistrationAgent.interfacePointer.removeobject_robotagent(ptemp);
+                            if(RegistrationAgent.interfacePointer.removeobject_robotagent(ptemp))
+                            {
+                                mTreeView.Items.Remove(mTreeView.SelectedItem);
+                            }
                             ptemp = null;
-                            mTreeView.Items.Remove(mTreeView.SelectedItem);
                         }
                         break;
                     }

@@ -73,7 +73,7 @@ namespace SeldatMRMS.Management.TrafficManager
 			dynamic startat = new JObject();
 			dynamic endat = new JObject();
 			dynamic distance = new JObject();
-			highway.key = path.properties.Nameobj;
+			highway.key = path.properties.NameID;
 			startat.key = path.nodeConnected.startpoint_station.checkOutPoint.properties.key;
 			endat.key = path.nodeConnected.endpoint_station.checkInPoint.properties.key;
 			distance.slow = 6.0;
