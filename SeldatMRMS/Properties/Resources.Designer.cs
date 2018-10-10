@@ -430,6 +430,16 @@ namespace SeldatMRMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap phat_cancel {
+            get {
+                object obj = ResourceManager.GetObject("phat_cancel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap phat_charger {
             get {
                 object obj = ResourceManager.GetObject("phat_charger", resourceCulture);
@@ -463,6 +473,16 @@ namespace SeldatMRMS.Properties {
         internal static System.Drawing.Bitmap phat_docking {
             get {
                 object obj = ResourceManager.GetObject("phat_docking", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap phat_draw {
+            get {
+                object obj = ResourceManager.GetObject("phat_draw", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -513,6 +533,16 @@ namespace SeldatMRMS.Properties {
         internal static System.Drawing.Bitmap phat_json {
             get {
                 object obj = ResourceManager.GetObject("phat_json", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap phat_measure {
+            get {
+                object obj = ResourceManager.GetObject("phat_measure", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -593,6 +623,16 @@ namespace SeldatMRMS.Properties {
         internal static System.Drawing.Bitmap phat_station {
             get {
                 object obj = ResourceManager.GetObject("phat_station", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap phat_zoom {
+            get {
+                object obj = ResourceManager.GetObject("phat_zoom", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

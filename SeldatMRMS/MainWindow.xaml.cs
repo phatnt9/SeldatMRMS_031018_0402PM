@@ -31,6 +31,15 @@ namespace SeldatMRMS
         private bool MouseMove;
         private string permission = "guess";
 
+        public bool CheckPermission()
+        {
+            if (permission == "guess")
+                return false;
+            else
+                return true;
+        }
+
+
         public void ChangeToAdmin()
         {
             permission = "admin";
@@ -225,7 +234,7 @@ namespace SeldatMRMS
 
         private void map_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 var mouseWasDownOn = e.Source as FrameworkElement;
                 if (mouseWasDownOn != null)
@@ -909,7 +918,7 @@ namespace SeldatMRMS
 
         private void contentmap_MouseMove(object sender, MouseEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
             }
         }
@@ -926,7 +935,7 @@ namespace SeldatMRMS
 
         private void AddHalfpointOP_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 ContextMenu cm = this.FindResource("TYPE-POINTS") as ContextMenu;
                 cm.PlacementTarget = sender as Button;
@@ -937,7 +946,7 @@ namespace SeldatMRMS
 
         private void AddPath_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 ContextMenu cm = this.FindResource("TYPE-PATHS") as ContextMenu;
                 cm.PlacementTarget = sender as Button;
@@ -947,7 +956,7 @@ namespace SeldatMRMS
 
         private void AddStation_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 ContextMenu cm = this.FindResource("TYPE-STATIONS") as ContextMenu;
                 cm.PlacementTarget = sender as Button;
@@ -957,7 +966,7 @@ namespace SeldatMRMS
 
         private void Selectmode_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 MoveToggle(false);
                 Select_mode();
@@ -1054,7 +1063,7 @@ namespace SeldatMRMS
 
         private void loadmodel_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 LoadModel p = new LoadModel(RegistrationAgent.interfacePointer);
                 p.LoadFileModel();
@@ -1064,7 +1073,7 @@ namespace SeldatMRMS
 
         private void savemodel_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 SaveModel.savedata();
             }
@@ -1072,12 +1081,12 @@ namespace SeldatMRMS
 
         private void load3dmap_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
-            {
+            //if (CheckPermission())
+            //{
                 probot3dmap = new RobotView3D();
                 probot3dmap.ShowDialog();
                 probot3dmap.loadAWareHouseMap();
-            }
+            //}
         }
 
         private void pathdirect_Click(object sender, RoutedEventArgs e)
@@ -1096,7 +1105,7 @@ namespace SeldatMRMS
 
         private void addrobotconfig_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 RegistrationAgent.interfacePointer.setRobotProperties();
             }
@@ -1230,13 +1239,13 @@ namespace SeldatMRMS
 
         private void trv_paths_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
             }
         }
         private void trv_vehclies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 // double click to robot object to edit
                 var hit = e.OriginalSource as DependencyObject;
@@ -1256,7 +1265,7 @@ namespace SeldatMRMS
 
         private void trv_points_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 var hit = e.OriginalSource as DependencyObject;
                 while (hit != null && !(hit is TreeViewItem))
@@ -1277,7 +1286,7 @@ namespace SeldatMRMS
 
         private void trv_stations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 var hit = e.OriginalSource as DependencyObject;
                 while (hit != null && !(hit is TreeViewItem))
@@ -1298,7 +1307,7 @@ namespace SeldatMRMS
 
         private void trv_ready_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 var hit = e.OriginalSource as DependencyObject;
                 while (hit != null && !(hit is TreeViewItem))
@@ -1317,7 +1326,7 @@ namespace SeldatMRMS
 
         private void trv_checkin_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 var hit = e.OriginalSource as DependencyObject;
                 while (hit != null && !(hit is TreeViewItem))
@@ -1336,7 +1345,7 @@ namespace SeldatMRMS
 
         private void trv_checkout_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 var hit = e.OriginalSource as DependencyObject;
                 while (hit != null && !(hit is TreeViewItem))
@@ -1355,7 +1364,7 @@ namespace SeldatMRMS
 
         private void trv_charger_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 var hit = e.OriginalSource as DependencyObject;
                 while (hit != null && !(hit is TreeViewItem))
@@ -1399,7 +1408,7 @@ namespace SeldatMRMS
 
         private void ipscan_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 IpScanner pp = new IpScanner();
                 pp.ShowDialog();
@@ -1408,7 +1417,7 @@ namespace SeldatMRMS
 
         private void setting_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 ptaskManager.ShowDialog();
             }
@@ -1441,7 +1450,7 @@ namespace SeldatMRMS
 
         private void iprun_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 TrafficForm ptf = new TrafficForm();
                 ptf.ShowDialog();
@@ -1450,7 +1459,7 @@ namespace SeldatMRMS
 
         private void groupbox_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 RegistrationAgent.groupModelPointer.ShowDialog();
             }
@@ -1521,7 +1530,7 @@ namespace SeldatMRMS
                 startPoint = e.GetPosition(clipBorder);
                 originalPoint = new Point(canvasTranslateTransform.X, canvasTranslateTransform.Y);
             }
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 statectrl_md(e);
             }
@@ -1704,7 +1713,7 @@ namespace SeldatMRMS
 
         private void trv_highway_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
             }
         }
@@ -1982,7 +1991,7 @@ namespace SeldatMRMS
 
         private void trv_items_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 var hit = e.OriginalSource as DependencyObject;
                 while (hit != null && !(hit is TreeViewItem))
@@ -2035,7 +2044,7 @@ namespace SeldatMRMS
 
         private void statistic_Click(object sender, RoutedEventArgs e)
         {
-            if (permission == "admin")
+            if (CheckPermission())
             {
                 try
                 {

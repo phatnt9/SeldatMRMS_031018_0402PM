@@ -115,8 +115,7 @@ namespace SeldatMRMS.Management.FormManager
             lbNameValue.Text = ""+robotAgent.NameID;
             lbLocationValue.Text = "" + robotAgent.robotInfo.loc.X.ToString("0.0") + robotAgent.robotInfo.loc.Y.ToString("0.0");
             lb_BatteryKey.Text = "" + robotAgent.robotInfo.batteryPercentage.ToString("0.00");
-            lb_OnRoad.Text = "" + robotAgent.robotInfo.atRoadName;
-
+            lb_OnRoadKey.Text = "" + robotAgent.robotInfo.atRoadName;
             lbHeadingValue.Text = "" + robotAgent.robotInfo.heading;
 
         }

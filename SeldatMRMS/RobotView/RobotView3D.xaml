@@ -41,17 +41,16 @@
 			<StackPanel Name="stackpanel_btncontrols" Margin="0,0,0,23">
 
 				<Button 
-              
         		x:Name="btn_zoom"
-        		Margin="10,5,0,0"
+        		Margin="10,130,0,0"
                 HorizontalAlignment="Left"
-        		ToolTip="Select" Width="53" Click="btn_zoom_Click">
+        		ToolTip="Select" Width="40" Height="40" Click="btn_zoom_Click">
 					<Button.Template>
 						<ControlTemplate>
 							<Border x:Name="theBorder_selectmap"
                     		BorderBrush="Transparent"
                     		BorderThickness="2">
-								<Image Source="Media/Zoom.png" Height="50" Width="50"/>
+                            <Image Source="pack://siteoforigin:,,,/Resources/phat_zoom.png" Height="35" Width="35"/>
 							</Border>
 							<ControlTemplate.Triggers>
 								<Trigger Property="IsMouseOver" Value="True">
@@ -62,12 +61,12 @@
 						</ControlTemplate>
 					</Button.Template>
 				</Button>
+                
 				<Button 
-              
         		x:Name="btn_selectmap"
         		Margin="10,5,0,0"
                 HorizontalAlignment="Left"
-        		ToolTip="Select" Width="53" Click="btn_selectmap_Click">
+        		ToolTip="Select" Width="40" Height="40" Click="btn_selectmap_Click">
 				<Button.ContextMenu>
 					<ContextMenu>
 						<MenuItem Name="btn_sel_line" Header="Draw Line" Click="btn_sel_line_Click_1" />
@@ -83,7 +82,7 @@
 							<Border x:Name="theBorder_selectmap"
                     		BorderBrush="Transparent"
                     		BorderThickness="2">
-								<Image Source="Media/selecticon2.png" Height="50" Width="50"/>
+                            <Image Source="pack://siteoforigin:,,,/Resources/phat_draw.png" Height="35" Width="35"/>
 							</Border>
 							<ControlTemplate.Triggers>
 								<Trigger Property="IsMouseOver" Value="True">
@@ -98,13 +97,13 @@
         		x:Name="btn_measure"
         		Margin="10,5,0,0"
                 HorizontalAlignment="Left"
-        		ToolTip="Measure" Width="53" Click="btn_measure_Click">
+        		ToolTip="Measure" Width="40" Height="40" Click="btn_measure_Click">
 					<Button.Template>
 						<ControlTemplate>
 							<Border x:Name="theBorder_measure"
                     		BorderBrush="Transparent"
                     		BorderThickness="2" >
-								<Image Name="img_selectedarrow" Source="Media/measure.png" Height="50" Width="50"/>
+                            <Image Name="img_selectedarrow" Source="pack://siteoforigin:,,,/Resources/phat_measure.png" Height="35" Width="35"/>
 							</Border>
 							<ControlTemplate.Triggers>
 								<Trigger Property="IsMouseOver" Value="True">
@@ -115,7 +114,7 @@
 						</ControlTemplate>
 					</Button.Template>
 				</Button>
-				<Button 
+				<!--<Button 
         		x:Name="btn_estimatePos"
         		Margin="10,5,0,0"
                 HorizontalAlignment="Left"
@@ -205,50 +204,63 @@
 							</ControlTemplate.Triggers>
 						</ControlTemplate>
 					</Button.Template>
-				</Button>
-				<Button 
+				</Button>-->
+            <Button 
                 Click="btn_32dclick"
                 MouseMove="btn_setting_MouseMove"
         		Name="btn_32dmode"
         		Margin="10,5,0,0"
                 HorizontalAlignment="Left"
-        		ToolTip="Setting" Width="53">
-					<Button.Template>
-						<ControlTemplate>
-							<Border Name="theBorder_connect"
+        		ToolTip="Setting" Width="40" Height="40">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border Name="theBorder_connect"
                     		BorderBrush="Transparent"
                     		BorderThickness="2">
-								<Image x:Name="btn_connect_image" Source="Media/3d.png" Height="50" Width="50"/>
-							</Border>
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="True">
-									<Setter Property="BorderBrush" TargetName="theBorder_connect"
+                            <Image x:Name="btn_connect_image" Source="pack://siteoforigin:,,,/Resources/phat_cancel.png" Height="35" Width="35"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" TargetName="theBorder_connect"
                         			Value="LightSkyBlue"/>
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Button.Template>
-				</Button>
-
-			</StackPanel>
-			<Menu  Name="psettingMenu"  Visibility="Hidden"  HorizontalAlignment="Left" Width="100" Margin="60,180,10,0"  VerticalAlignment="Top"  />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+			<!--<Menu  Name="psettingMenu"  Visibility="Visible"  HorizontalAlignment="Left" Width="100" Margin="60,180,10,0"  VerticalAlignment="Top"  />-->
 			<!-- <Image Visibility="Visible" x:Name="image" Stretch="Fill" Source=".\Media\location.png" HorizontalAlignment="Center" Height="78" Margin="172,0,132,0" VerticalAlignment="Top" Width="213">
 			<Image.OpacityMask>
 				<ImageBrush/>
 			</Image.OpacityMask>
 		</Image> -->
-			<StackPanel Background="BlanchedAlmond"  HorizontalAlignment="Left" Height="139" Margin="10,0,0,23" VerticalAlignment="Bottom" Width="226" RenderTransformOrigin="-0.193,0.831">
-				<TextBlock Opacity="0.7" Foreground="Blue" x:Name="txt_moveMouseXY" TextWrapping="Wrap" Text="Location:0.0/0.0" FontSize="16" FontWeight="Bold"/>
-				<TextBlock Foreground="Blue" FontWeight="Black" x:Name="txt_moveMouse_pointY" TextWrapping="Wrap" Text="Move:0.0/0.0" FontSize="16"/>
-				<TextBlock Foreground="Blue" FontWeight="Black" x:Name="txt_moveMouse_scaleLength" TextWrapping="Wrap" Text="Scale:10" FontSize="16"/>
-				<TextBlock Foreground="Blue" FontWeight="Black" x:Name="txt_proceduretime" TextWrapping="Wrap" Text="Procedure:0" FontSize="16" Height="27"/>
-				<TextBlock Foreground="Blue" Name="txt_battery" FontWeight="Black" TextWrapping="Wrap" Text="Battery: 0.0%" FontSize="16" Height="27"/>
-				<TextBlock Foreground="Blue" Name="txt_movePointer" FontWeight="Black" TextWrapping="Wrap" Text="" FontSize="16" Height="27"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left" Height="120" Margin="10,10,0,0" VerticalAlignment="Top" Width="90">
+                <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="LOCATION" FontSize="14" />
+                <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="ANGLE" FontSize="14"/>
+                <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="SCALE:" FontSize="14"/>
+                <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="PROCEDURE" FontSize="14" />
+                <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="BATTERY" FontSize="14" />
+                <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="(X:Y)" FontSize="14" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="120" Margin="0,10,0,0" VerticalAlignment="Top" Width="90">
+                <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_moveMouseXY" Text="0.0/0.0" FontSize="14" FontWeight="Black"/>
+                <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_moveMouse_pointY" Text="0.0/0.0" FontSize="14" FontWeight="Black" />
+                <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_moveMouse_scaleLength" Text="10" FontSize="14" FontWeight="Black" />
+                <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_proceduretime" Text="0" FontSize="14" FontWeight="Black" />
+                <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_battery" Text="0.0%" FontSize="14" FontWeight="Black"/>
+                <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_movePointer" Text="" FontSize="16" FontWeight="Black"/>
+            </StackPanel>
+        </Grid>
+        
+        <!--<TextBlock FontSize="20" FontWeight="Bold" x:Name="txt_valueControls"  Foreground="Coral" HorizontalAlignment="Left" Margin="60,68,0,228" TextWrapping="Wrap" Text="" Width="340"/>-->
 
-		</StackPanel>
-			<TextBlock FontSize="20" FontWeight="Bold" x:Name="txt_valueControls"  Foreground="Coral" HorizontalAlignment="Left" Margin="60,68,0,228" TextWrapping="Wrap" Text="" Width="340"/>
-
-			<Button             
+			<!--<Button             
         		x:Name="btn_pickpallet"
         		Margin="0,30,12,493"
                 HorizontalAlignment="Right"
@@ -268,9 +280,9 @@
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
 				</Button.Template>
-			</Button>
+			</Button>-->
 
-			<Button       
+			<!--<Button       
 				Name="Btn_resetpallet"
         		Margin="0,270,17,200"
                 HorizontalAlignment="Right"
@@ -290,9 +302,9 @@
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
 				</Button.Template>
-			</Button>
+			</Button>-->
 
-			<Button             
+			<!--<Button             
         		Margin="0,382,17,175"
                 HorizontalAlignment="Right"
         		ToolTip="Run" Width="60" Height="60" Click="Button_Click_2">
@@ -311,7 +323,7 @@
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
 				</Button.Template>
-			</Button>
+			</Button>-->
 			<!--<Button             
         		Margin="0,453,17,104"
                 HorizontalAlignment="Right"
@@ -335,8 +347,8 @@
         -->
 			<!--<Button Content="Button" HorizontalAlignment="Left" Margin="161,571,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
         -->
-			<Image Visibility="Hidden" HorizontalAlignment="Right" Stretch="Fill" Height="63" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="142" Source="C:\Users\luat.tran\source\repos\SeldatMRMS\SeldatMRMS\Resources\seldat_old.png">
-			</Image>
+			<!--<Image Visibility="Hidden" HorizontalAlignment="Right" Stretch="Fill" Height="63" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="142" Source="C:\Users\luat.tran\source\repos\SeldatMRMS\SeldatMRMS\Resources\seldat_old.png">
+			</Image>-->
 
 		</Grid>
 

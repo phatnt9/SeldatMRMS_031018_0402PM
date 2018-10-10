@@ -1,36 +1,29 @@
 ﻿using HelixToolkit.Wpf;
-using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using SeldatMRMS.Management;
 using SeldatMRMS.RobotView.Path;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 
 
 namespace SeldatMRMS.RobotView
 {
 
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class RobotView3D : Window
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class RobotView3D : Window
 	{
 		//SettingForm psettingform = new SettingForm();
 		public enum STATECTRL_MOUSEDOWN
@@ -168,7 +161,7 @@ namespace SeldatMRMS.RobotView
 					pArrowLayer.Children.Clear();
 					pMeasureLineLayer.Children.Clear();
 					pNavigationLayer.Children.Clear();
-					txt_valueControls.Text = "";
+					//txt_valueControls.Text = "";
 
 					break;
 				case SELECTEDCONTROL.SELECTED_CONTROL_MEASURE_GETPOINT1:
@@ -215,7 +208,7 @@ namespace SeldatMRMS.RobotView
 						 {
 						   //  txt_valueControls.Text = "Dist= " + dist.ToString("0.000") + " (Squares)";
 						 }*/
-						txt_valueControls.Text = "Dist= " + GlobalVariables.ConvertUnitLengthtoMeter(dist).ToString("0.000") + " (m)";
+						//txt_valueControls.Text = "Dist= " + GlobalVariables.ConvertUnitLengthtoMeter(dist).ToString("0.000") + " (m)";
 						RectangleVisual3D p = new RectangleVisual3D();
 						//pMeasureLineLayer.Children.Add(plBC);
 						pMeasureLineLayer.Children.Add(pmeasureLine);
@@ -248,7 +241,7 @@ namespace SeldatMRMS.RobotView
 						GlobalVariables.ROBOT_ESTIMATED_ANGLE = angle;
 						GlobalVariables.ROBOT_ESTIMATED_NEWLOCATION.X = p.Point1.X;
 						GlobalVariables.ROBOT_ESTIMATED_NEWLOCATION.Y = p.Point1.Y;
-						txt_moveMouse_pointY.Text = "Angle: " + angle.ToString("0.00");
+						txt_moveMouse_pointY.Text = "" + angle.ToString("0.00");
 						pArrowLayer.Children.Add(p);
 
 					}
@@ -277,7 +270,7 @@ namespace SeldatMRMS.RobotView
 						GlobalVariables.ROBOT_NAVIGATION_ANGLE = angle;
 						GlobalVariables.ROBOT_NAVIGATION_NEWLOCATION.X = p.Point1.X;
 						GlobalVariables.ROBOT_NAVIGATION_NEWLOCATION.Y = p.Point1.Y;
-						txt_moveMouse_pointY.Text = "Angle: " + angle.ToString("0.00");
+						txt_moveMouse_pointY.Text = "" + angle.ToString("0.00");
 						pArrowLayer.Children.Add(p);
 
 					}
@@ -803,7 +796,7 @@ namespace SeldatMRMS.RobotView
 			RayMeshGeometry3DHitTestResult mesh_rsult = result as RayMeshGeometry3DHitTestResult;
 			try
 			{
-				txt_movePointer.Text = "X:" + GlobalVariables.ConvertUnitLengthtoMeter(mesh_rsult.PointHit.X).ToString("0.00") + " / Y:" + GlobalVariables.ConvertUnitLengthtoMeter(mesh_rsult.PointHit.Y).ToString("0.00");
+				txt_movePointer.Text = "" + GlobalVariables.ConvertUnitLengthtoMeter(mesh_rsult.PointHit.X).ToString("0.00") + " / " + GlobalVariables.ConvertUnitLengthtoMeter(mesh_rsult.PointHit.Y).ToString("0.00");
 			}
 			catch { }
 			if (mesh_rsult != null)
@@ -839,7 +832,7 @@ namespace SeldatMRMS.RobotView
 		}
 		private void MainView3D_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
 		{
-			txt_moveMouse_scaleLength.Text = "Scale: " + (viewPort3d.Width / MainView3D.Camera.LookDirection.Length).ToString("0,00"); ;
+			txt_moveMouse_scaleLength.Text = "" + (viewPort3d.Width / MainView3D.Camera.LookDirection.Length).ToString("0,00"); ;
 
 			Console.WriteLine(MainView3D.CameraController.CameraPosition.X + " " + MainView3D.CameraController.CameraPosition.Y + " " + MainView3D.CameraController.CameraPosition.Z);
 		}
@@ -967,9 +960,9 @@ namespace SeldatMRMS.RobotView
 					double posTheta = 2 * Math.Atan2(posThetaZ, posThetaW);
 					double batteryinfo = Convert.ToDouble(stuff.BatteryInfo);
 					int workingtimes = stuff.ProcedureTimes;
-					txt_moveMouseXY.Text = "Location: " + posX.ToString("0.00") + " / " + posY.ToString("0.00") + " ";
-					txt_proceduretime.Text = "Procedure: " + workingtimes;
-					txt_battery.Text = "Battery: " + batteryinfo.ToString("0.00") + "%";
+					txt_moveMouseXY.Text = posX.ToString("0.00") + "/" + posY.ToString("0.00");
+					txt_proceduretime.Text = "" + workingtimes;
+					txt_battery.Text = batteryinfo.ToString("0.00") + "%";
 					pmodelcontrol.Robotlist[0].updatePos(new Point3D(GlobalVariables.ConvertMetertoUnitLength(posX), GlobalVariables.ConvertMetertoUnitLength(posY), 0), posTheta * 180 / Math.PI);
 				}
 				catch { }
@@ -995,53 +988,53 @@ namespace SeldatMRMS.RobotView
 			//GlobalVariables.FLAG_NAGVIGATION = true;
 		}
 
-		private void btn_connect_Click(object sender, RoutedEventArgs e)
-		{
-			if (pconnectrobot != null)
-			{
-				ControlTemplate ct = btn_connect.Template;
-				Image btnImage = (Image)ct.FindName("btn_connect_image", btn_connect);
-				btnImage.Source = new BitmapImage(new Uri("E:\\Seldat project 2017\\RobotSV_1922017\\RobotSV\\RobotSV\\RobotSV\\Media\\disconnect.png", UriKind.RelativeOrAbsolute));
+		//private void btn_connect_Click(object sender, RoutedEventArgs e)
+		//{
+		//	if (pconnectrobot != null)
+		//	{
+		//		ControlTemplate ct = btn_connect.Template;
+		//		Image btnImage = (Image)ct.FindName("btn_connect_image", btn_connect);
+		//		btnImage.Source = new BitmapImage(new Uri("E:\\Seldat project 2017\\RobotSV_1922017\\RobotSV\\RobotSV\\RobotSV\\Media\\disconnect.png", UriKind.RelativeOrAbsolute));
 
-				pconnectrobot.close();
-				pconnectrobot = null;
-				//  pconnectrobot.getdata -= getdata;
-				//  pconnectrobot.connectionevent -= connectionevent;
+		//		pconnectrobot.close();
+		//		pconnectrobot = null;
+		//		//  pconnectrobot.getdata -= getdata;
+		//		//  pconnectrobot.connectionevent -= connectionevent;
 
-			}
-			else
-			{
-				ControlTemplate ct = btn_connect.Template;
-				Image btnImage = (Image)ct.FindName("btn_connect_image", btn_connect);
-				btnImage.Source = new BitmapImage(new Uri("E:\\Seldat project 2017\\RobotSV_1922017\\RobotSV\\RobotSV\\RobotSV\\Media\\connect.png", UriKind.RelativeOrAbsolute));
-				if (pconnectrobot != null)
-				{
-					pconnectrobot = null;
-				}
-				pconnectrobot = new ConnectBridge();
-				pconnectrobot.Connect();
+		//	}
+		//	else
+		//	{
+		//		ControlTemplate ct = btn_connect.Template;
+		//		Image btnImage = (Image)ct.FindName("btn_connect_image", btn_connect);
+		//		btnImage.Source = new BitmapImage(new Uri("E:\\Seldat project 2017\\RobotSV_1922017\\RobotSV\\RobotSV\\RobotSV\\Media\\connect.png", UriKind.RelativeOrAbsolute));
+		//		if (pconnectrobot != null)
+		//		{
+		//			pconnectrobot = null;
+		//		}
+		//		pconnectrobot = new ConnectBridge();
+		//		pconnectrobot.Connect();
 
-				pconnectrobot.getdata += getdata;
-				//  pconnectrobot.connectionevent += connectionevent;
-			}
-		}
-		public void connectionevent(bool cnt)
-		{
-			if (!cnt)
-			{
-				ControlTemplate ct = btn_connect.Template;
-				Image btnImage = (Image)ct.FindName("btn_connect_image", btn_connect);
-				btnImage.Source = new BitmapImage(new Uri("E:\\Seldat project 2017\\RobotSV_1922017\\RobotSV\\RobotSV\\RobotSV\\Media\\disconnect.png", UriKind.RelativeOrAbsolute));
+		//		pconnectrobot.getdata += getdata;
+		//		//  pconnectrobot.connectionevent += connectionevent;
+		//	}
+		//}
+		//public void connectionevent(bool cnt)
+		//{
+		//	if (!cnt)
+		//	{
+		//		ControlTemplate ct = btn_connect.Template;
+		//		Image btnImage = (Image)ct.FindName("btn_connect_image", btn_connect);
+		//		btnImage.Source = new BitmapImage(new Uri("E:\\Seldat project 2017\\RobotSV_1922017\\RobotSV\\RobotSV\\RobotSV\\Media\\disconnect.png", UriKind.RelativeOrAbsolute));
 
-			}
-			else
-			{
-				ControlTemplate ct = btn_connect.Template;
-				Image btnImage = (Image)ct.FindName("btn_connect_image", btn_connect);
-				btnImage.Source = new BitmapImage(new Uri("E:\\Seldat project 2017\\RobotSV_1922017\\RobotSV\\RobotSV\\RobotSV\\Media\\connect.png", UriKind.RelativeOrAbsolute));
+		//	}
+		//	else
+		//	{
+		//		ControlTemplate ct = btn_connect.Template;
+		//		Image btnImage = (Image)ct.FindName("btn_connect_image", btn_connect);
+		//		btnImage.Source = new BitmapImage(new Uri("E:\\Seldat project 2017\\RobotSV_1922017\\RobotSV\\RobotSV\\RobotSV\\Media\\connect.png", UriKind.RelativeOrAbsolute));
 
-			}
-		}
+		//	}
+		//}
 		private void btn_toA_Click(object sender, RoutedEventArgs e)
 		{
 			/* PointsVisual3D pv = new PointsVisual3D();
