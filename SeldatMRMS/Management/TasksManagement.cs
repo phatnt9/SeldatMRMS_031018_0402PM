@@ -15,26 +15,15 @@ namespace SeldatMRMS.Management
 {
     public partial class TasksManagement : Form
     {
-        private List<ChargerAgent> chargerAgentList = new List<ChargerAgent>();
-        private BridgeNodeServerCtrl bridgeNodeServerCtrl;
-        public RobotView3D probot3dmap;
-
         public Orders orders;
         public ReadyArea readyArea;
-        private DateTimePicker dateTimePicker;
-
-
-
         public TasksManagement()
         {
             InitializeComponent();
             timerInterruptAllRobotAgentStatus.Start();
 
             createLogFolder();
-            //	probot3dmap = new RobotView3D();
-            //	probot3dmap.Show();
-            //RegistrationAgent.robotview3dPointer.loadAWareHouseMap();
-            //RegistrationAgent.robotview3dPointer.Show();
+            RegistrationAgent.robotview3dPointer.loadAWareHouseMap();
             orders = new Orders();
             readyArea = new ReadyArea("Ready", "0");
             readyArea.updateLandMarkPoint(new Point3D(9.54, -6.05, 0));
@@ -50,16 +39,10 @@ namespace SeldatMRMS.Management
                 System.IO.Directory.CreateDirectory(m_exePath);
 
         }
-        private void DateTimePicker1_ValueChanged(Object sender, EventArgs e)
-        {
-
-            MessageBox.Show("You are in the DateTimePicker.ValueChanged event." + dateTimePicker.Value);
-
-        }
         public void addANewRobotAgent(RobotAgent _pr)
         {
 
-            _pr.setRobotView3D(probot3dmap);
+            _pr.setRobotView3D(RegistrationAgent.robotview3dPointer);
             _pr.requestParams();
         }
         public void UpdateRobotAgentProperties(RobotAgent _pr)
@@ -71,10 +54,6 @@ namespace SeldatMRMS.Management
             UpdateAtDataGridViewRobotManage(robotInfo);
         }
 
-        public void deleteObjectChargerAgent(int pos)
-        {
-            chargerAgentList.RemoveAt(pos);
-        }
         public void deleteObjectRobotAgent(int pos)
         {
 
@@ -112,140 +91,6 @@ namespace SeldatMRMS.Management
 			catch { }*/
         }
 
-        public void close()
-        {
-            bridgeNodeServerCtrl.close();
-        }
-        private void TasksManagement_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rTb_log_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //new ChargerAgent().ResponseCharger_noevent(ChargerAgent.CMD_CHARGER_START);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //new ChargerAgent().ResponseCharger_noevent(ChargerAgent.CMD_CHARGER_STATUS_NOCHARGE);
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
-            //Console.WriteLine(chargerAgentList[0].ResponseCharger("c6000e"));
-        }
-
-
-
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-
-
-
-        }
-
-
-        private void timerInterruptAllRobotAgentStatus_Tick(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void timerInterruptAllChargerStatus_Tick(object sender, EventArgs e)
-        {
-        }
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TasksManagement_Shown(object sender, EventArgs e)
-        {
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                if (this.readyArea.statusFlag.flagOrdered)
-                    this.readyArea.statusFlag.flagOrdered = false;
-            }
-            catch { }
-            /*RobotAgent r = RegistrationAgent.robotAgentRegisteredList.ElementAt(0).Value;
-			String cmddk = this.orders.RequestDockingOderItem(0, r.NameObj);
-			if (cmddk.Length > 0)
-			{
-				MessageBox.Show(""+cmddk);
-				r.sendPackageStringType(r.paramsRosSocket.publication_serverRobotGotToDockingArea, cmddk);
-			}*/
-
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            /*RobotAgent r = RegistrationAgent.robotAgentRegisteredList.ElementAt(0).Value;
-			String[] cmddk = this.orders.RequestPutAwayOderItem(0, r.NameObj);
-			if (cmddk[0].Length > 0)
-			{
-				MessageBox.Show("" + cmddk[0]);
-				r.sendPackageStringType(r.paramsRosSocket.publication_serverRobotGotToPutAwayArea, cmddk[0]);
-			}*/
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            RobotAgent r = RegistrationAgent.robotAgentRegisteredList.ElementAt(0).Value;
-            String msg = DataTranformation.jsoncheckinDockingCoordinations(0);
-            r.sendPackageStringType(r.paramsRosSocket.publication_serverRobotGotToCheckInDockingArea, msg);
-
-        }
-
-        private void button4_Click_1(object sender, EventArgs e)
-        {
-            RobotAgent r = RegistrationAgent.robotAgentRegisteredList.ElementAt(0).Value;
-            String msg = DataTranformation.jsoncheckinPutAwayCoordinations(0);
-            r.sendPackageStringType(r.paramsRosSocket.publication_serverRobotGotToCheckInPutAwayArea, msg);
-
-        }
+       
     }
 }
