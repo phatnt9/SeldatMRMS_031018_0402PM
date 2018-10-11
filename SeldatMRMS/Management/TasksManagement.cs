@@ -23,6 +23,10 @@ namespace SeldatMRMS.Management
             timerInterruptAllRobotAgentStatus.Start();
 
             createLogFolder();
+            //	probot3dmap = new RobotView3D();
+            //	probot3dmap.ShowDialog();
+            //RegistrationAgent.robotview3dPointer.loadAWareHouseMap();
+            //RegistrationAgent.robotview3dPointer.ShowDialog();
             RegistrationAgent.robotview3dPointer.loadAWareHouseMap();
             orders = new Orders();
             readyArea = new ReadyArea("Ready", "0");

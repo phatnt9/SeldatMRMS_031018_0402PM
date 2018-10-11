@@ -625,7 +625,7 @@ namespace SeldatMRMS.Management
 					temp.setid(phalfpoint_manager.Count);
 					temp.setName("HPO" + GlobalVariables.EncodeTransmissionTimestamp());
 					//	pshape.Add(temp);
-					updateTreeviewPoints(temp.properties.NameObj);
+					updateTreeviewPoints(temp.properties.NameID);
 
 					phalfpoint_manager.Add(temp);
 					//	temp.createJsonstring();
@@ -994,32 +994,32 @@ namespace SeldatMRMS.Management
         public void modeEditStation()
         {
             //System.Windows.MessageBox.Show("edit");
-            this.tempShape_station.Show();
+            this.tempShape_station.ShowDialog();
         }
         public void modeEditCharger()
         {
             //System.Windows.MessageBox.Show("edit");
-            this.tempShape_charger.Show();
+            this.tempShape_charger.ShowDialog();
         }
         public void modeEditReady()
         {
             //System.Windows.MessageBox.Show("edit");
-            this.tempShape_ready.Show();
+            this.tempShape_ready.ShowDialog();
         }
         public void modeEditCheckin()
         {
             //System.Windows.MessageBox.Show("edit");
-            this.tempShape_checkin.Show();
+            this.tempShape_checkin.ShowDialog();
         }
         public void modeEditCheckout()
         {
             //System.Windows.MessageBox.Show("edit");
-            this.tempShape_checkout.Show();
+            this.tempShape_checkout.ShowDialog();
         }
         public void modeViewStation()
         {
             //System.Windows.MessageBox.Show("view");
-            //this.tempShape_station.Show();
+            //this.tempShape_station.ShowDialog();
             //rtsp://admin:seldatinc123@192.168.0.3:754/h265/ch1/main/av_stream
             try
             {
@@ -1029,7 +1029,7 @@ namespace SeldatMRMS.Management
                 {
                     LiveViewForm liveFormStation = new LiveViewForm(url);
                     liveFormStation.setcam(tempShape_station.props.area, tempShape_station.props.cam.id.ToString());
-                    liveFormStation.Show();
+                    liveFormStation.ShowDialog();
                 }
                 else
                 {
@@ -1041,18 +1041,18 @@ namespace SeldatMRMS.Management
 
 
 
-        public void removeobject_Halfpoint(HalfPoint phalfpoint)
+        public bool removeobject_Halfpoint(HalfPoint phalfpoint)
 		{
 			System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 			if (pwarming == DialogResult.No)
 			{
-				return;
+				return false;
 			}
 			else if (pwarming == DialogResult.Yes)
 			{
 				for (int index1 = 0; index1 < phalfpoint_manager.Count; index1++)
 				{
-					if (phalfpoint_manager[index1].properties.NameObj.Equals(phalfpoint.properties.NameObj))
+					if (phalfpoint_manager[index1].properties.NameID.Equals(phalfpoint.properties.NameID))
 					{
 						phalfpoint_manager.RemoveAt(index1);
 						break;
@@ -1060,7 +1060,7 @@ namespace SeldatMRMS.Management
 				}
 				for (int index2 = 0; index2 < ptreeviewitem_Points.Count; index2++)
 				{
-					if (ptreeviewitem_Points[index2].Header.Equals(phalfpoint.properties.NameObj))
+					if (ptreeviewitem_Points[index2].Header.Equals(phalfpoint.properties.NameID))
 					{
 						ptreeviewitem_Points.RemoveAt(index2);
 						break;
@@ -1070,7 +1070,7 @@ namespace SeldatMRMS.Management
 				{
 
 					TreeViewItem ptemp = this.content.trv_points.Items.GetItemAt(index3) as TreeViewItem;
-					if (ptemp.Header.Equals(phalfpoint.properties.NameObj))
+					if (ptemp.Header.Equals(phalfpoint.properties.NameID))
 					{
 						this.content.trv_points.Items.RemoveAt(index3);
 						break;
@@ -1080,17 +1080,17 @@ namespace SeldatMRMS.Management
 				//ptreeviewitem_Points.RemoveAt(phalfpoint.idnum);
 				//this.content.trv_points.Items.RemoveAt(phalfpoint.idnum);
 				phalfpoint.removeobject();
-
+                return true;
 			}
-
+            return false;
 		}
 
-		public void removeobject_station(StationModel pstation)
+		public bool removeobject_station(StationModel pstation)
 		{
 			System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 			if (pwarming == DialogResult.No)
 			{
-				return;
+				return false;
 			}
 			else if (pwarming == DialogResult.Yes)
 			{
@@ -1125,17 +1125,17 @@ namespace SeldatMRMS.Management
 				//ptreeviewitem_Points.RemoveAt(phalfpoint.idnum);
 				//this.content.trv_points.Items.RemoveAt(phalfpoint.idnum);
 				pstation.removeobject();
-
+                return true;
 			}
-
+            return false;
 		}
 
-        public void removeobject_charger(ChargerModel pcharger)
+        public bool removeobject_charger(ChargerModel pcharger)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (pwarming == DialogResult.No)
             {
-                return;
+                return false;
             }
             else if (pwarming == DialogResult.Yes)
             {
@@ -1170,17 +1170,17 @@ namespace SeldatMRMS.Management
                 //ptreeviewitem_Points.RemoveAt(phalfpoint.idnum);
                 //this.content.trv_points.Items.RemoveAt(phalfpoint.idnum);
                 pcharger.removeobject();
-
+                return true;
             }
-
+            return false;
         }
 
-        public void removeobject_ready(ReadyModel pready)
+        public bool removeobject_ready(ReadyModel pready)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (pwarming == DialogResult.No)
             {
-                return;
+                return false;
             }
             else if (pwarming == DialogResult.Yes)
             {
@@ -1215,17 +1215,17 @@ namespace SeldatMRMS.Management
                 //ptreeviewitem_Points.RemoveAt(phalfpoint.idnum);
                 //this.content.trv_points.Items.RemoveAt(phalfpoint.idnum);
                 pready.removeobject();
-
+                return true;
             }
-
+            return false;
         }
 
-        public void removeobject_checkin(CheckinModel pcheckin)
+        public bool  removeobject_checkin(CheckinModel pcheckin)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (pwarming == DialogResult.No)
             {
-                return;
+                return  false ;
             }
             else if (pwarming == DialogResult.Yes)
             {
@@ -1260,17 +1260,17 @@ namespace SeldatMRMS.Management
                 //ptreeviewitem_Points.RemoveAt(phalfpoint.idnum);
                 //this.content.trv_points.Items.RemoveAt(phalfpoint.idnum);
                 pcheckin.removeobject();
-
+                return true;
             }
-
+            return false;
         }
 
-        public void removeobject_checkout(CheckoutModel pcheckout)
+        public bool  removeobject_checkout(CheckoutModel pcheckout)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (pwarming == DialogResult.No)
             {
-                return;
+                return false ;
             }
             else if (pwarming == DialogResult.Yes)
             {
@@ -1305,18 +1305,18 @@ namespace SeldatMRMS.Management
                 //ptreeviewitem_Points.RemoveAt(phalfpoint.idnum);
                 //this.content.trv_points.Items.RemoveAt(phalfpoint.idnum);
                 pcheckout.removeobject();
-
+                return true;
             }
-
+            return false;
         }
 
 
-        public void removeobject_robotagent(RobotAgent robotAgent)
+        public bool  removeobject_robotagent(RobotAgent robotAgent)
 		{
 			System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 			if (pwarming == DialogResult.No)
 			{
-				return;
+				return false;
 			}
 			else if (pwarming == DialogResult.Yes)
 			{
@@ -1347,16 +1347,17 @@ namespace SeldatMRMS.Management
 					}
 				}
 
-				//tempPath.remove();
-
+                //tempPath.remove();
+                return true;
 			}
+            return false;
 		}
-		public void removeobject_paths(PathModel tempPath)
+		public bool  removeobject_paths(PathModel tempPath)
 		{
 			System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 			if (pwarming == DialogResult.No)
 			{
-				return;
+				return false ;
 			}
 			else if (pwarming == DialogResult.Yes)
 			{
@@ -1389,8 +1390,9 @@ namespace SeldatMRMS.Management
 				}
 
 				tempPath.remove();
-
+                return true;
 			}
+            return false;
 		}
 
 
@@ -1433,7 +1435,7 @@ namespace SeldatMRMS.Management
 		public void updatePropertiesInformationPoint()
 		{
 			List<User> users = new List<User>();
-			users.Add(new User() { Attribude = "Text", Value = this.tempShape_point.properties.NameObj });
+			users.Add(new User() { Attribude = "Text", Value = this.tempShape_point.properties.NameID });
 			users.Add(new User() { Attribude = "Length", Value = this.tempShape_point.properties.LengthValue + "" });
 			users.Add(new User() { Attribude = "Cost", Value = this.tempShape_point.properties.CostValue + "" });
 			users.Add(new User() { Attribude = "X Model (mm)", Value = this.tempShape_point.properties.X_model + "" });
@@ -1584,11 +1586,11 @@ namespace SeldatMRMS.Management
 				users.Add(new User() { Attribude = "Cost", Value = "1" });
 				users.Add(new User() { Attribude = "Maximum Velocity(mm)", Value = "850" });
 				if (this.tempShape_path.nodeConnected.startpoint != null)
-					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint.properties.NameObj });
+					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint.properties.NameID });
 				else if (this.tempShape_path.nodeConnected.startpoint_station != null)
 					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint_station.props.NameID});
 				if (this.tempShape_path.nodeConnected.endpoint != null)
-					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint.properties.NameObj });
+					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint.properties.NameID });
 				else if (this.tempShape_path.nodeConnected.endpoint_station != null)
 					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint_station.props.NameID });
 				users.Add(new User() { Attribude = "Type", Value = "Half Point" });
@@ -1770,7 +1772,7 @@ namespace SeldatMRMS.Management
 			TextBlock X_location = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[5]) as TextBlock;
 			TextBlock Y_location = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[6]) as TextBlock;
 
-			ph.properties.NameObj = NameObj.Text;
+			ph.properties.NameID = NameObj.Text;
 			ph.properties.LengthValue = Convert.ToDouble(length);
 			ph.properties.CostValue = Convert.ToDouble(cost);
 			ph.properties.X_model = Convert.ToDouble(X_model);

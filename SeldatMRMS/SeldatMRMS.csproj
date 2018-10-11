@@ -707,6 +707,10 @@
     <None Include="Resources\phat_path.png" />
     <None Include="Resources\phat_putaway.png" />
     <None Include="Resources\phat_ready.png" />
+    <None Include="Resources\phat_cancel.png" />
+    <None Include="Resources\phat_draw.png" />
+    <None Include="Resources\phat_measure.png" />
+    <None Include="Resources\phat_zoom.png" />
     <Content Include="sharpdx_direct3d11_1_effects_arm.dll" />
     <Content Include="sharpdx_direct3d11_1_effects_x64.dll" />
     <Content Include="sharpdx_direct3d11_1_effects_x86.dll" />

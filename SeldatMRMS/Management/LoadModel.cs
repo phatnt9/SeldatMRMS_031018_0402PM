@@ -148,7 +148,7 @@ namespace SeldatMRMS.Management
 			temp.setTextlabel(label);
 			temp.setName(Name);
 			pif.phalfpoint_manager.Add(temp);
-			pif.updateTreeviewPoints(temp.properties.NameObj);
+			pif.updateTreeviewPoints(temp.properties.NameID);
 		}
 
 		public void loadrobotconfig(String ipAddr,String host,String NameObj, int port, double CriticalEnergyAt, double GoodEnergyAt, System.Windows.Point initialPos, double initialheadingangle)

@@ -292,7 +292,7 @@ namespace SeldatMRMS.Model
 			if (nodeConnected.frontNodeConnected == NODECONNECTED.FRONTNODE_CONNECTED_HALFPOINT)
 			{
 				dynamic halfpoint_start = new JObject();
-				halfpoint_start.Name = nodeConnected.startpoint.properties.NameObj;
+				halfpoint_start.Name = nodeConnected.startpoint.properties.NameID;
 				halfpoint_start.X = nodeConnected.startpoint.properties.X;
 				halfpoint_start.Y = nodeConnected.startpoint.properties.Y;
 				product.startPoint = halfpoint_start;
@@ -316,7 +316,7 @@ namespace SeldatMRMS.Model
 			if (nodeConnected.frontNodeConnected == NODECONNECTED.BACKNODE_CONNECTED_HALFPOINT)
 			{
 				dynamic halfpoint_end = new JObject();
-				halfpoint_end.Name = nodeConnected.endpoint.properties.NameObj;
+				halfpoint_end.Name = nodeConnected.endpoint.properties.NameID;
 				halfpoint_end.X = nodeConnected.endpoint.properties.X;
 				halfpoint_end.Y = nodeConnected.endpoint.properties.Y;
 				product.endPoint = halfpoint_end;

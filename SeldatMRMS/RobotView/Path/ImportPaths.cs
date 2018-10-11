@@ -80,8 +80,8 @@ namespace SeldatMRMS.RobotView.Path
 		}
 		public void loadLine(SetLineParams plineparam)
 		{
-			//plineparam.Show();
-			plineparam.setparams();
+            //plineparam.ShowDialog();
+            plineparam.setparams();
 			importLines(plineparam);
 		}
 		public void loadCurve(SetCurveParams curveParams)
