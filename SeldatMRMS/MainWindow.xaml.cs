@@ -1083,10 +1083,11 @@ namespace SeldatMRMS
         {
             //if (CheckPermission())
             //{
-                probot3dmap = new RobotView3D();
-                probot3dmap.ShowDialog();
-                probot3dmap.loadAWareHouseMap();
+            probot3dmap = new RobotView3D();
+            probot3dmap.ShowDialog();
+            probot3dmap.loadAWareHouseMap();
             //}
+            RegistrationAgent.robotview3dPointer.Show();
         }
 
         private void pathdirect_Click(object sender, RoutedEventArgs e)

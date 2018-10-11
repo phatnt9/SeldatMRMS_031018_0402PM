@@ -5,6 +5,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="Seldat" Height="654" Width="525"
 		Closing="Window_Closing"
+        WindowStyle="None"
 		>
 	<Grid  >
 		
@@ -259,6 +260,16 @@
         </Grid>
         
         <!--<TextBlock FontSize="20" FontWeight="Bold" x:Name="txt_valueControls"  Foreground="Coral" HorizontalAlignment="Left" Margin="60,68,0,228" TextWrapping="Wrap" Text="" Width="340"/>-->
+			<StackPanel Visibility="Hidden" Background="BlanchedAlmond"  HorizontalAlignment="Left" Height="139" Margin="10,0,0,23" VerticalAlignment="Bottom" Width="226" RenderTransformOrigin="-0.193,0.831">
+				<TextBlock Opacity="0.7" Foreground="Blue" x:Name="txt_moveMouseXY" TextWrapping="Wrap" Text="Location:0.0/0.0" FontSize="16" FontWeight="Bold"/>
+				<TextBlock Foreground="Blue" FontWeight="Black" x:Name="txt_moveMouse_pointY" TextWrapping="Wrap" Text="Move:0.0/0.0" FontSize="16"/>
+				<TextBlock Foreground="Blue" FontWeight="Black" x:Name="txt_moveMouse_scaleLength" TextWrapping="Wrap" Text="Scale:10" FontSize="16"/>
+				<TextBlock Foreground="Blue" FontWeight="Black" x:Name="txt_proceduretime" TextWrapping="Wrap" Text="Procedure:0" FontSize="16" Height="27"/>
+				<TextBlock Foreground="Blue" Name="txt_battery" FontWeight="Black" TextWrapping="Wrap" Text="Battery: 0.0%" FontSize="16" Height="27"/>
+				<TextBlock Foreground="Blue" Name="txt_movePointer" FontWeight="Black" TextWrapping="Wrap" Text="" FontSize="16" Height="27"/>
+
+		</StackPanel>
+			<TextBlock FontSize="20" FontWeight="Bold" x:Name="txt_valueControls"  Foreground="Coral" HorizontalAlignment="Left" Margin="60,68,0,228" TextWrapping="Wrap" Text="" Width="340"/>
 
 			<!--<Button             
         		x:Name="btn_pickpallet"
