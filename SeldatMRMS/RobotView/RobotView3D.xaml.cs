@@ -652,14 +652,6 @@ namespace SeldatMRMS.RobotView
 							double[] lo = { GlobalVariables.ConvertUnitLengthtoMeter(GlobalVariables.ROBOT_ESTIMATED_NEWLOCATION.X), GlobalVariables.ConvertUnitLengthtoMeter(GlobalVariables.ROBOT_ESTIMATED_NEWLOCATION.Y), GlobalVariables.ROBOT_ESTIMATED_ANGLE };
 
 							Console.WriteLine(lo[0] + " " + lo[1] + " " + lo[2]);
-							if (pconnectrobot != null)
-							{
-								if (pconnectrobot.isconnected)
-								{
-									//  byte []cmd=CommandSet.CreateFrameCMD(10,CommandSet.CLIENT_REQUESTED_NAVIGATION_ESTIMPOS,lo,CommandSet.DATALENGTH_9,CommandSet.AMOUNTBYTE_3,CommandSet.DATATYPE_2);
-									// pconnectrobot.sendpackage(cmd);
-								}
-							}
 						}
 						break;
 					case STATECTRL_MOUSEDOWN.STATECTRL_NAVIGATION_P1:
@@ -686,15 +678,6 @@ namespace SeldatMRMS.RobotView
 							pnav.Point2 = new Point3D(GlobalVariables.P2_NAGVIGATION_X, GlobalVariables.P2_NAGVIGATION_Y, 0);
 							pNavigationLayer.Children.Add(pnav);
 							Console.WriteLine(lo[0] + " " + lo[1] + " " + lo[2]);
-							if (pconnectrobot != null)
-							{
-								if (pconnectrobot.isconnected)
-								{
-
-									//  byte[] cmd = CommandSet.CreateFrameCMD(10, CommandSet.CLIENT_REQUESTED_NAVIGATION_SETGOALPOS, lo, CommandSet.DATALENGTH_9, CommandSet.AMOUNTBYTE_3, CommandSet.DATATYPE_2);
-									//  pconnectrobot.sendpackage(cmd);
-								}
-							}
 						}
 						break;
 					case STATECTRL_MOUSEDOWN.STATECTRL_MEASUREMENT_P1:
@@ -893,7 +876,7 @@ namespace SeldatMRMS.RobotView
 
 		}
 		Stack<Node> Path;
-		public ConnectBridge pconnectrobot = null;
+
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
 			/*MessageBox.Show(System.IO.Directory.GetCurrentDirectory());
@@ -933,18 +916,7 @@ namespace SeldatMRMS.RobotView
 
 		}
 		int Count = 0;
-		void run()
-		{
-			while (true)
-			{
-				if (pconnectrobot != null)
-				{
-					pconnectrobot.sendpackage(CommandSet.CommandPackage(CommandSet.CLIENT_REQUESTED_CMD_NAVIGATION_AMCLPOS_INF,0,"robot"));
-				}
-				Thread.Sleep(300);
-			}
 
-		}
 		private void getdata(String data)
 		{
 			Console.WriteLine(data);
@@ -1082,15 +1054,6 @@ namespace SeldatMRMS.RobotView
 
 		private void btn_toCD_Click(object sender, RoutedEventArgs e)
 		{
-			if (pconnectrobot != null)
-			{
-				if (pconnectrobot.isconnected)
-				{
-
-					// byte[] cmd = CommandSet.CreateFrameCMD(10, CommandSet.CLIENT_REQUESTED_NAVIGATION_SETGOALPOS, lo, CommandSet.DATALENGTH_9, CommandSet.AMOUNTBYTE_3, CommandSet.DATATYPE_2);
-					//pconnectrobot.sendpackage(Encoding.ASCII.GetBytes(CommandSet.JsonPallet()));
-				}
-			}
 			/* double[] lo = { GlobalVariables.ConvertUnitLengthtoMeter(GlobalVariables.POINTB_X), GlobalVariables.ConvertUnitLengthtoMeter(GlobalVariables.POINTB_Y), GlobalVariables.POINTB_Theta };
 			 ArrowVisual3D pnav = new ArrowVisual3D();
 			 pnav.Fill = new SolidColorBrush(Colors.LightSeaGreen);
@@ -1112,15 +1075,7 @@ namespace SeldatMRMS.RobotView
 
 		private void btn_startline_Click(object sender, RoutedEventArgs e)
 		{
-			if (pconnectrobot != null)
-			{
-				if (pconnectrobot.isconnected)
-				{
-					double[] lo = { 0.0 };
-					// byte[] cmd = CommandSet.CreateFrameCMD(10, CommandSet.CLIENT_REQUESTED_LINEDETECTION_RUN, lo, CommandSet.DATALENGTH_1, CommandSet.AMOUNTBYTE_1, CommandSet.DATATYPE_1);
-					// pconnectrobot.sendpackage(cmd);
-				}
-			}
+
 		}
 
 		private void btn_stopline_Click(object sender, RoutedEventArgs e)
@@ -1139,10 +1094,7 @@ namespace SeldatMRMS.RobotView
 		}
 		void getdatagridview(System.Windows.Forms.DataGridView datagridview)
 		{
-			if (pconnectrobot != null)
-			{
-				pconnectrobot.sendpackage(CommandSet.PalletService("robot", 1306, datagridview));
-			}
+
 		}
 		private void sendLocation(double[] pos, double angle)
 		{
@@ -1152,15 +1104,7 @@ namespace SeldatMRMS.RobotView
             pnav.Point1 = new Point3D(pos[0], pos[1], 0);
             pnav.Point2 = new Point3D(pos[0] + 50, pos[1], 0);
             pNavigationLayer.Children.Add(pnav);*/
-			if (pconnectrobot != null)
-			{
-				if (pconnectrobot.isconnected)
-				{
 
-					// byte[] cmd = CommandSet.CreateFrameCMD(10, CommandSet.CLIENT_REQUESTED_NAVIGATION_SETGOALPOS, lo, CommandSet.DATALENGTH_9, CommandSet.AMOUNTBYTE_3, CommandSet.DATATYPE_2);
-					//   pconnectrobot.sendpackage(cmd);
-				}
-			}
 
 		}
 
@@ -1195,15 +1139,6 @@ namespace SeldatMRMS.RobotView
 				case GlobalVariables.PROCESS_START_DETECTLINE_UP:
 					Console.WriteLine("PROCESS_START_DETECTLINE_UP");
 					GlobalVariables.PROCESS_FLAG_PALLET = true;
-					if (pconnectrobot != null)
-					{
-						if (pconnectrobot.isconnected)
-						{
-							double[] lo1 = { 0.0 };
-							//    byte[] cmd = CommandSet.CreateFrameCMD(10, CommandSet.CLIENT_REQUESTED_LINEDETECTION_UPPALLET, lo1, CommandSet.DATALENGTH_1, CommandSet.AMOUNTBYTE_1, CommandSet.DATATYPE_1);
-							// pconnectrobot.sendpackage(cmd);
-						}
-					}
 					GlobalVariables.PROCESS_ROBOT = GlobalVariables.PROCESS_WAIT_DETECTLINE_UP;
 					Console.WriteLine("PROCESS_WAIT_DETECTLINE_UP");
 
@@ -1234,15 +1169,7 @@ namespace SeldatMRMS.RobotView
 				case GlobalVariables.PROCESS_START_DETECTLINE_DOWN:
 					Console.WriteLine("PROCESS_START_DETECTLINE_DOWN");
 					GlobalVariables.PROCESS_FLAG_PALLET = false;
-					if (pconnectrobot != null)
-					{
-						if (pconnectrobot.isconnected)
-						{
-							double[] lo1 = { 0.0 };
-							// byte[] cmd = CommandSet.CreateFrameCMD(10, CommandSet.CLIENT_REQUESTED_LINEDETECTION_DOWNPALLET, lo1, CommandSet.DATALENGTH_1, CommandSet.AMOUNTBYTE_1, CommandSet.DATATYPE_1);
-							// pconnectrobot.sendpackage(cmd);
-						}
-					}
+
 					GlobalVariables.PROCESS_ROBOT = GlobalVariables.PROCESS_WAIT_DETECTLINE_DOWN;
 					Console.WriteLine("PROCESS_WAIT_DETECTLINE_DOWN");
 					break;
@@ -1296,14 +1223,7 @@ namespace SeldatMRMS.RobotView
 			flag_3dmode = !flag_3dmode;*/
 		}
 
-		private void Button_Click_2(object sender, RoutedEventArgs e)
-		{
-			if (p == null)
-			{
-				p = new Thread(run);
-				p.Start();
-			}
-		}
+
 
 		private void Button_Click_3(object sender, RoutedEventArgs e)
 		{
@@ -1433,8 +1353,8 @@ namespace SeldatMRMS.RobotView
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if (pconnectrobot != null)
-				pconnectrobot.close();
+            this.Hide();
+            e.Cancel = true;
 		}
 
 		private void btn_editpaths_Click(object sender, RoutedEventArgs e)

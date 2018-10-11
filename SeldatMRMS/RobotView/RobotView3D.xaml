@@ -5,7 +5,8 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         Title="Seldat" Height="654" Width="525"
 		Closing="Window_Closing"
-        WindowStyle="None"
+       
+        
 		>
 	<Grid  >
 		
