@@ -95,6 +95,9 @@ namespace SeldatMRMS.Management
 			catch { }*/
         }
 
-       
+        private void TasksManagement_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

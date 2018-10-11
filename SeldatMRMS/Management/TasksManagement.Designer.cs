@@ -36,11 +36,11 @@
             // timerInterruptAllRobotAgentStatus
             // 
             this.timerInterruptAllRobotAgentStatus.Interval = 2000;
-             // 
+            // 
             // timerInterruptAllChargerStatus
             // 
             this.timerInterruptAllChargerStatus.Interval = 10000;
-           // 
+            // 
             // TasksManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -48,6 +48,7 @@
             this.ClientSize = new System.Drawing.Size(296, 156);
             this.Name = "TasksManagement";
             this.Text = "TasksManagement";
+            this.Load += new System.EventHandler(this.TasksManagement_Load);
             this.ResumeLayout(false);
 
 		}

@@ -1447,5 +1447,6 @@ namespace SeldatMRMS.RobotView
 			GroupPaths grouppath = new GroupPaths();
 			grouppath.ShowDialog();
 		}
-	}
+        
+    }
 }

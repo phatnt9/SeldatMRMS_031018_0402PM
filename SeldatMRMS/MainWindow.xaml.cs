@@ -113,7 +113,6 @@ namespace SeldatMRMS
         }
         public STATECTRL_MOUSEDOWN valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_MOUSEDOWN_NORMAL;
         public STATECTRL_MOUSEMOVE valstatectrl_mm;
-        public RobotView3D probot3dmap;
 
         public MainWindow()
         {
@@ -1081,12 +1080,7 @@ namespace SeldatMRMS
 
         private void load3dmap_Click(object sender, RoutedEventArgs e)
         {
-            //if (CheckPermission())
-            //{
-            probot3dmap = new RobotView3D();
-            probot3dmap.ShowDialog();
-            probot3dmap.loadAWareHouseMap();
-            //}
+            
             RegistrationAgent.robotview3dPointer.Show();
         }
 
@@ -1392,10 +1386,7 @@ namespace SeldatMRMS
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (probot3dmap != null)
-            {
-                probot3dmap.pconnectrobot.close();
-            }
+           
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Save changes to the following items ?", "Warning", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Warning);
             if (pwarming == System.Windows.Forms.DialogResult.Yes)
             {

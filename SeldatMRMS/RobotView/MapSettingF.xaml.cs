@@ -175,9 +175,9 @@ namespace SeldatMRMS.RobotView
 
 			string Location = AppDomain.CurrentDomain.BaseDirectory;
 
-			//MessageBox.Show(Location);
+			
 			TEXT_PATHMAP = Location + "Resources\\Map\\Map.jpg";
-			txt_pathmap.Text = TEXT_PATHMAP;
+            txt_pathmap.Text = TEXT_PATHMAP;
 			try
 			{
 				loadinform(TEXT_PATHMAP);
