@@ -15,6 +15,7 @@
 
 				<helix:ArrowVisual3D  Point1="0,0,0" Point2="12 0 0" Fill="Red" Diameter="0.5" />
 				<helix:ArrowVisual3D Point1="0,0,0" Point2="0 12 0" Fill="Green" Diameter="0.5"/>
+				<helix:ArrowVisual3D Point1="0,0,0" Point2="0 0 12" Fill="Blue" Diameter="0.5"/>
 				<!--<helix:ArrowVisual3D  Point1="0,0,0" Point2="0 0 12" Fill="Blue" Diameter="0.5"/>-->
 
 				<!-- Remember to add light to the scene -->
@@ -243,14 +244,14 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" Height="120" Margin="10,10,0,0" VerticalAlignment="Top" Width="90">
-                <TextBlock Opacity="0.5" Foreground="#1aa3ff" FontWeight="Black" Text="LOCATION" FontSize="14" />
+                <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="LOCATION" FontSize="14" />
                 <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="ANGLE" FontSize="14"/>
                 <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="SCALE:" FontSize="14"/>
                 <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="PROCEDURE" FontSize="14" />
                 <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="BATTERY" FontSize="14" />
                 <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="(X:Y)" FontSize="14" />
             </StackPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="120" Margin="0,10,0,0" VerticalAlignment="Top" Width="90">
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="120" Margin="0,10,0,0" VerticalAlignment="Top" Width="100">
                 <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_moveMouseXY" Text="0.0/0.0" FontSize="14" FontWeight="Black"/>
                 <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_moveMouse_pointY" Text="0.0/0.0" FontSize="14" FontWeight="Black" />
                 <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_moveMouse_scaleLength" Text="10" FontSize="14" FontWeight="Black" />
@@ -259,10 +260,9 @@
                 <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_movePointer" Text="0.0/0.0" FontSize="14" FontWeight="Black"/>
             </StackPanel>
         </Grid>
-        
-			<!--<TextBlock FontSize="20" FontWeight="Bold" x:Name="txt_valueControls"  Foreground="Coral" HorizontalAlignment="Left" Margin="60,68,0,228" TextWrapping="Wrap" Text="" Width="340"/>-->
 
-			<!--<Button             
+        <!--<TextBlock FontSize="20" FontWeight="Bold" x:Name="txt_valueControls"  Foreground="Coral" HorizontalAlignment="Left" Margin="60,68,0,228" TextWrapping="Wrap" Text="" Width="340"/>-->
+        <!--<Button             
         		x:Name="btn_pickpallet"
         		Margin="0,30,12,493"
                 HorizontalAlignment="Right"

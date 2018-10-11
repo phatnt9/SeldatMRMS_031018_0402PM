@@ -92,9 +92,11 @@ namespace SeldatMRMS.RobotView
 		public STATECTRL_MOUSEMOVE statectrl_mousemove = STATECTRL_MOUSEMOVE.STATECTRL_MOVE_NORMAL;
 		public SELECTEDCONTROL selectedctrlmode = SELECTEDCONTROL.SELECTED_CONTROL_NORMAL;
 		ControlRobotInterface pmodelcontrol;
-
-		Thread p;
-		public List<SetCurveParams> setCurveParamsList = new List<SetCurveParams>();
+        private int pmeasureLineThickness = 2;
+        private int king = 0;
+        public List<Vector3D> zsss = new List<Vector3D>();
+        private Vector3DCollection xyz = new Vector3DCollection();
+        public List<SetCurveParams> setCurveParamsList = new List<SetCurveParams>();
 		public List<SetLineParams> setLineParamsList = new List<SetLineParams>();
 		public List<RobotAgent> robotAgentList = new List<RobotAgent>();
 		public SetCurveParams pcurinfo;
@@ -104,6 +106,34 @@ namespace SeldatMRMS.RobotView
 		public RobotView3D()
 		{
 			InitializeComponent();
+            zsss.Add(new Vector3D(0, 0, 0));
+            zsss.Add(new Vector3D(0, 0, 1));
+            zsss.Add(new Vector3D(0, 0, -1));
+            zsss.Add(new Vector3D(0, 1, 0));
+            zsss.Add(new Vector3D(0, -1, 0));
+            zsss.Add(new Vector3D(0, 1, 1));
+            zsss.Add(new Vector3D(0, 1, -1));
+            zsss.Add(new Vector3D(0, -1, 1));
+            zsss.Add(new Vector3D(0, -1, -1));
+            zsss.Add(new Vector3D(1, 0, 0));
+            zsss.Add(new Vector3D(-1, 0, 0));
+            zsss.Add(new Vector3D(1, 0, 1));
+            zsss.Add(new Vector3D(1, 0, -1));
+            zsss.Add(new Vector3D(-1, 0, 1));
+            zsss.Add(new Vector3D(-1, 0, -1));
+            zsss.Add(new Vector3D(1, 1, 0));
+            zsss.Add(new Vector3D(1, -1, 0));
+            zsss.Add(new Vector3D(-1, 1, 0));
+            zsss.Add(new Vector3D(-1, -1, 0));
+            zsss.Add(new Vector3D(1, 1, 1));
+            zsss.Add(new Vector3D(1, 1, -1));
+            zsss.Add(new Vector3D(1, -1, 1));
+            zsss.Add(new Vector3D(1, -1, -1));
+            zsss.Add(new Vector3D(-1, 1, 1));
+            zsss.Add(new Vector3D(-1, 1, -1));
+            zsss.Add(new Vector3D(-1, -1, 1));
+            zsss.Add(new Vector3D(-1, -1, -1));
+            
 			pmodelcontrol = new ControlRobotInterface();
 			MainView3D.MouseWheel += new MouseWheelEventHandler(MainView3D_MouseWheel);
 			//MainView3D.DefaultCamera = new PerspectiveCamera();
@@ -181,7 +211,9 @@ namespace SeldatMRMS.RobotView
 						double dist = 0;
 
 						LinesVisual3D pmeasureLine = new LinesVisual3D();
-						Point3DCollection points = new Point3DCollection();
+                        TextVisual3D pmeasureText = new TextVisual3D();
+
+                        Point3DCollection points = new Point3DCollection();
 
 						double angle12 = retrieveAngleTwoPoints(new Point3D(GlobalVariables.P1_MEASURE_X, GlobalVariables.P1_MEASURE_Y, 0), new Point3D(measure_getpoint2X, measure_getpoint2Y, 0));
 						double R = GlobalVariables.ConvertMetertoUnitLength(2);
@@ -193,14 +225,24 @@ namespace SeldatMRMS.RobotView
 						ppBC.Add(pC);
 						plBC.Points = ppBC;
 
-						Console.WriteLine("Angle P1 P2 "+angle12);
+						//Console.WriteLine("Angle P1 P2 "+angle12);
 						points.Add(new Point3D(GlobalVariables.P1_MEASURE_X, GlobalVariables.P1_MEASURE_Y, 0));
 						points.Add(new Point3D(measure_getpoint2X, measure_getpoint2Y, 0));
-						pmeasureLine.Color = Colors.Red;
-						pmeasureLine.Thickness = 10;
+						pmeasureLine.Color = Colors.White;
+						pmeasureLine.Thickness = pmeasureLineThickness;
 						pmeasureLine.Points = points;
-						dist = Math.Sqrt(Math.Pow((measure_getpoint2X - GlobalVariables.P1_MEASURE_X), 2) + Math.Pow((measure_getpoint2Y - GlobalVariables.P1_MEASURE_Y), 2));
-						/* if (GlobalVariables.MEASUREMENT_UNITASQUARE != 0)
+
+                        pmeasureText.Foreground = new SolidColorBrush(Colors.Black);
+                        pmeasureText.BorderThickness = new Thickness(pmeasureLineThickness);
+                        pmeasureText.Position = new Point3D((points[0].X+points[1].X)/2, (points[0].Y + points[1].Y) / 2, 0);
+                        pmeasureText.BorderThickness = new Thickness(10);
+                        //Console.WriteLine(pmeasureText.TextDirection.ToString());
+                        //pmeasureText.TextDirection = new Vector3D(0, 0, 0);
+                        pmeasureText.UpDirection = new Vector3D(0, 1, 0);
+                        pmeasureText.Padding = new Thickness(2);
+                        //Console.WriteLine(MainView3D.Camera.Position.X + "-" + MainView3D.Camera.Position.Y + "-" + MainView3D.Camera.Position.Z);
+                        dist = Math.Sqrt(Math.Pow((measure_getpoint2X - GlobalVariables.P1_MEASURE_X), 2) + Math.Pow((measure_getpoint2Y - GlobalVariables.P1_MEASURE_Y), 2));
+                        /* if (GlobalVariables.MEASUREMENT_UNITASQUARE != 0)
 						 {
 							// txt_valueControls.Text = "Dist= " + (GlobalVariables.MEASUREMENT_UNITASQUARE * dist).ToString("0.000") + " (m)";
 						 }
@@ -208,10 +250,14 @@ namespace SeldatMRMS.RobotView
 						 {
 						   //  txt_valueControls.Text = "Dist= " + dist.ToString("0.000") + " (Squares)";
 						 }*/
-						//txt_valueControls.Text = "Dist= " + GlobalVariables.ConvertUnitLengthtoMeter(dist).ToString("0.000") + " (m)";
-						RectangleVisual3D p = new RectangleVisual3D();
+                        //txt_valueControls.Text = "Dist= " + GlobalVariables.ConvertUnitLengthtoMeter(dist).ToString("0.000") + " (m)";
+                        Console.WriteLine(points[1].X.ToString("0.0") + "-" + points[1].Y.ToString("0.0") + "-" + points[1].Z.ToString("0.0"));
+                        //pmeasureText.Text = GlobalVariables.ConvertUnitLengthtoMeter(dist).ToString("0.000") + " (m)";
+                        pmeasureText.Text = MainView3D.Camera.Position.X.ToString("0.0") + "-" + MainView3D.Camera.Position.Y.ToString("0.0") + "-" + MainView3D.Camera.Position.Z.ToString("0.0");
+                        RectangleVisual3D p = new RectangleVisual3D();
 						//pMeasureLineLayer.Children.Add(plBC);
 						pMeasureLineLayer.Children.Add(pmeasureLine);
+						pMeasureLineLayer.Children.Add(pmeasureText);
 						
 					}
 					break;
@@ -624,6 +670,7 @@ namespace SeldatMRMS.RobotView
 		private void MainView3D_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			Point mousedown = e.GetPosition(viewPort3d.GetViewport3D());
+            
 			HitTestResult result = VisualTreeHelper.HitTest(viewPort3d.GetViewport3D(), mousedown);
 			RayMeshGeometry3DHitTestResult mesh_rsult = result as RayMeshGeometry3DHitTestResult;
 			if (mesh_rsult != null)
@@ -655,7 +702,8 @@ namespace SeldatMRMS.RobotView
 						}
 						break;
 					case STATECTRL_MOUSEDOWN.STATECTRL_NAVIGATION_P1:
-						statectrl_mousemove = STATECTRL_MOUSEMOVE.STATECTRL_MOVE_NAVIGATION;
+                        
+                        statectrl_mousemove = STATECTRL_MOUSEMOVE.STATECTRL_MOVE_NAVIGATION;
 						statectrl_mousedown = STATECTRL_MOUSEDOWN.STATECTRL_NAVIGATION_P2;
 						selectedctrlmode = SELECTEDCONTROL.SELECTED_CONTROL_NAVIGATION_GETPOINT1;
 						pNavigationLayer.Children.Clear();
@@ -663,25 +711,27 @@ namespace SeldatMRMS.RobotView
 						break;
 					case STATECTRL_MOUSEDOWN.STATECTRL_NAVIGATION_P2:
 						{
-							selectedctrlmode = SELECTEDCONTROL.SELECTED_CONTROL_NORMAL;
-							statectrl_mousedown = STATECTRL_MOUSEDOWN.STATECTRL_NORMAL;
-							statectrl_mousemove = STATECTRL_MOUSEMOVE.STATECTRL_MOVE_NORMAL;
-							selectModes(null);
-							//MessageBox.Show(GlobalVariables.P1_NAGVIGATION_X + " / " + GlobalVariables.P1_NAGVIGATION_Y + " / " + GlobalVariables.ROBOT_NAVIGATION_ANGLE);
-							// update new location and robot rotation
-							//pmodelcontrol.updateRobotstates(0, GlobalVariables.ROBOT_NAVIGATION_NEWLOCATION, GlobalVariables.ROBOT_NAVIGATION_ANGLE);
-							double[] lo = { GlobalVariables.ConvertUnitLengthtoMeter(GlobalVariables.P1_NAGVIGATION_X), GlobalVariables.ConvertUnitLengthtoMeter(GlobalVariables.P1_NAGVIGATION_Y), GlobalVariables.ROBOT_NAVIGATION_ANGLE };
-							ArrowVisual3D pnav = new ArrowVisual3D();
+                            selectedctrlmode = SELECTEDCONTROL.SELECTED_CONTROL_NORMAL;
+                            statectrl_mousedown = STATECTRL_MOUSEDOWN.STATECTRL_NORMAL;
+                            statectrl_mousemove = STATECTRL_MOUSEMOVE.STATECTRL_MOVE_NORMAL;
+                            selectModes(null);
+                            //MessageBox.Show(GlobalVariables.P1_NAGVIGATION_X + " / " + GlobalVariables.P1_NAGVIGATION_Y + " / " + GlobalVariables.ROBOT_NAVIGATION_ANGLE);
+                            // update new location and robot rotation
+                            //pmodelcontrol.updateRobotstates(0, GlobalVariables.ROBOT_NAVIGATION_NEWLOCATION, GlobalVariables.ROBOT_NAVIGATION_ANGLE);
+                            double[] lo = { GlobalVariables.ConvertUnitLengthtoMeter(GlobalVariables.P1_NAGVIGATION_X), GlobalVariables.ConvertUnitLengthtoMeter(GlobalVariables.P1_NAGVIGATION_Y), GlobalVariables.ROBOT_NAVIGATION_ANGLE };
+                            ArrowVisual3D pnav = new ArrowVisual3D();
 
-							pnav.Fill = new SolidColorBrush(Colors.Gold);
-							pnav.Point1 = new Point3D(GlobalVariables.P1_NAGVIGATION_X, GlobalVariables.P1_NAGVIGATION_Y, 0);
-							pnav.Point2 = new Point3D(GlobalVariables.P2_NAGVIGATION_X, GlobalVariables.P2_NAGVIGATION_Y, 0);
-							pNavigationLayer.Children.Add(pnav);
-							Console.WriteLine(lo[0] + " " + lo[1] + " " + lo[2]);
-						}
-						break;
+                            pnav.Fill = new SolidColorBrush(Colors.Gold);
+                            pnav.Point1 = new Point3D(GlobalVariables.P1_NAGVIGATION_X, GlobalVariables.P1_NAGVIGATION_Y, 0);
+                            pnav.Point2 = new Point3D(GlobalVariables.P2_NAGVIGATION_X, GlobalVariables.P2_NAGVIGATION_Y, 0);
+                            pNavigationLayer.Children.Add(pnav);
+                            Console.WriteLine(lo[0] + " " + lo[1] + " " + lo[2]);
+
+                        }
+                        break;
 					case STATECTRL_MOUSEDOWN.STATECTRL_MEASUREMENT_P1:
-						statectrl_mousemove = STATECTRL_MOUSEMOVE.STATECTRL_MOVE_MEASUREMENT;
+                        
+                        statectrl_mousemove = STATECTRL_MOUSEMOVE.STATECTRL_MOVE_MEASUREMENT;
 						statectrl_mousedown = STATECTRL_MOUSEDOWN.STATECTRL_MEASUREMENT_P2;
 						selectedctrlmode = SELECTEDCONTROL.SELECTED_CONTROL_MEASURE_GETPOINT1;
 						selectModes(mesh_rsult);
@@ -815,10 +865,14 @@ namespace SeldatMRMS.RobotView
 		}
 		private void MainView3D_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
 		{
-			txt_moveMouse_scaleLength.Text = "" + (viewPort3d.Width / MainView3D.Camera.LookDirection.Length).ToString("0,00"); ;
-
-			Console.WriteLine(MainView3D.CameraController.CameraPosition.X + " " + MainView3D.CameraController.CameraPosition.Y + " " + MainView3D.CameraController.CameraPosition.Z);
-		}
+			txt_moveMouse_scaleLength.Text = "" + (viewPort3d.Width / MainView3D.Camera.LookDirection.Length).ToString("0.00");
+            double x = (viewPort3d.Width / MainView3D.Camera.LookDirection.Length);
+            if (x > 2 && x < 20)
+            {
+                pmeasureLineThickness = (int)x;
+            }
+            //Console.WriteLine(MainView3D.CameraController.CameraPosition.X + " " + MainView3D.CameraController.CameraPosition.Y + " " + MainView3D.CameraController.CameraPosition.Z);
+        }
 
 		private void btn_estimatePos_Click(object sender, RoutedEventArgs e)
 		{
@@ -839,9 +893,10 @@ namespace SeldatMRMS.RobotView
 		private void btn_measure_Click(object sender, RoutedEventArgs e)
 		{
 			statectrl_mousedown = STATECTRL_MOUSEDOWN.STATECTRL_MEASUREMENT_P1;
-			//GlobalVariables.FLAG_MEASURE = true;
-			//selectedControlItems(GlobalVariables.SELECTED_CONTROL_MEASURE);
-		}
+            king++;
+            //GlobalVariables.FLAG_MEASURE = true;
+            //selectedControlItems(GlobalVariables.SELECTED_CONTROL_MEASURE);
+        }
 
 		private void btn_selectmap_Click(object sender, RoutedEventArgs e)
 		{
