@@ -42,7 +42,7 @@
 
 				<Button 
         		x:Name="btn_zoom"
-        		Margin="10,130,0,0"
+        		Margin="10,140,0,0"
                 HorizontalAlignment="Left"
         		ToolTip="Select" Width="40" Height="40" Click="btn_zoom_Click">
 					<Button.Template>
@@ -241,7 +241,7 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" Height="120" Margin="10,10,0,0" VerticalAlignment="Top" Width="90">
-                <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="LOCATION" FontSize="14" />
+                <TextBlock Opacity="0.5" Foreground="#1aa3ff" FontWeight="Black" Text="LOCATION" FontSize="14" />
                 <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="ANGLE" FontSize="14"/>
                 <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="SCALE:" FontSize="14"/>
                 <TextBlock Foreground="#1aa3ff" FontWeight="Black" Text="PROCEDURE" FontSize="14" />
@@ -254,7 +254,7 @@
                 <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_moveMouse_scaleLength" Text="10" FontSize="14" FontWeight="Black" />
                 <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_proceduretime" Text="0" FontSize="14" FontWeight="Black" />
                 <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_battery" Text="0.0%" FontSize="14" FontWeight="Black"/>
-                <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_movePointer" Text="" FontSize="16" FontWeight="Black"/>
+                <TextBlock TextAlignment="Right" Foreground="#ff6600" x:Name="txt_movePointer" Text="0.0/0.0" FontSize="14" FontWeight="Black"/>
             </StackPanel>
         </Grid>
         
