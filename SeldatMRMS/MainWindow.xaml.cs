@@ -563,7 +563,7 @@ namespace SeldatMRMS
                             {
                                 if(RegistrationAgent.interfacePointer.removeobject_station(ptemp_station))
                                 {
-                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_station.props.NameID));
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_station.props.stationNameID));
                                 }
                                 ptemp_station = null;
                             }
@@ -571,7 +571,7 @@ namespace SeldatMRMS
                             {
                                 if(RegistrationAgent.interfacePointer.removeobject_charger(ptemp_charger))
                                 {
-                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_charger.props.NameID));
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_charger.props.chargerNameID));
                                 }
                                 ptemp_charger = null;
                             }

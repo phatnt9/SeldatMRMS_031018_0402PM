@@ -41,6 +41,8 @@
             this.timerConnectRosSocket = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_properties)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -52,7 +54,7 @@
             this.btn_update.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btn_update.Location = new System.Drawing.Point(3, 3);
             this.btn_update.Name = "btn_update";
-            this.btn_update.Size = new System.Drawing.Size(183, 41);
+            this.btn_update.Size = new System.Drawing.Size(125, 41);
             this.btn_update.TabIndex = 0;
             this.btn_update.Text = "Update";
             this.btn_update.UseVisualStyleBackColor = true;
@@ -62,9 +64,9 @@
             // 
             this.btn_cancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_cancel.Location = new System.Drawing.Point(192, 50);
+            this.btn_cancel.Location = new System.Drawing.Point(134, 50);
             this.btn_cancel.Name = "btn_cancel";
-            this.btn_cancel.Size = new System.Drawing.Size(183, 41);
+            this.btn_cancel.Size = new System.Drawing.Size(125, 41);
             this.btn_cancel.TabIndex = 1;
             this.btn_cancel.Text = "Close";
             this.btn_cancel.UseVisualStyleBackColor = true;
@@ -74,9 +76,9 @@
             // 
             this.connectToAgent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.connectToAgent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.connectToAgent.Location = new System.Drawing.Point(192, 3);
+            this.connectToAgent.Location = new System.Drawing.Point(134, 3);
             this.connectToAgent.Name = "connectToAgent";
-            this.connectToAgent.Size = new System.Drawing.Size(183, 41);
+            this.connectToAgent.Size = new System.Drawing.Size(125, 41);
             this.connectToAgent.TabIndex = 20;
             this.connectToAgent.Text = "Connect";
             this.connectToAgent.UseVisualStyleBackColor = true;
@@ -88,7 +90,7 @@
             this.btn_lineInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btn_lineInfo.Location = new System.Drawing.Point(3, 50);
             this.btn_lineInfo.Name = "btn_lineInfo";
-            this.btn_lineInfo.Size = new System.Drawing.Size(183, 41);
+            this.btn_lineInfo.Size = new System.Drawing.Size(125, 41);
             this.btn_lineInfo.TabIndex = 35;
             this.btn_lineInfo.Text = "Line";
             this.btn_lineInfo.UseVisualStyleBackColor = true;
@@ -106,7 +108,7 @@
             this.dGV_properties.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dGV_properties.Location = new System.Drawing.Point(3, 3);
             this.dGV_properties.Name = "dGV_properties";
-            this.dGV_properties.Size = new System.Drawing.Size(378, 355);
+            this.dGV_properties.Size = new System.Drawing.Size(609, 355);
             this.dGV_properties.TabIndex = 35;
             this.dGV_properties.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_properties_CellContentClick);
             this.dGV_properties.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_properties_CellEndEdit);
@@ -152,20 +154,23 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(384, 461);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(615, 461);
             this.tableLayoutPanel1.TabIndex = 57;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 115F));
             this.tableLayoutPanel2.Controls.Add(this.connectToAgent, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btn_cancel, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.btn_lineInfo, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.btn_update, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button1, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button2, 2, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 364);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(234, 364);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -173,11 +178,31 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(378, 94);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(265, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 36;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(265, 50);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 37;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // StationModel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 461);
+            this.ClientSize = new System.Drawing.Size(615, 461);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.txt_console);
@@ -206,5 +231,7 @@
         private System.Windows.Forms.Timer timerConnectRosSocket;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

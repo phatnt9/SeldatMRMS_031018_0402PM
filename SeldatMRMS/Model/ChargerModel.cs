@@ -53,7 +53,7 @@ namespace SeldatMRMS.Model
             dGV_properties.Rows.Clear();
             if (props.TypeName == "CHARGER")
             {
-                dGV_properties.Rows.Add("Name", props.NameID);
+                dGV_properties.Rows.Add("Name", props.chargerNameID);
                 dGV_properties.Rows.Add("Label", props.label);
                 dGV_properties.Rows.Add("Area", "0");
             }
@@ -94,7 +94,7 @@ namespace SeldatMRMS.Model
             public String type;
             public string area;
             public String label;
-            public String NameID;
+            public String chargerNameID;
             public String NameKey;
             public String TypeName;
             public double CostValue;
@@ -144,7 +144,7 @@ namespace SeldatMRMS.Model
             img.RenderTransform = ptrans;
             setLabel(props.label);
             this.content.map.Children.Add(img);
-            props.NameKey = props.NameID + " --- " + props.label;
+            props.NameKey = props.chargerNameID + " --- " + props.label;
 
         }
         public void setnewpos(double x, double y)
@@ -168,7 +168,7 @@ namespace SeldatMRMS.Model
         public void setText(String text)
         {
             props.label = text;
-            props.NameKey = props.NameID + " --- " + props.label;
+            props.NameKey = props.chargerNameID + " --- " + props.label;
         }
         public void setLabel(String label)
         {
@@ -185,7 +185,7 @@ namespace SeldatMRMS.Model
             ptrans.X = -plabel.Width / 2;
             ptrans.Y = -10;
             plabel.RenderTransform = ptrans;
-            props.NameKey = props.NameID + " --- " + props.label;
+            props.NameKey = props.chargerNameID + " --- " + props.label;
         }
         public void setColorLabel(Color color)
         {
@@ -251,7 +251,7 @@ namespace SeldatMRMS.Model
         }
         public bool FindName(String name)
         {
-            if (name.Equals(props.NameID))
+            if (name.Equals(props.chargerNameID))
                 return true;
             else
                 return false;
@@ -262,7 +262,7 @@ namespace SeldatMRMS.Model
         //}
         public void setName(String name)
         {
-            props.NameID = name;
+            props.chargerNameID = name;
             img.Name = name;
             //checkInPoint.properties.key = "CIA-"+name;
             //checkOutPoint.properties.key = "COA-"+name;
@@ -296,7 +296,7 @@ namespace SeldatMRMS.Model
         public JObject createJsonstring()
         {
             dynamic product = new JObject();
-            product.Name = props.NameID;
+            product.Name = props.chargerNameID;
             product.Label = props.label;
             product.Type = props.type;
             product.posX = props.X;
@@ -318,7 +318,7 @@ namespace SeldatMRMS.Model
 
         private void ChargeModel_Shown(object sender, EventArgs e)
         {
-            setChargerNAME(this.props.NameID);
+            setChargerNAME(this.props.chargerNameID);
             setChargerLB(this.props.label);
             setChargerArea(this.props.area);
         }
@@ -349,7 +349,7 @@ namespace SeldatMRMS.Model
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-            props.NameID = getChargerNAME();
+            props.chargerNameID = getChargerNAME();
             props.label = getChargerLB();
         }
     }

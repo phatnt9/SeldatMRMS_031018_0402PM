@@ -64,8 +64,8 @@ namespace SeldatMRMS.Model
             public String type;
             public string area;
             public String label;
-            public String NameKey;
-            public String NameID;
+            public String NameKey; // PAW012301540306 --- PAW0
+            public String stationNameID; //PAW012301540306
             public String typeName;
             public double costValue;
             public String addressIP;
@@ -148,7 +148,7 @@ namespace SeldatMRMS.Model
         private void Station_Load(object sender, EventArgs e)
         {
             dgvProperties_setting();
-            setStationNAME(this.props.NameID);
+            setStationNAME(this.props.stationNameID);
             setStationLB(this.props.label);
             setCamId(props.cam.id);
             setCamIp(props.cam.ip);
@@ -161,7 +161,7 @@ namespace SeldatMRMS.Model
         {
             dGV_properties.Rows.Clear();
 
-                        dGV_properties.Rows.Add("Name", props.NameID);
+                        dGV_properties.Rows.Add("Name", props.stationNameID);
                         dGV_properties.Rows.Add("Label",props.label);
                         dGV_properties.Rows.Add("Camera");
                         dGV_properties.Rows[2].DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
@@ -243,7 +243,7 @@ namespace SeldatMRMS.Model
             img.RenderTransform = ptrans;
             setLabel(props.label);
             RegistrationAgent.mainWindowPointer.map.Children.Add(img);
-            props.NameKey = props.NameID + " --- " + props.label;
+            props.NameKey = props.stationNameID + " --- " + props.label;
             
 
 
@@ -269,7 +269,7 @@ namespace SeldatMRMS.Model
         public void setText(String text)
         {
             props.label = text;
-            props.NameKey = props.NameID + " --- " + props.label;
+            props.NameKey = props.stationNameID + " --- " + props.label;
         }
         public void setLabel(String label)
         {
@@ -286,7 +286,7 @@ namespace SeldatMRMS.Model
             ptrans.X = -plabel.Width / 2;
             ptrans.Y = -10;
             plabel.RenderTransform = ptrans;
-            props.NameKey = props.NameID + " --- " + props.label;
+            props.NameKey = props.stationNameID + " --- " + props.label;
         }
         public void setColorLabel(Color color)
         {
@@ -352,7 +352,7 @@ namespace SeldatMRMS.Model
         }
         public bool FindName(String name)
         {
-            if (name.Equals(props.NameID))
+            if (name.Equals(props.stationNameID))
                 return true;
             else
                 return false;
@@ -363,7 +363,7 @@ namespace SeldatMRMS.Model
         //}
         public void setName(String nameID)
         {
-            props.NameID = nameID;
+            props.stationNameID = nameID;
             img.Name = nameID;
             //checkInPoint.properties.key = "CIA-"+name;
             //checkOutPoint.properties.key = "COA-"+name;
@@ -397,7 +397,7 @@ namespace SeldatMRMS.Model
         public JObject createJsonstring()
         {
             dynamic product = new JObject();
-            product.Name = props.NameID;
+            product.Name = props.stationNameID;
             product.Label = props.label;
             product.Type = props.type;
             product.posX = props.X;
@@ -427,10 +427,10 @@ namespace SeldatMRMS.Model
             {
                 if (RegistrationAgent.areaList.ContainsKey(areaIndex.ToString()))
                 {
-                    if (RegistrationAgent.areaList[areaIndex.ToString()].dockingStations.ContainsKey("Docking-" + props.NameID) == true)
+                    if (RegistrationAgent.areaList[areaIndex.ToString()].dockingStations.ContainsKey("Docking-" + props.stationNameID) == true)
                     {
                         //Scan Docking List
-                        if (RegistrationAgent.areaList[areaIndex.ToString()].dockingStations["Docking-" + props.NameID].props.cam.id.ToString() == camID)
+                        if (RegistrationAgent.areaList[areaIndex.ToString()].dockingStations["Docking-" + props.stationNameID].props.cam.id.ToString() == camID)
                         {
                             return false;
                         }
@@ -438,7 +438,7 @@ namespace SeldatMRMS.Model
                     }
                     if (RegistrationAgent.areaList[areaIndex.ToString()].putAwayStations.ContainsKey("PutAway-" + props.id) == true)
                     {
-                        if (RegistrationAgent.areaList[areaIndex.ToString()].putAwayStations["PutAway-" + props.NameID].props.cam.id.ToString() == camID)
+                        if (RegistrationAgent.areaList[areaIndex.ToString()].putAwayStations["PutAway-" + props.stationNameID].props.cam.id.ToString() == camID)
                         {
                             return false;
                         }
@@ -480,7 +480,7 @@ namespace SeldatMRMS.Model
         public void loadStationProperties(Object _stuff)
         {
             dynamic stuff = _stuff as JObject;
-            props.NameID = stuff.Name;
+            props.stationNameID = stuff.Name;
             props.label = stuff.Label;
             props.type = stuff.Type;
             props.X = stuff.posX;
@@ -586,7 +586,7 @@ namespace SeldatMRMS.Model
 
         private void btn_update_Click(object sender, EventArgs e)
         {
-            props.NameID = getStationNAME();
+            props.stationNameID = getStationNAME();
             props.label = getStationLB();
             props.cam.id = getCamId();
             props.cam.ip = getCamIp();
@@ -834,8 +834,18 @@ namespace SeldatMRMS.Model
             props.cam.valid = true;
             if (RegistrationAgent.areaList.Count != 0)
             {
-                RegistrationAgent.areaList[props.cam.area].ProcessStation(props.typeName, props.NameID);
+                RegistrationAgent.areaList[props.cam.area].ProcessStation(props.typeName, props.stationNameID);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(lineInfo.jsonLine(0, props.type, props.stationNameID, 0));
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(lineInfo.jsonPallet(0, props.type, props.stationNameID, 0,1));
         }
     }
 }

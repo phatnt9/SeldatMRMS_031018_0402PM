@@ -93,8 +93,6 @@ namespace SeldatMRMS.RobotView
 		public SELECTEDCONTROL selectedctrlmode = SELECTEDCONTROL.SELECTED_CONTROL_NORMAL;
 		ControlRobotInterface pmodelcontrol;
         private int pmeasureLineThickness = 2;
-        private int king = 0;
-        public List<Vector3D> zsss = new List<Vector3D>();
         private Vector3DCollection xyz = new Vector3DCollection();
         public List<SetCurveParams> setCurveParamsList = new List<SetCurveParams>();
 		public List<SetLineParams> setLineParamsList = new List<SetLineParams>();
@@ -106,38 +104,11 @@ namespace SeldatMRMS.RobotView
 		public RobotView3D()
 		{
 			InitializeComponent();
-            zsss.Add(new Vector3D(0, 0, 0));
-            zsss.Add(new Vector3D(0, 0, 1));
-            zsss.Add(new Vector3D(0, 0, -1));
-            zsss.Add(new Vector3D(0, 1, 0));
-            zsss.Add(new Vector3D(0, -1, 0));
-            zsss.Add(new Vector3D(0, 1, 1));
-            zsss.Add(new Vector3D(0, 1, -1));
-            zsss.Add(new Vector3D(0, -1, 1));
-            zsss.Add(new Vector3D(0, -1, -1));
-            zsss.Add(new Vector3D(1, 0, 0));
-            zsss.Add(new Vector3D(-1, 0, 0));
-            zsss.Add(new Vector3D(1, 0, 1));
-            zsss.Add(new Vector3D(1, 0, -1));
-            zsss.Add(new Vector3D(-1, 0, 1));
-            zsss.Add(new Vector3D(-1, 0, -1));
-            zsss.Add(new Vector3D(1, 1, 0));
-            zsss.Add(new Vector3D(1, -1, 0));
-            zsss.Add(new Vector3D(-1, 1, 0));
-            zsss.Add(new Vector3D(-1, -1, 0));
-            zsss.Add(new Vector3D(1, 1, 1));
-            zsss.Add(new Vector3D(1, 1, -1));
-            zsss.Add(new Vector3D(1, -1, 1));
-            zsss.Add(new Vector3D(1, -1, -1));
-            zsss.Add(new Vector3D(-1, 1, 1));
-            zsss.Add(new Vector3D(-1, 1, -1));
-            zsss.Add(new Vector3D(-1, -1, 1));
-            zsss.Add(new Vector3D(-1, -1, -1));
             
 			pmodelcontrol = new ControlRobotInterface();
 			MainView3D.MouseWheel += new MouseWheelEventHandler(MainView3D_MouseWheel);
-			//MainView3D.DefaultCamera = new PerspectiveCamera();
-			//MainView3D.DefaultCamera.Position = new Point3D(0, 0, 100);
+			MainView3D.DefaultCamera = new PerspectiveCamera();
+			MainView3D.DefaultCamera.Position = new Point3D(0, 0, 100);
 			Console.WriteLine(MainView3D.Camera.Position.X + " " + MainView3D.Camera.Position.Y + " " + MainView3D.Camera.Position.Z);
 			//this.Topmost = true;
 		}
@@ -212,7 +183,7 @@ namespace SeldatMRMS.RobotView
 
 						LinesVisual3D pmeasureLine = new LinesVisual3D();
                         TextVisual3D pmeasureText = new TextVisual3D();
-
+                        
                         Point3DCollection points = new Point3DCollection();
 
 						double angle12 = retrieveAngleTwoPoints(new Point3D(GlobalVariables.P1_MEASURE_X, GlobalVariables.P1_MEASURE_Y, 0), new Point3D(measure_getpoint2X, measure_getpoint2Y, 0));
@@ -225,21 +196,28 @@ namespace SeldatMRMS.RobotView
 						ppBC.Add(pC);
 						plBC.Points = ppBC;
 
-						//Console.WriteLine("Angle P1 P2 "+angle12);
-						points.Add(new Point3D(GlobalVariables.P1_MEASURE_X, GlobalVariables.P1_MEASURE_Y, 0));
+                        EllipsoidVisual3D elip1 = new EllipsoidVisual3D();
+                        EllipsoidVisual3D elip2 = new EllipsoidVisual3D();
+                        elip1.Fill = new SolidColorBrush(Colors.Red);
+                        elip2.Fill = new SolidColorBrush(Colors.Red);
+                        
+
+                        //Console.WriteLine("Angle P1 P2 "+angle12);
+                        points.Add(new Point3D(GlobalVariables.P1_MEASURE_X, GlobalVariables.P1_MEASURE_Y, 0));
 						points.Add(new Point3D(measure_getpoint2X, measure_getpoint2Y, 0));
 						pmeasureLine.Color = Colors.White;
 						pmeasureLine.Thickness = pmeasureLineThickness;
 						pmeasureLine.Points = points;
-
-                        pmeasureText.Foreground = new SolidColorBrush(Colors.Black);
+                        elip1.Center = new Point3D(points[0].X, points[0].Y, 0);
+                        elip2.Center = new Point3D(points[1].X, points[1].Y, 0);
+                        pmeasureText.Foreground = new SolidColorBrush(Colors.White);
                         pmeasureText.BorderThickness = new Thickness(pmeasureLineThickness);
                         pmeasureText.Position = new Point3D((points[0].X+points[1].X)/2, (points[0].Y + points[1].Y) / 2, 0);
                         pmeasureText.BorderThickness = new Thickness(10);
+                        pmeasureText.Background = new SolidColorBrush(Colors.Black);
                         //Console.WriteLine(pmeasureText.TextDirection.ToString());
                         //pmeasureText.TextDirection = new Vector3D(0, 0, 0);
                         pmeasureText.UpDirection = new Vector3D(0, 1, 0);
-                        pmeasureText.Padding = new Thickness(2);
                         //Console.WriteLine(MainView3D.Camera.Position.X + "-" + MainView3D.Camera.Position.Y + "-" + MainView3D.Camera.Position.Z);
                         dist = Math.Sqrt(Math.Pow((measure_getpoint2X - GlobalVariables.P1_MEASURE_X), 2) + Math.Pow((measure_getpoint2Y - GlobalVariables.P1_MEASURE_Y), 2));
                         /* if (GlobalVariables.MEASUREMENT_UNITASQUARE != 0)
@@ -251,12 +229,16 @@ namespace SeldatMRMS.RobotView
 						   //  txt_valueControls.Text = "Dist= " + dist.ToString("0.000") + " (Squares)";
 						 }*/
                         //txt_valueControls.Text = "Dist= " + GlobalVariables.ConvertUnitLengthtoMeter(dist).ToString("0.000") + " (m)";
-                        Console.WriteLine(points[1].X.ToString("0.0") + "-" + points[1].Y.ToString("0.0") + "-" + points[1].Z.ToString("0.0"));
-                        //pmeasureText.Text = GlobalVariables.ConvertUnitLengthtoMeter(dist).ToString("0.000") + " (m)";
-                        pmeasureText.Text = MainView3D.Camera.Position.X.ToString("0.0") + "-" + MainView3D.Camera.Position.Y.ToString("0.0") + "-" + MainView3D.Camera.Position.Z.ToString("0.0");
+                        //Console.WriteLine(points[1].X.ToString("0.0") + "-" + points[1].Y.ToString("0.0") + "-" + points[1].Z.ToString("0.0"));
+
+                        pmeasureText.Text = GlobalVariables.ConvertUnitLengthtoMeter(dist).ToString("0.000") + " (m)";
+                        //pmeasureText.Text = MainView3D.Camera.Position.X.ToString("0.0") + "-" + MainView3D.Camera.Position.Y.ToString("0.0") + "-" + MainView3D.Camera.Position.Z.ToString("0.0");
                         RectangleVisual3D p = new RectangleVisual3D();
-						//pMeasureLineLayer.Children.Add(plBC);
-						pMeasureLineLayer.Children.Add(pmeasureLine);
+                        //pMeasureLineLayer.Children.Add(plBC);
+                        Point3D pPoint = new Point3D();
+                        pMeasureLineLayer.Children.Add(elip1);
+                        pMeasureLineLayer.Children.Add(elip2);
+                        pMeasureLineLayer.Children.Add(pmeasureLine);
 						pMeasureLineLayer.Children.Add(pmeasureText);
 						
 					}
@@ -893,7 +875,6 @@ namespace SeldatMRMS.RobotView
 		private void btn_measure_Click(object sender, RoutedEventArgs e)
 		{
 			statectrl_mousedown = STATECTRL_MOUSEDOWN.STATECTRL_MEASUREMENT_P1;
-            king++;
             //GlobalVariables.FLAG_MEASURE = true;
             //selectedControlItems(GlobalVariables.SELECTED_CONTROL_MEASURE);
         }

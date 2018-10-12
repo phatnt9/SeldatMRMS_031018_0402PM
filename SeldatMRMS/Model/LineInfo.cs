@@ -291,6 +291,80 @@ namespace SeldatMRMS.Model
             catch { };
         }
 
+        public string jsonLine(int areaId, string stationType, string stationNameID, int linePosition)
+        {
+            if (stationType == "DOCKING")
+            {
+                dynamic product = new JObject();
+                dynamic dockArea = new JObject();
+                dynamic linedk = new JObject();
+                linedk.X = getLine(linePosition).X;
+                linedk.Y = getLine(linePosition).Y;
+                linedk.Angle = getLine(linePosition).Angle;
+                dockArea.line = linedk;
+                product.robotId = 0;
+                product.area = areaId;
+                product.agent = stationNameID;
+
+                product.docking = dockArea;
+                Console.WriteLine("data " + product.ToString());
+                return product.ToString();
+            }
+            else if(stationType == "PUTAWAY")
+            {
+                dynamic product = new JObject();
+                dynamic putawayArea = new JObject();
+                dynamic linepw = new JObject();
+                linepw.X = getLine(linePosition).X;
+                linepw.Y = getLine(linePosition).Y;
+                linepw.Angle = getLine(linePosition).Angle;
+                putawayArea.line = linepw;
+                product.area = areaId;
+                product.agent = stationNameID;
+                product.putaway = putawayArea;
+                Console.WriteLine("data " + product.ToString());
+                return product.ToString();
+            }
+            else
+            {
+                return "null";
+            }
+        }
+        public string jsonPallet(int areaId, string stationType, string stationNameID, int linePosition, int palletnumber)
+        {
+            if (stationType == "DOCKING")
+            {
+                dynamic product = new JObject();
+                dynamic dockArea = new JObject();
+                // dynamic linedk = new JObject();
+                dynamic posPallet = new JObject();
+                posPallet.Xmax = getPallet(linePosition, palletnumber).threshold;
+                posPallet.Xmin = getPallet(linePosition, palletnumber).threshold;
+                dockArea.pallet = posPallet;
+                product.robotId = 0;
+                product.area = areaId;
+                product.agent = stationNameID;
+                product.docking = dockArea;
+                Console.WriteLine("data " + product.ToString());
+                return product.ToString();
+            }
+            else if (stationType == "PUTAWAY")
+            {
+                dynamic product = new JObject();
+                dynamic putawayArea = new JObject();
+                dynamic posPallet = new JObject();
+                posPallet.Xmax = getPallet(linePosition, palletnumber).threshold;
+                posPallet.Xmin = getPallet(linePosition, palletnumber).threshold;
+                putawayArea.pallet = posPallet;
+                product.agent = stationNameID;
+                product.area = areaId;
+                product.putaway = putawayArea;
+                Console.WriteLine("data " + product.ToString());
+                return product.ToString();
+            }
+            return "null";
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {

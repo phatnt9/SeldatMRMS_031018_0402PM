@@ -32,6 +32,13 @@
             this.btn_generate = new System.Windows.Forms.Button();
             this.txt_numberofLines = new System.Windows.Forms.TextBox();
             this.dGV_LineInfo = new System.Windows.Forms.DataGridView();
+            this.txt_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txt_XAxis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txt_YAxis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txt_position = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txt_numberofPallets = new System.Windows.Forms.TextBox();
             this.btn_update = new System.Windows.Forms.Button();
             this.rdB_increase = new System.Windows.Forms.RadioButton();
@@ -48,13 +55,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.txt_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txt_XAxis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txt_YAxis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txt_position = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_LineInfo)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -116,6 +116,43 @@
             this.dGV_LineInfo.Size = new System.Drawing.Size(568, 439);
             this.dGV_LineInfo.TabIndex = 5;
             this.dGV_LineInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_LineInfo_CellContentClick);
+            // 
+            // txt_name
+            // 
+            this.txt_name.HeaderText = "Line";
+            this.txt_name.Name = "txt_name";
+            this.txt_name.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "LX";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "LY";
+            this.Column2.Name = "Column2";
+            // 
+            // LA
+            // 
+            this.LA.HeaderText = "LA";
+            this.LA.Name = "LA";
+            // 
+            // txt_XAxis
+            // 
+            this.txt_XAxis.HeaderText = "PX";
+            this.txt_XAxis.Name = "txt_XAxis";
+            // 
+            // txt_YAxis
+            // 
+            this.txt_YAxis.HeaderText = "PY";
+            this.txt_YAxis.Name = "txt_YAxis";
+            // 
+            // txt_position
+            // 
+            this.txt_position.HeaderText = "Position";
+            this.txt_position.Name = "txt_position";
+            this.txt_position.ReadOnly = true;
             // 
             // txt_numberofPallets
             // 
@@ -308,43 +345,6 @@
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(568, 44);
             this.flowLayoutPanel2.TabIndex = 6;
-            // 
-            // txt_name
-            // 
-            this.txt_name.HeaderText = "Line";
-            this.txt_name.Name = "txt_name";
-            this.txt_name.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "LX";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "LY";
-            this.Column2.Name = "Column2";
-            // 
-            // LA
-            // 
-            this.LA.HeaderText = "LA";
-            this.LA.Name = "LA";
-            // 
-            // txt_XAxis
-            // 
-            this.txt_XAxis.HeaderText = "PX";
-            this.txt_XAxis.Name = "txt_XAxis";
-            // 
-            // txt_YAxis
-            // 
-            this.txt_YAxis.HeaderText = "PY";
-            this.txt_YAxis.Name = "txt_YAxis";
-            // 
-            // txt_position
-            // 
-            this.txt_position.HeaderText = "Position";
-            this.txt_position.Name = "txt_position";
-            this.txt_position.ReadOnly = true;
             // 
             // LineInfo
             // 

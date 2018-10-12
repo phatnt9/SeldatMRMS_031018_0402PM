@@ -102,7 +102,7 @@ namespace SeldatMRMS.Management
         }
         public struct OrderInfo
         {
-            public string agentID;
+            public string stationNameID;
             public string lineIndex;
             public string palletIndex;
             public bool isOrdered;
@@ -225,7 +225,7 @@ namespace SeldatMRMS.Management
                 case CommandSetsToRobotAgent.ZONE_HANDLER_CHECKOUT_DOCKING:
                     try
                     {
-                        this.orderTask.ReleaseDockingOrder(this.AreaID.ToString(), this.orderInfo.agentID, this.orderInfo.lineIndex, this.orderInfo.palletIndex);
+                        this.orderTask.ReleaseDockingOrder(this.AreaID.ToString(), this.orderInfo.stationNameID, this.orderInfo.lineIndex, this.orderInfo.palletIndex);
                     }
                     catch
                     {
@@ -235,7 +235,7 @@ namespace SeldatMRMS.Management
                 case CommandSetsToRobotAgent.ZONE_HANDLER_CHECKOUT_PUTAWAY:
                     try
                     {
-                        this.orderTask.ReleasePutAwayOrder(this.AreaID.ToString(), this.orderInfo.agentID, this.orderInfo.lineIndex, this.orderInfo.palletIndex);
+                        this.orderTask.ReleasePutAwayOrder(this.AreaID.ToString(), this.orderInfo.stationNameID, this.orderInfo.lineIndex, this.orderInfo.palletIndex);
                     }
                     catch
                     {
@@ -471,7 +471,7 @@ namespace SeldatMRMS.Management
                             }
 
                             // orderInfo.finishCheckInDockingStore = cmddk;
-                            orderInfo.agentID = cmddk[1];
+                            orderInfo.stationNameID = cmddk[1];
                             orderInfo.lineIndex = cmddk[2];
                             //orderInfo.palletIndex = cmddk[3];
                             RegistrationAgent.mainWindowPointer.LogConsole(cmddk[0], "logRobot");
@@ -498,7 +498,7 @@ namespace SeldatMRMS.Management
                                 return;
                             }
                             // orderInfo.finishCheckinPutAwayStore = cmdpw;
-                            orderInfo.agentID = cmdpw[1];
+                            orderInfo.stationNameID = cmdpw[1];
                             orderInfo.lineIndex = cmdpw[2];
                             //orderInfo.palletIndex = cmdpw[3];
                             RegistrationAgent.mainWindowPointer.LogConsole(cmdpw[0], "logRobot");
@@ -518,14 +518,14 @@ namespace SeldatMRMS.Management
                         try
                         {
                             RegistrationAgent.mainWindowPointer.LogConsole("STATE_FINISH_GOTO_LINEPUTAWAY " + states, "logRobot");
-                            String[] cmdpw = this.orderTask.RequestPutAwayOrderPallet(this.AreaID, NameID, orderInfo.agentID, orderInfo.lineIndex);
+                            String[] cmdpw = this.orderTask.RequestPutAwayOrderPallet(this.AreaID, NameID, orderInfo.stationNameID, orderInfo.lineIndex);
                             if (cmdpw == null)
                             {
                                 timeOutRecallProcessing(CommandSetsToRobotAgent.STATE_FINISH_GOTO_LINEPUTAWAY, 3000);
                                 return;
                             }
                             // orderInfo.finishLinePutAwayStore = cmdpw;
-                            orderInfo.agentID = cmdpw[1];
+                            orderInfo.stationNameID = cmdpw[1];
                             orderInfo.lineIndex = cmdpw[2];
                             orderInfo.palletIndex = cmdpw[3];
                             RegistrationAgent.mainWindowPointer.LogConsole(cmdpw[0], "logRobot");
@@ -545,14 +545,14 @@ namespace SeldatMRMS.Management
                         try
                         {
                             RegistrationAgent.mainWindowPointer.LogConsole("STATE_FINISH_GOTO_LINEDOCKING " + states, "logRobot");
-                            String[] cmddk = this.orderTask.RequestDockingOrderPallet(this.AreaID, NameID, orderInfo.agentID, orderInfo.lineIndex);
+                            String[] cmddk = this.orderTask.RequestDockingOrderPallet(this.AreaID, NameID, orderInfo.stationNameID, orderInfo.lineIndex);
                             if (cmddk == null)
                             {
                                 timeOutRecallProcessing(CommandSetsToRobotAgent.STATE_FINISH_GOTO_LINEDOCKING, 3000);
                                 return;
                             }
                             //  orderInfo.finishLineDockingStore = cmddk;
-                            orderInfo.agentID = cmddk[1];
+                            orderInfo.stationNameID = cmddk[1];
                             orderInfo.lineIndex = cmddk[2];
                             orderInfo.palletIndex = cmddk[3];
                             RegistrationAgent.mainWindowPointer.LogConsole(cmddk[0], "logRobot");

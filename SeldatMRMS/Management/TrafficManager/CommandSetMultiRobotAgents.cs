@@ -43,7 +43,7 @@ namespace SeldatMRMS.Management.TrafficManager
 			dynamic docking = new JObject();
 			dynamic checkin = new JObject();
 			dynamic checkout = new JObject();
-			docking.key = pstation.props.NameID;
+			docking.key = pstation.props.stationNameID;
 			checkin.key = pstation.checkInPoint.properties.key;
 			checkout.key = pstation.checkOutPoint.properties.key;
 			docking.checkin = checkin;
@@ -57,7 +57,7 @@ namespace SeldatMRMS.Management.TrafficManager
 			dynamic putaway = new JObject();
 			dynamic checkin = new JObject();
 			dynamic checkout = new JObject();
-			putaway.key = pstation.props.NameID;
+			putaway.key = pstation.props.stationNameID;
 			checkin.key = pstation.checkInPoint.properties.key;
 			checkout.key = pstation.checkOutPoint.properties.key;
 			putaway.checkin = checkin;

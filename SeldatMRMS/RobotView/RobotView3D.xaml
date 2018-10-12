@@ -11,11 +11,11 @@
 	<Grid  >
 		
 		
-			<helix:HelixViewport3D Loaded="MainView3D_Loaded"  IsRotationEnabled="True" Name="MainView3D" IsZoomEnabled="True" PreviewMouseWheel="MainView3D_PreviewMouseWheel"   MouseWheel="MainView3D_MouseWheel" MouseMove="MainView3D_MouseMove" MouseDown="MainView3D_MouseDown" Background="#FFFFFFFF"  Margin="0,0,0,0">
+			<helix:HelixViewport3D Loaded="MainView3D_Loaded"  IsRotationEnabled="False" Name="MainView3D" IsZoomEnabled="True" PreviewMouseWheel="MainView3D_PreviewMouseWheel"   MouseWheel="MainView3D_MouseWheel" MouseMove="MainView3D_MouseMove" MouseDown="MainView3D_MouseDown" Background="#FFFFFFFF"  Margin="0,0,0,0">
 
 				<helix:ArrowVisual3D  Point1="0,0,0" Point2="12 0 0" Fill="Red" Diameter="0.5" />
 				<helix:ArrowVisual3D Point1="0,0,0" Point2="0 12 0" Fill="Green" Diameter="0.5"/>
-				<helix:ArrowVisual3D Point1="0,0,0" Point2="0 0 12" Fill="Blue" Diameter="0.5"/>
+				<!--<helix:ArrowVisual3D Point1="0,0,0" Point2="0 0 12" Fill="Blue" Diameter="0.5"/>-->
 				<!--<helix:ArrowVisual3D  Point1="0,0,0" Point2="0 0 12" Fill="Blue" Diameter="0.5"/>-->
 
 				<!-- Remember to add light to the scene -->
