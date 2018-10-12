@@ -172,7 +172,7 @@ namespace SeldatMRMS.Management
             pstation.setName(Name);
             //pstation.SetCamParam(stationID, stationIP, stationPORT, stationAREA);
             RegistrationAgent.stationRegistrationList.Add(pstation);
-			pif.updateTreeviewStations(pstation.props.NameID);
+			pif.updateTreeviewStations(pstation.props.stationNameID);
 		}
 		public void loadpath_bezier(String Name,String Name_sp,String Name_ep, System.Windows.Point possp, System.Windows.Point posmp, System.Windows.Point posep)
 		{

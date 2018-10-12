@@ -60,12 +60,11 @@ namespace SeldatMRMS.Model
             {
                 dGV_properties.Rows.Add("Name", props.NameID);
                 dGV_properties.Rows.Add("Label", props.label);
-                dGV_properties.Rows.Add("Camera");
+                dGV_properties.Rows.Add("Position");
                 dGV_properties.Rows[2].DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
-                dGV_properties.Rows.Add("ID", "0");
-                dGV_properties.Rows.Add("IP", "192.168.1.");
-                dGV_properties.Rows.Add("Port", "9090");
-                dGV_properties.Rows.Add("Area", "0");
+                dGV_properties.Rows.Add("Position X", "");
+                dGV_properties.Rows.Add("Position Y", "");
+                dGV_properties.Rows.Add("Angle", "");
             }
         }
 
@@ -314,6 +313,9 @@ namespace SeldatMRMS.Model
             product.Type = props.type;
             product.posX = props.X;
             product.posY = props.Y;
+            product.realposX = dGV_properties.Rows[3].ToString();
+            product.realposY = dGV_properties.Rows[4].ToString();
+            product.realangle = dGV_properties.Rows[5].ToString();
             return product;
 
         }

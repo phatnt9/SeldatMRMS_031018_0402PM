@@ -341,7 +341,7 @@ namespace SeldatMRMS.Model
 			if (nodeConnected.frontNodeConnected == NODECONNECTED.FRONTNODE_CONNECTED_STATION)
 			{
 					dynamic station_start = new JObject();
-				    station_start.Name = nodeConnected.startpoint_station.props.NameID;
+				    station_start.Name = nodeConnected.startpoint_station.props.stationNameID;
 				    station_start.X = nodeConnected.startpoint_station.props.X;
 				    station_start.Y = nodeConnected.startpoint_station.props.Y;
 					product.startPoint = station_start;
@@ -365,7 +365,7 @@ namespace SeldatMRMS.Model
 				else if(nodeConnected.frontNodeConnected == NODECONNECTED.BACKNODE_CONNECTED_STATION)
 				{
 					dynamic station_end = new JObject();
-					station_end.Name = nodeConnected.endpoint_station.props.NameID;
+					station_end.Name = nodeConnected.endpoint_station.props.stationNameID;
 					station_end.X = nodeConnected.endpoint_station.props.X;
 					station_end.Y = nodeConnected.endpoint_station.props.Y;
 					product.endPoint = station_end;

@@ -46,41 +46,41 @@ namespace SeldatMRMS.Management.RobotManagent
 														 new Coord3D(7.72,0.45,0.0)};
 		public static Coord3D[] readyCoordinationsinLines = { new Coord3D(7.48, -6.5, 0.0) };
 														 
+       
+		//public static string jsonDockingLine(int areaId, int stationNameID, int lposdk)
+		//{
+		//	dynamic product = new JObject();
+		//	dynamic dockArea = new JObject();
+		//	dynamic linedk = new JObject();
+		//	linedk.X = dockingCoordinations[lposdk].X;
+		//	linedk.Y = dockingCoordinations[lposdk].Y;
+		//	linedk.Angle = dockingCoordinations[lposdk].Angle;
+		//	dockArea.line = linedk;
+		//	product.robotId = 0;
+		//	product.area = areaId;
+		//	product.agent = stationNameID;
 
-		public static String jsonDockingLine(int areaId, int agentId, int lposdk)
-		{
-			dynamic product = new JObject();
-			dynamic dockArea = new JObject();
-			dynamic linedk = new JObject();
-			linedk.X = dockingCoordinations[lposdk].X;
-			linedk.Y = dockingCoordinations[lposdk].Y;
-			linedk.Angle = dockingCoordinations[lposdk].Angle;
-			dockArea.line = linedk;
-			product.robotId = 0;
-			product.area = areaId;
-			product.agent = agentId;
-
-			product.docking = dockArea;
-			Console.WriteLine("data "+product.ToString());
-			return product.ToString();
-		}
-        public static String jsonDockingPallet(int areaId, int agentId, int lposdk, int palletnumsdk)
-        {
-            dynamic product = new JObject();
-            dynamic dockArea = new JObject();
-           // dynamic linedk = new JObject();
-            dynamic posPallet = new JObject();
-            posPallet.Xmax = posPalletdocking[palletnumsdk].Xmax;
-            posPallet.Xmin = posPalletdocking[palletnumsdk].Xmin;
-            dockArea.pallet = posPallet;
-            product.robotId = 0;
-            product.area = areaId;
-            product.agent = agentId;
-            product.docking = dockArea;
-            Console.WriteLine("data " + product.ToString());
-            return product.ToString();
-        }
-        public static String jsoncheckinDockingCoordinations(int pos)
+		//	product.docking = dockArea;
+		//	Console.WriteLine("data "+product.ToString());
+		//	return product.ToString();
+		//}
+  //      public static string jsonDockingPallet(int areaId, int stationNameID, int lposdk, int palletnumsdk)
+  //      {
+  //          dynamic product = new JObject();
+  //          dynamic dockArea = new JObject();
+  //         // dynamic linedk = new JObject();
+  //          dynamic posPallet = new JObject();
+  //          posPallet.Xmax = posPalletdocking[palletnumsdk].Xmax;
+  //          posPallet.Xmin = posPalletdocking[palletnumsdk].Xmin;
+  //          dockArea.pallet = posPallet;
+  //          product.robotId = 0;
+  //          product.area = areaId;
+  //          product.agent = stationNameID;
+  //          product.docking = dockArea;
+  //          Console.WriteLine("data " + product.ToString());
+  //          return product.ToString();
+  //      }
+        public static string jsoncheckinDockingCoordinations(int pos)
 		{
 			dynamic product = new JObject();
 			dynamic checkin = new JObject();
@@ -93,7 +93,7 @@ namespace SeldatMRMS.Management.RobotManagent
 			Console.WriteLine("data " + product.ToString());
 			return product.ToString();
 		}
-		public static String jsoncheckinPutAwayCoordinations(int pos)
+		public static string jsoncheckinPutAwayCoordinations(int pos)
 		{
 			dynamic product = new JObject();
 			dynamic checkin = new JObject();
@@ -106,7 +106,7 @@ namespace SeldatMRMS.Management.RobotManagent
 			Console.WriteLine("data " + product.ToString());
 			return product.ToString();
 		}
-		public static String jsonFrontReadyAreaCoordinations(int pos)
+		public static string jsonFrontReadyAreaCoordinations(int pos)
 		{
 			dynamic product = new JObject();
 			dynamic ready = new JObject();
@@ -116,34 +116,34 @@ namespace SeldatMRMS.Management.RobotManagent
 			product.ready = ready;
 			return product.ToString();
 		}
-		public static String jsonPutAwayLine(int areaId, int agentID, int lpospw)
-		{
-			dynamic product = new JObject();
-			dynamic putawayArea = new JObject();
-			dynamic linepw = new JObject();
-			linepw.X = putawayCoordinations[lpospw].X;
-			linepw.Y = putawayCoordinations[lpospw].Y;
-			linepw.Angle = putawayCoordinations[lpospw].Angle;
-			putawayArea.line = linepw;
-			product.area = areaId;
-            product.agent = agentID;
-            product.putaway = putawayArea;
-			Console.WriteLine("data " + product.ToString());
-			return product.ToString();
-		}
-        public static String jsonPutAwayPallet(int areaId, int agentID, int lpospw, int palletnumspw)
-        {
-            dynamic product = new JObject();
-            dynamic putawayArea = new JObject();
-            dynamic posPallet = new JObject();
-            posPallet.Xmax = posPalletputaway[palletnumspw].Xmax;
-            posPallet.Xmin = posPalletputaway[palletnumspw].Xmin;
-            putawayArea.pallet = posPallet;
-            product.agent = agentID;
-            product.area = areaId;
-            product.putaway = putawayArea;
-            Console.WriteLine("data " + product.ToString());
-            return product.ToString();
-        }
+		//public static string jsonPutAwayLine(int areaId, int stationNameID, int lpospw)
+		//{
+		//	dynamic product = new JObject();
+		//	dynamic putawayArea = new JObject();
+		//	dynamic linepw = new JObject();
+		//	linepw.X = putawayCoordinations[lpospw].X;
+		//	linepw.Y = putawayCoordinations[lpospw].Y;
+		//	linepw.Angle = putawayCoordinations[lpospw].Angle;
+		//	putawayArea.line = linepw;
+		//	product.area = areaId;
+  //          product.agent = stationNameID;
+  //          product.putaway = putawayArea;
+		//	Console.WriteLine("data " + product.ToString());
+		//	return product.ToString();
+		//}
+  //      public static string jsonPutAwayPallet(int areaId, int stationNameID, int lpospw, int palletnumspw)
+  //      {
+  //          dynamic product = new JObject();
+  //          dynamic putawayArea = new JObject();
+  //          dynamic posPallet = new JObject();
+  //          posPallet.Xmax = posPalletputaway[palletnumspw].Xmax;
+  //          posPallet.Xmin = posPalletputaway[palletnumspw].Xmin;
+  //          putawayArea.pallet = posPallet;
+  //          product.agent = stationNameID;
+  //          product.area = areaId;
+  //          product.putaway = putawayArea;
+  //          Console.WriteLine("data " + product.ToString());
+  //          return product.ToString();
+  //      }
     }
 }

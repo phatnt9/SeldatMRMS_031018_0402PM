@@ -45,7 +45,7 @@ namespace SeldatMRMS.Management.TrafficManager
 				pcheckout.HeaderText = "CHECK-OUT";
 				foreach (StationModel s in RegistrationAgent.stationRegistrationList)
 				{
-					pArea.Items.Add(s.props.NameID);
+					pArea.Items.Add(s.props.stationNameID);
 				}
 				foreach (PathModel p in RegistrationAgent.pathRegistrationList)
 				{

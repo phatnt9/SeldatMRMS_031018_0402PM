@@ -28,15 +28,16 @@ namespace SeldatMRMS.Management.OrderManager
                 string listLineDockingKey = RegistrationAgent.areaList[areaID].GetDockingLine();
                 if (listLineDockingKey != "none")
                 {
-                    int agentID = Int32.Parse(listLineDockingKey.Split('-')[0]);
+                    string stationNameID = listLineDockingKey.Split('-')[0];
                     int lposdk = Int32.Parse(listLineDockingKey.Split('-')[1]);
                     if (RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.ContainsKey(listLineDockingKey))
                     {
                         data = new String[3];
-                        data[0] = DataTranformation.jsonDockingLine(area, agentID, lposdk);
-                        data[1] = agentID.ToString();
+                        data[0] = RegistrationAgent.areaList["0"].dockingStations["Docking-" + stationNameID].lineInfo.jsonLine(area, "DOCKING", stationNameID, lposdk);
+                        //data[0] = DataTranformation.jsonDockingLine(area, stationNameID, lposdk);
+                        data[1] = stationNameID.ToString();
                         data[2] = lposdk.ToString();
-                        RegistrationAgent.mainWindowPointer.LogConsole("GET DOCKING:" + agentID + "-" + lposdk, "logOrder");
+                        RegistrationAgent.mainWindowPointer.LogConsole("GET DOCKING:" + stationNameID + "-" + lposdk, "logOrder");
                         return data;
                     }
                     RegistrationAgent.mainWindowPointer.LogConsole("No-listlinedocking-" + listLineDockingKey, "logOrder");
@@ -51,7 +52,7 @@ namespace SeldatMRMS.Management.OrderManager
             return data;
         }
 
-        public String[] RequestDockingOrderPallet(int area, string robotID, string agentID, string line)
+        public String[] RequestDockingOrderPallet(int area, string robotID, string stationNameID, string line)
         {
             RegistrationAgent.mainWindowPointer.LogConsole("In RequestDockingOrderPallet", "logOrder");
             String[] data = null;
@@ -59,22 +60,23 @@ namespace SeldatMRMS.Management.OrderManager
             {
                 string areaID = area.ToString();
                 List<int> palletnumsdk = new List<int>();
-                if (RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.ContainsKey(agentID + "-" + line) &&
-                   RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST[agentID + "-" + line].GetPallet(palletnumsdk))
+                if (RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.ContainsKey(stationNameID + "-" + line) &&
+                   RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST[stationNameID + "-" + line].GetPallet(palletnumsdk))
                 {
                     data = new String[4];
-                    data[0] = DataTranformation.jsonDockingPallet(area, Int32.Parse(agentID), Int32.Parse(line), palletnumsdk.First());
-                    data[1] = agentID.ToString();
+                    data[0] = RegistrationAgent.areaList["0"].dockingStations["Docking-" + stationNameID].lineInfo.jsonPallet(area, "DOCKING", stationNameID, int.Parse(line), palletnumsdk.First());
+                    //data[0] = DataTranformation.jsonDockingPallet(area, Int32.Parse(stationNameID), Int32.Parse(line), palletnumsdk.First());
+                    data[1] = stationNameID.ToString();
                     data[2] = line.ToString();
                     data[3] = palletnumsdk.First().ToString();
                     RegistrationAgent.mainWindowPointer.LogConsole("DOCKING :" + data[1] + "-" + data[2] + "-" + data[3], "logOrder");
                     return data;
                 }
-                RegistrationAgent.mainWindowPointer.LogConsole("Error when RequestDockingOrderPallet1: Area:" + area + "-Robot:" + robotID + "-agentID:" + agentID + "-line:" + line, "logOrder");
+                RegistrationAgent.mainWindowPointer.LogConsole("Error when RequestDockingOrderPallet1: Area:" + area + "-Robot:" + robotID + "-agentID:" + stationNameID + "-line:" + line, "logOrder");
             }
             catch
             {
-                RegistrationAgent.mainWindowPointer.LogConsole("Error when RequestDockingOrderPallet2: Area:" + area + "-Robot:" + robotID + "-agentID:" + agentID + "-line:" + line, "logOrder");
+                RegistrationAgent.mainWindowPointer.LogConsole("Error when RequestDockingOrderPallet2: Area:" + area + "-Robot:" + robotID + "-agentID:" + stationNameID + "-line:" + line, "logOrder");
             }
             return data;
         }
@@ -89,15 +91,16 @@ namespace SeldatMRMS.Management.OrderManager
                 string listLinePutAwayKey = RegistrationAgent.areaList[areaID].GetPutAwayLine();
                 if (listLinePutAwayKey != "none")
                 {
-                    int agentID = Int32.Parse(listLinePutAwayKey.Split('-')[0]);
+                    string stationNameID = listLinePutAwayKey.Split('-')[0];
                     int lpospw = Int32.Parse(listLinePutAwayKey.Split('-')[1]);
                     if (RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.ContainsKey(listLinePutAwayKey))
                     {
                         data = new String[3];
-                        data[0] = DataTranformation.jsonPutAwayLine(area, agentID, lpospw);
-                        data[1] = agentID.ToString();
+                        data[0] = RegistrationAgent.areaList["0"].putAwayStations["PutAway-" + stationNameID].lineInfo.jsonLine(area, "PUTAWAY", stationNameID, lpospw);
+                        //data[0] = DataTranformation.jsonPutAwayLine(area, stationNameID, lpospw);
+                        data[1] = stationNameID.ToString();
                         data[2] = lpospw.ToString();
-                        RegistrationAgent.mainWindowPointer.LogConsole("PUT PUTAWAY:" + agentID + "-" + lpospw, "logOrder");
+                        RegistrationAgent.mainWindowPointer.LogConsole("PUT PUTAWAY:" + stationNameID + "-" + lpospw, "logOrder");
                         return data;
                     }
                     RegistrationAgent.mainWindowPointer.LogConsole("No-listlineputaway-" + listLinePutAwayKey, "logOrder");
@@ -113,7 +116,7 @@ namespace SeldatMRMS.Management.OrderManager
         }
 
 
-        public String[] RequestPutAwayOrderPallet(int area, string robotID, string agentID, string line)
+        public String[] RequestPutAwayOrderPallet(int area, string robotID, string stationNameID, string line)
         {
             RegistrationAgent.mainWindowPointer.LogConsole("In RequestPutAwayOrderPallet", "logOrder");
             String[] data = null;
@@ -121,60 +124,61 @@ namespace SeldatMRMS.Management.OrderManager
             {
                 string areaID = area.ToString();
                 List<int> palletnumspw = new List<int>();
-                if (RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.ContainsKey(agentID + "-" + line) &&
-                   RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST[agentID + "-" + line].GetPallet(palletnumspw))
+                if (RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.ContainsKey(stationNameID + "-" + line) &&
+                   RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST[stationNameID + "-" + line].GetPallet(palletnumspw))
                 {
                     data = new String[4];
-                    data[0] = DataTranformation.jsonPutAwayPallet(area, Convert.ToInt32(agentID), Convert.ToInt32(line), palletnumspw.First());
-                    data[1] = agentID.ToString();
+                    data[0] = RegistrationAgent.areaList["0"].putAwayStations["PutAway-" + stationNameID].lineInfo.jsonPallet(area, "PUTAWAY", stationNameID, int.Parse(line), palletnumspw.First());
+                    //data[0] = DataTranformation.jsonPutAwayPallet(area, Convert.ToInt32(stationNameID), Convert.ToInt32(line), palletnumspw.First());
+                    data[1] = stationNameID.ToString();
                     data[2] = line.ToString();
                     data[3] = palletnumspw.First().ToString();
                     RegistrationAgent.mainWindowPointer.LogConsole("PUT PUTAWAY:" + data[1] + "-" + data[2] + "-" + data[3], "logOrder");
                     return data;
                 }
-                RegistrationAgent.mainWindowPointer.LogConsole("Error when RequestPutAwayOrderPallet1: Area:" + area + "-Robot:" + robotID + "-agentID:" + agentID + "-line:" + line, "logOrder");
+                RegistrationAgent.mainWindowPointer.LogConsole("Error when RequestPutAwayOrderPallet1: Area:" + area + "-Robot:" + robotID + "-agentID:" + stationNameID + "-line:" + line, "logOrder");
             }
             catch
             {
-                RegistrationAgent.mainWindowPointer.LogConsole("Error when RequestPutAwayOrderPallet2: Area:" + area + "-Robot:" + robotID + "-agentID:" + agentID + "-line:" + line, "logOrder");
+                RegistrationAgent.mainWindowPointer.LogConsole("Error when RequestPutAwayOrderPallet2: Area:" + area + "-Robot:" + robotID + "-agentID:" + stationNameID + "-line:" + line, "logOrder");
             }
             return data;
         }
 
-        public bool ReleaseDockingOrder(string areaID, string dockingAgentID, string lineOrdered, string palletIndex)
+        public bool ReleaseDockingOrder(string areaID, string stationNameID, string lineOrdered, string palletIndex)
         {
             Console.WriteLine("Call Docking Remove");
             if (RegistrationAgent.areaList.ContainsKey(areaID))
             {
-                if (RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.ContainsKey(dockingAgentID + "-" + lineOrdered))
+                if (RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.ContainsKey(stationNameID + "-" + lineOrdered))
                 {
-                    RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.Remove(dockingAgentID + "-" + lineOrdered);
-                    string messLog = "Removed Docking Order: " + dockingAgentID + "-" + lineOrdered + "-" + palletIndex;
+                    RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.Remove(stationNameID + "-" + lineOrdered);
+                    string messLog = "Removed Docking Order: " + stationNameID + "-" + lineOrdered + "-" + palletIndex;
                     RegistrationAgent.mainWindowPointer.LogConsole(messLog, "logOrder");
-                    LogWriter.LogWrite("Area\\Area" + 0, messLog, "Docking-" + dockingAgentID + "-" + lineOrdered);
+                    LogWriter.LogWrite("Area\\Area" + 0, messLog, "Docking-" + stationNameID + "-" + lineOrdered);
                     return true;
                 }
-                RegistrationAgent.mainWindowPointer.LogConsole("There is no Docking agent: " + dockingAgentID, "logOrder");
+                RegistrationAgent.mainWindowPointer.LogConsole("There is no Docking agent: " + stationNameID, "logOrder");
                 return false;
             }
             RegistrationAgent.mainWindowPointer.LogConsole("There is no area: " + areaID, "logOrder");
             return false;
         }
 
-        public bool ReleasePutAwayOrder(string areaID, string putAwayAgentID, string lineOrdered, string palletIndex)
+        public bool ReleasePutAwayOrder(string areaID, string stationNameID, string lineOrdered, string palletIndex)
         {
             Console.WriteLine("Call PutAway Remove");
             if (RegistrationAgent.areaList.ContainsKey(areaID))
             {
-                if (RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.ContainsKey(putAwayAgentID + "-" + lineOrdered))
+                if (RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.ContainsKey(stationNameID + "-" + lineOrdered))
                 {
-                    RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.Remove(putAwayAgentID + "-" + lineOrdered);
-                    string messLog = "Removed Put-Away Order: " + putAwayAgentID + "-" + lineOrdered + "-" + palletIndex;
+                    RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.Remove(stationNameID + "-" + lineOrdered);
+                    string messLog = "Removed Put-Away Order: " + stationNameID + "-" + lineOrdered + "-" + palletIndex;
                     RegistrationAgent.mainWindowPointer.LogConsole(messLog, "logOrder");
-                    LogWriter.LogWrite("Area\\Area" + 0, messLog, "PutAway-" + putAwayAgentID + "-" + lineOrdered);
+                    LogWriter.LogWrite("Area\\Area" + 0, messLog, "PutAway-" + stationNameID + "-" + lineOrdered);
                     return true;
                 }
-                RegistrationAgent.mainWindowPointer.LogConsole("There is no Put-Away agent: " + putAwayAgentID, "logOrder");
+                RegistrationAgent.mainWindowPointer.LogConsole("There is no Put-Away agent: " + stationNameID, "logOrder");
                 return false;
             }
             RegistrationAgent.mainWindowPointer.LogConsole("There is no area: " + areaID, "logOrder");

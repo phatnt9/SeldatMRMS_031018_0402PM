@@ -1097,7 +1097,7 @@ namespace SeldatMRMS.Management
 
 				for (int index1 = 0; index1 < RegistrationAgent.stationRegistrationList.Count; index1++)
 				{
-					if (RegistrationAgent.stationRegistrationList[index1].props.NameID.Equals(pstation.props.NameID))
+					if (RegistrationAgent.stationRegistrationList[index1].props.stationNameID.Equals(pstation.props.stationNameID))
 					{
 						RegistrationAgent.stationRegistrationList.RemoveAt(index1);
 						break;
@@ -1105,7 +1105,7 @@ namespace SeldatMRMS.Management
 				}
 				for (int index2 = 0; index2 < ptreeviewitem_Stations.Count; index2++)
 				{
-					if (ptreeviewitem_Stations[index2].Header.Equals(pstation.props.NameID))
+					if (ptreeviewitem_Stations[index2].Header.Equals(pstation.props.stationNameID))
 					{
 						ptreeviewitem_Stations.RemoveAt(index2);
 						break;
@@ -1115,7 +1115,7 @@ namespace SeldatMRMS.Management
 				{
 
 					TreeViewItem ptemp = this.content.trv_stations.Items.GetItemAt(index3) as TreeViewItem;
-					if (ptemp.Header.Equals(pstation.props.NameID))
+					if (ptemp.Header.Equals(pstation.props.stationNameID))
 					{
 						this.content.trv_stations.Items.RemoveAt(index3);
 						break;
@@ -1142,7 +1142,7 @@ namespace SeldatMRMS.Management
 
                 for (int index1 = 0; index1 < RegistrationAgent.chargerRegistrationList.Count; index1++)
                 {
-                    if (RegistrationAgent.chargerRegistrationList[index1].props.NameID.Equals(pcharger.props.NameID))
+                    if (RegistrationAgent.chargerRegistrationList[index1].props.chargerNameID.Equals(pcharger.props.chargerNameID))
                     {
                         RegistrationAgent.chargerRegistrationList.RemoveAt(index1);
                         break;
@@ -1150,7 +1150,7 @@ namespace SeldatMRMS.Management
                 }
                 for (int index2 = 0; index2 < ptreeviewitem_Charger.Count; index2++)
                 {
-                    if (ptreeviewitem_Charger[index2].Header.Equals(pcharger.props.NameID))
+                    if (ptreeviewitem_Charger[index2].Header.Equals(pcharger.props.chargerNameID))
                     {
                         ptreeviewitem_Charger.RemoveAt(index2);
                         break;
@@ -1160,7 +1160,7 @@ namespace SeldatMRMS.Management
                 {
 
                     TreeViewItem ptemp = this.content.trv_charger.Items.GetItemAt(index3) as TreeViewItem;
-                    if (ptemp.Header.Equals(pcharger.props.NameID))
+                    if (ptemp.Header.Equals(pcharger.props.chargerNameID))
                     {
                         this.content.trv_charger.Items.RemoveAt(index3);
                         break;
@@ -1588,11 +1588,11 @@ namespace SeldatMRMS.Management
 				if (this.tempShape_path.nodeConnected.startpoint != null)
 					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint.properties.NameID });
 				else if (this.tempShape_path.nodeConnected.startpoint_station != null)
-					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint_station.props.NameID});
+					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint_station.props.stationNameID});
 				if (this.tempShape_path.nodeConnected.endpoint != null)
 					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint.properties.NameID });
 				else if (this.tempShape_path.nodeConnected.endpoint_station != null)
-					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint_station.props.NameID });
+					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint_station.props.stationNameID });
 				users.Add(new User() { Attribude = "Type", Value = "Half Point" });
 				this.content.updateProperties.ItemsSource = users;
 			}
@@ -1605,7 +1605,7 @@ namespace SeldatMRMS.Management
 		public void updatePropertiesInformationStation()
 		{
 			List<User> users = new List<User>();
-			users.Add(new User() { Attribude = "Name", Value = this.tempShape_station.props.NameID});
+			users.Add(new User() { Attribude = "Name", Value = this.tempShape_station.props.stationNameID});
 			users.Add(new User() { Attribude = "Length", Value = this.tempShape_station.props.lengthValue + "" });
 			users.Add(new User() { Attribude = "Address", Value = this.tempShape_station.props.addressIP });
 			users.Add(new User() { Attribude = "Port", Value = this.tempShape_station.props.port + "" });
@@ -1615,15 +1615,15 @@ namespace SeldatMRMS.Management
 			users.Add(new User() { Attribude = "Point X location", Value = this.tempShape_station.props.X + "" });
 			users.Add(new User() { Attribude = "Point Y location", Value = this.tempShape_station.props.Y + "" });
 			users.Add(new User() { Attribude = "Station Area", Value = this.tempShape_station.props.cam.area + "" });
-			users.Add(new User() { Attribude = "Station ID", Value = this.tempShape_station.props.cam.id + "" });
-			users.Add(new User() { Attribude = "Station IP", Value = this.tempShape_station.props.cam.ip + "" });
-			users.Add(new User() { Attribude = "Station PORT", Value = this.tempShape_station.props.cam.port + "" });
+			users.Add(new User() { Attribude = "Camera ID", Value = this.tempShape_station.props.cam.id + "" });
+			users.Add(new User() { Attribude = "Camera IP", Value = this.tempShape_station.props.cam.ip + "" });
+			users.Add(new User() { Attribude = "Camera PORT", Value = this.tempShape_station.props.cam.port + "" });
 			this.content.updateProperties.ItemsSource = users;
 		}
         public void updatePropertiesInformationCharger()
         {
             List<User> users = new List<User>();
-            users.Add(new User() { Attribude = "Name", Value = this.tempShape_charger.props.NameID });
+            users.Add(new User() { Attribude = "Name", Value = this.tempShape_charger.props.chargerNameID });
             users.Add(new User() { Attribude = "Length", Value = this.tempShape_charger.props.LengthValue + "" });
             users.Add(new User() { Attribude = "Address", Value = this.tempShape_charger.props.addressIP });
             users.Add(new User() { Attribude = "Port", Value = this.tempShape_charger.props.port + "" });

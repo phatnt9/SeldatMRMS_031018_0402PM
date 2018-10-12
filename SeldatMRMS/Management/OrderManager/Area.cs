@@ -20,8 +20,8 @@ namespace SeldatMRMS.Management.OrderManager
         public SortedDictionary<String, StationModel> mixedStations = null; //<PutAway-"stationNameID">,<Agent>
 
 
-        public SortedDictionary<String, OrderLineInfo> DOCKING_LINE_LIST = null; //<stationID-Line>,<Info>
-        public SortedDictionary<String, OrderLineInfo> PUTAWAY_LINE_LIST = null; //<stationID-Line>,<Info>
+        public SortedDictionary<String, OrderLineInfo> DOCKING_LINE_LIST = null; //<stationNameID-lineIndex>,<Info>
+        public SortedDictionary<String, OrderLineInfo> PUTAWAY_LINE_LIST = null; //<stationNameID-lineIndex>,<Info>
 
         public Area(String AreaID)
         {
@@ -172,8 +172,8 @@ namespace SeldatMRMS.Management.OrderManager
         {
             if (CheckDockingID(station.props.id.ToString()) == true) // There is available slot in this Area
             {
-                dockingStations.Add("Docking-" + station.props.NameID, station);
-                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.NameID + " Station.", "logStation");
+                dockingStations.Add("Docking-" + station.props.stationNameID, station);
+                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.stationNameID + " Station.", "logStation");
                 return true;
             }
             RegistrationAgent.mainWindowPointer.LogConsole("Can not create Docking Station.", "logStation");
@@ -184,8 +184,8 @@ namespace SeldatMRMS.Management.OrderManager
         {
             if (CheckPutAwayID(station.props.id.ToString()) == true) // There is available slot in this Area
             {
-                putAwayStations.Add("PutAway-" + station.props.NameID, station);
-                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.NameID + " Station.", "logStation");
+                putAwayStations.Add("PutAway-" + station.props.stationNameID, station);
+                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.stationNameID + " Station.", "logStation");
                 return true;
             }
             RegistrationAgent.mainWindowPointer.LogConsole("Can not create Put-Away Station!", "logStation");
@@ -196,8 +196,8 @@ namespace SeldatMRMS.Management.OrderManager
         {
             if (CheckMixedID(station.props.id.ToString()) == true) // There is available slot in this Area
             {
-                mixedStations.Add("Mixed-" + station.props.NameID, station);
-                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.NameID + " Station.", "logStation");
+                mixedStations.Add("Mixed-" + station.props.stationNameID, station);
+                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.stationNameID + " Station.", "logStation");
                 return true;
             }
             RegistrationAgent.mainWindowPointer.LogConsole("Can not create Mixed Station!", "logStation");
