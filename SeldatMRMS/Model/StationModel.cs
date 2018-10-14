@@ -847,5 +847,10 @@ namespace SeldatMRMS.Model
         {
             MessageBox.Show(lineInfo.jsonPallet(0, props.type, props.stationNameID, 0,1));
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

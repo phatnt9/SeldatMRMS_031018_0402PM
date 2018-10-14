@@ -88,7 +88,39 @@ namespace SeldatMRMS.Management
                     pif.updateTreeviewStations(pstation.props.NameKey);
 				}
 
-				foreach (var result in results["robotconfig"])
+            foreach (var result in results["checkins"])
+            {
+                string Name = (string)result["Name"];
+                string label = (string)result["Label"];
+                string _type = (string)result["Type"];
+                int posx = (int)result["posX"];
+                int posy = (int)result["posY"];
+                CheckinModel pcheckin = new CheckinModel(pif.content, _type);
+                pcheckin.setName(Name);
+                pcheckin.setCheckin(posx, posy);
+                pcheckin.setText(label);
+                pcheckin.lineInfo.loadparams(result["lineInfo"]);
+                //pstation.SetCamParam(stationID, stationIP, stationPORT, stationAREA);
+                RegistrationAgent.checkinRegistrationList.Add(pcheckin);
+                pif.updateTreeviewStations(pcheckin.props.NameKey);
+            }
+            foreach (var result in results["checkouts"])
+            {
+                string Name = (string)result["Name"];
+                string label = (string)result["Label"];
+                string _type = (string)result["Type"];
+                int posx = (int)result["posX"];
+                int posy = (int)result["posY"];
+                CheckoutModel pcheckout = new CheckoutModel(pif.content, _type);
+                pcheckout.setName(Name);
+                pcheckout.setCheckout(posx, posy);
+                pcheckout.setText(label);
+                pcheckout.lineInfo.loadparams(result["lineInfo"]);
+                //pstation.SetCamParam(stationID, stationIP, stationPORT, stationAREA);
+                RegistrationAgent.checkoutRegistrationList.Add(pcheckout);
+                pif.updateTreeviewStations(pcheckout.props.NameKey);
+            }
+            foreach (var result in results["robotconfig"])
 				{
 					string Name = (string)result["NameObj"];
 					string IpAddress = (string)result["IpAddress"];
