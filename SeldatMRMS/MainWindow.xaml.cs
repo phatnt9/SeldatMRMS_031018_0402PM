@@ -2040,7 +2040,7 @@ namespace SeldatMRMS
             {
                 try
                 {
-                    string howtogeek = "[n/a]";
+                    string howtogeek = "SDVNSGN0134";
                     IPAddress[] addresslist = Dns.GetHostAddresses(howtogeek);
 
                     foreach (IPAddress theaddress in addresslist)

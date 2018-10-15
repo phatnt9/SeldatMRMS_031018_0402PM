@@ -463,18 +463,26 @@ namespace SeldatMRMS.Model
         /// <returns></returns>
         public bool CheckFullFilled()
         {
-            if ((getStationArea() == "") ||
-                (getCamIp().Split('.')[0] == "") ||
-                (getCamIp().Split('.')[1] == "") ||
-                (getCamIp().Split('.')[2] == "") ||
-                (getCamIp().Split('.')[3] == "") ||
-                (getCamPort() == ""))
+            try
             {
-                return false;
+                if ((getStationArea() == "") ||
+                    (getCamIp().Split('.')[0] == "") ||
+                    (getCamIp().Split('.')[1] == "") ||
+                    (getCamIp().Split('.')[2] == "") ||
+                    (getCamIp().Split('.')[3] == "") ||
+                    (getCamPort() == ""))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
-            else
+            catch
             {
-                return true;
+                RegistrationAgent.mainWindowPointer.LogConsole("Wrong IP format.", "errorConsole");
+                return false;
             }
         }
         public void loadStationProperties(Object _stuff)

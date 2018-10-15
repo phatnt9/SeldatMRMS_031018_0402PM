@@ -361,6 +361,7 @@ namespace SeldatMRMS.Model
         {
             this.Hide();
         }
+        
 
         private void btn_update_Click(object sender, EventArgs e)
         {

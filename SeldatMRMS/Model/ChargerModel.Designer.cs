@@ -45,7 +45,7 @@
             // btn_lineInfo
             // 
             this.btn_lineInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btn_lineInfo.Location = new System.Drawing.Point(184, 4);
+            this.btn_lineInfo.Location = new System.Drawing.Point(186, 4);
             this.btn_lineInfo.Name = "btn_lineInfo";
             this.btn_lineInfo.Size = new System.Drawing.Size(84, 30);
             this.btn_lineInfo.TabIndex = 44;
@@ -82,7 +82,7 @@
             // connectToAgent
             // 
             this.connectToAgent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.connectToAgent.Location = new System.Drawing.Point(12, 4);
+            this.connectToAgent.Location = new System.Drawing.Point(7, 4);
             this.connectToAgent.Name = "connectToAgent";
             this.connectToAgent.Size = new System.Drawing.Size(84, 30);
             this.connectToAgent.TabIndex = 43;
@@ -92,7 +92,7 @@
             // btn_update
             // 
             this.btn_update.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btn_update.Location = new System.Drawing.Point(98, 4);
+            this.btn_update.Location = new System.Drawing.Point(96, 4);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(84, 30);
             this.btn_update.TabIndex = 41;
@@ -103,7 +103,7 @@
             // btn_cancel
             // 
             this.btn_cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btn_cancel.Location = new System.Drawing.Point(270, 4);
+            this.btn_cancel.Location = new System.Drawing.Point(275, 4);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(84, 30);
             this.btn_cancel.TabIndex = 42;
@@ -143,9 +143,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(372, 461);
-            this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(388, 300);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MinimumSize = new System.Drawing.Size(388, 500);
             this.Name = "ChargerModel";
             this.Text = "ChargeModel";
             this.Load += new System.EventHandler(this.ChargeModel_Load);
