@@ -14,6 +14,7 @@ using SeldatMRMS.RobotView;
 using SeldatMRMS.Management.TrafficManager;
 using SeldatMRMS.Management.FormManager;
 using System.Net;
+using System.Net.Sockets;
 
 namespace SeldatMRMS
 {
@@ -2034,22 +2035,22 @@ namespace SeldatMRMS
 
         }
 
-        private void statistic_Click(object sender, RoutedEventArgs e)
+        private void statistic_Click(object sender, RoutedEventArgs ex)
         {
-            if (CheckPermission())
-            {
-                try
-                {
-                    string howtogeek = "SDVNSGN0134";
-                    IPAddress[] addresslist = Dns.GetHostAddresses(howtogeek);
 
-                    foreach (IPAddress theaddress in addresslist)
-                    {
-                        Console.WriteLine(theaddress.ToString());
-                    }
+            try
+            {
+                string howtogeek = "phat.local";
+                IPAddress[] addresslist = Dns.GetHostAddresses(howtogeek);
+
+                foreach (IPAddress theaddress in addresslist)
+                {
+                    Console.WriteLine(theaddress.ToString());
                 }
-                catch { }
             }
+            catch { }
+
+        
         }
 
         private void SignInOut_Click(object sender, RoutedEventArgs e)

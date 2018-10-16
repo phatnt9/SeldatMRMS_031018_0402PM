@@ -32,7 +32,7 @@ namespace SeldatMRMS.Management.FormManager
             }
             if ((tb_user.Text == Properties.Resources.ROOT_USERNAME) && (tb_pwd.Text == Properties.Resources.ROOT_PASSWORD))
             {
-                MessageBox.Show("Welcome");
+                //MessageBox.Show("Welcome");
                 RegistrationAgent.mainWindowPointer.ChangeToAdmin();
                 Close();
                 return;
@@ -43,6 +43,5 @@ namespace SeldatMRMS.Management.FormManager
                 return;
             }
         }
-        
     }
 }
