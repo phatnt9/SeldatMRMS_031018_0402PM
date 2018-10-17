@@ -25,44 +25,32 @@ namespace SeldatMRMS.Management
 		public List<RobotAgent> pRobotAgentConfig_Manager;
 		public List<TreeViewItem> ptreeviewitem_Points;
 		public List<TreeViewItem> ptreeviewitem_Paths;
-
 		public List<TreeViewItem> ptreeviewitem_Stations;
 		public List<TreeViewItem> ptreeviewitem_Charger;
 		public List<TreeViewItem> ptreeviewitem_Ready;
 		public List<TreeViewItem> ptreeviewitem_Checkin;
 		public List<TreeViewItem> ptreeviewitem_Checkout;
-
 		public List<TreeViewItem> ptreeviewitem_robotconfig;
-
 		public List<Shape> pshape;
 		public HalfPoint tempShape_point;
 		public HalfPoint tempShape_point_sP;
 		public HalfPoint tempShape_point_eP;
-
 		public StationModel tempShape_station_sP;
 		public StationModel tempShape_station_eP;
-
         public ChargerModel tempShape_charger_sP;
 		public ChargerModel tempShape_charger_eP;
-
         public ReadyModel tempShape_ready_sP;
 		public ReadyModel tempShape_ready_eP;
-
         public CheckinModel tempShape_checkin_sP;
 		public CheckinModel tempShape_checkin_eP;
-
         public CheckoutModel tempShape_checkout_sP;
 		public CheckoutModel tempShape_checkout_eP;
-        
 		public PathModel tempShape_path;
-
-
 		public StationModel tempShape_station;
 		public ChargerModel tempShape_charger;
 		public ReadyModel tempShape_ready;
 		public CheckinModel tempShape_checkin;
 		public CheckoutModel tempShape_checkout;
-
 		public delegate void AddANewRobotAgent(RobotAgent pr);
 		public AddANewRobotAgent addANewRobotAgent;
 		public delegate void UpdateRobotAgentProperties(RobotAgent pr);
@@ -140,113 +128,29 @@ namespace SeldatMRMS.Management
 			pshape = new List<Shape>();
 		}
 
-		public HalfPoint findobjecthalfpoint(string name)
-		{
-			bool flag_findhalfpoint = false;
-			HalfPoint temphp = null;
-			for (int i = 0; i < phalfpoint_manager.Count; i++)
-			{
-				if (phalfpoint_manager[i].FindName(name))
-				{
-					flag_findhalfpoint = true;
-					phalfpoint_manager[i].setcolor(Colors.Blue);
-					SetObjectPoint(phalfpoint_manager[i]);
-					updatePropertiesInformationPoint();
-					temphp = phalfpoint_manager[i];
-
-					break;
-				}
-			}
-			if (!flag_findhalfpoint)
-			{
-				for (int i = 0; i < phalfpoint_manager.Count; i++)
-				{
-					phalfpoint_manager[i].setcolor((Color)ColorConverter.ConvertFromString("#FFF0F0F0"));
-				}
-			}
-			return temphp;
-		}
-		public RobotModel findRobotModel(String name)
-		{
-			RobotModel rm = null;
-            try
+        public HalfPoint findobjecthalfpoint_treeview(string name)
+        {
+            bool flag_findhalfpoint = false;
+            HalfPoint temphp = null;
+            for (int i = 0; i < phalfpoint_manager.Count; i++)
             {
-                if (pRobotModel.properties.name.Equals(name))
+                phalfpoint_manager[i].setcolor((Color)ColorConverter.ConvertFromString("#FFF0F0F0"));
+            }
+            for (int i = 0; i < phalfpoint_manager.Count; i++)
+            {
+                if (phalfpoint_manager[i].FindName(name))
                 {
-                    rm = pRobotModel;
+                    flag_findhalfpoint = true;
+                    phalfpoint_manager[i].setcolor(Colors.Blue);
+                    SetObjectPoint(phalfpoint_manager[i]);
+                    updatePropertiesInformationPoint();
+                    temphp = phalfpoint_manager[i];
+                    break;
                 }
             }
-            catch
-            {
-
-            }
-			return rm;
-		}
-        
-
-		public HalfPoint findobjecthalfpoint_updatevalue(string name)
-		{
-			HalfPoint temphp = null;
-			for (int i = 0; i < phalfpoint_manager.Count; i++)
-			{
-				if (phalfpoint_manager[i].FindName(name))
-				{
-					temphp = phalfpoint_manager[i];
-					break;
-				}
-			}
-			return temphp;
-		}
-		public HalfPoint findobjecthalfpoint_treeview(string name)
-		{
-			bool flag_findhalfpoint = false;
-			HalfPoint temphp = null;
-			for (int i = 0; i < phalfpoint_manager.Count; i++)
-			{
-				phalfpoint_manager[i].setcolor((Color)ColorConverter.ConvertFromString("#FFF0F0F0"));
-			}
-			for (int i = 0; i < phalfpoint_manager.Count; i++)
-			{
-				if (phalfpoint_manager[i].FindName(name))
-				{
-					flag_findhalfpoint = true;
-					phalfpoint_manager[i].setcolor(Colors.Blue);
-					SetObjectPoint(phalfpoint_manager[i]);
-					updatePropertiesInformationPoint();
-					temphp = phalfpoint_manager[i];
-					break;
-				}
-			}
-			return temphp;
-		}
-		public PathModel findobjecthalfpath(string name)
-		{
-			bool flag_findpath = false;
-			PathModel tpm = null;
-			for (int i = 0; i < RegistrationAgent.pathRegistrationList.Count; i++)
-			{
-				if (RegistrationAgent.pathRegistrationList[i].FindName(name))
-				{
-					flag_findpath = true;
-					RegistrationAgent.pathRegistrationList[i].setcolor(Colors.Red);
-					SetObjectPath(RegistrationAgent.pathRegistrationList[i]);
-					updatePropertiesInformationPath();
-					tpm = RegistrationAgent.pathRegistrationList[i];
-					break;
-				}
-			}
-			if (!flag_findpath)
-			{
-				for (int i = 0; i < RegistrationAgent.pathRegistrationList.Count; i++)
-				{
-					RegistrationAgent.pathRegistrationList[i].setcolor(Colors.Black);
-				}
-			}
-			return tpm;
-		}
-
-
-		public StationModel findobjectstation_treeview(string name)
+            return temphp;
+        }
+        public StationModel findobjectstation_treeview(string name)
 		{
 			bool flag_findstation = false;
 			StationModel tpm = null;
@@ -312,7 +216,6 @@ namespace SeldatMRMS.Management
 			}
 			return tpm;
 		}
-
         public CheckinModel findobjectcheckin_treeview(string name)
         {
             bool flag_findstation = false;
@@ -335,7 +238,6 @@ namespace SeldatMRMS.Management
             }
             return tpm;
         }
-
         public CheckoutModel findobjectcheckout_treeview(string name)
         {
             bool flag_findstation = false;
@@ -359,6 +261,73 @@ namespace SeldatMRMS.Management
             return tpm;
         }
 
+        public RobotModel findRobotModel(String name)
+        {
+            RobotModel rm = null;
+            try
+            {
+                if (pRobotModel.properties.name.Equals(name))
+                {
+                    rm = pRobotModel;
+                }
+            }
+            catch
+            {
+
+            }
+            return rm;
+        }
+        public HalfPoint findobjecthalfpoint(string name)
+        {
+            bool flag_findhalfpoint = false;
+            HalfPoint temphp = null;
+            for (int i = 0; i < phalfpoint_manager.Count; i++)
+            {
+                if (phalfpoint_manager[i].FindName(name))
+                {
+                    flag_findhalfpoint = true;
+                    phalfpoint_manager[i].setcolor(Colors.Blue);
+                    SetObjectPoint(phalfpoint_manager[i]);
+                    updatePropertiesInformationPoint();
+                    temphp = phalfpoint_manager[i];
+
+                    break;
+                }
+            }
+            if (!flag_findhalfpoint)
+            {
+                for (int i = 0; i < phalfpoint_manager.Count; i++)
+                {
+                    phalfpoint_manager[i].setcolor((Color)ColorConverter.ConvertFromString("#FFF0F0F0"));
+                }
+            }
+            return temphp;
+        }
+        public PathModel findobjecthalfpath(string name)
+        {
+            bool flag_findpath = false;
+            PathModel tpm = null;
+            for (int i = 0; i < RegistrationAgent.pathRegistrationList.Count; i++)
+            {
+                if (RegistrationAgent.pathRegistrationList[i].FindName(name))
+                {
+                    flag_findpath = true;
+                    RegistrationAgent.pathRegistrationList[i].setcolor(Colors.Red);
+                    SetObjectPath(RegistrationAgent.pathRegistrationList[i]);
+                    updatePropertiesInformationPath();
+                    tpm = RegistrationAgent.pathRegistrationList[i];
+                    break;
+                }
+            }
+            if (!flag_findpath)
+            {
+                for (int i = 0; i < RegistrationAgent.pathRegistrationList.Count; i++)
+                {
+                    RegistrationAgent.pathRegistrationList[i].setcolor(Colors.Black);
+                }
+            }
+            return tpm;
+        }
         public StationModel findobjectstation(string name)
 		{
 			bool flag_findstation = false;
@@ -409,7 +378,6 @@ namespace SeldatMRMS.Management
 			}
 			return tpm;
 		}
-
 		public ReadyModel findobjectready(string name)
 		{
 			bool flag_findready = false;
@@ -435,7 +403,6 @@ namespace SeldatMRMS.Management
 			}
 			return tpm;
 		}
-
         public CheckinModel findobjectcheckin(string name)
         {
             bool flag_findcheckin = false;
@@ -461,7 +428,6 @@ namespace SeldatMRMS.Management
             }
             return tpm;
         }
-
         public CheckoutModel findobjectcheckout(string name)
         {
             bool flag_findcheckout = false;
@@ -488,7 +454,19 @@ namespace SeldatMRMS.Management
             return tpm;
         }
 
-
+        public HalfPoint findobjecthalfpoint_updatevalue(string name)
+        {
+            HalfPoint temphp = null;
+            for (int i = 0; i < phalfpoint_manager.Count; i++)
+            {
+                if (phalfpoint_manager[i].FindName(name))
+                {
+                    temphp = phalfpoint_manager[i];
+                    break;
+                }
+            }
+            return temphp;
+        }
         public StationModel findobjectstation_updatevalue(string name)
 		{
 			StationModel tpm = null;
@@ -528,7 +506,6 @@ namespace SeldatMRMS.Management
 			}
 			return tpm;
 		}
-
         public CheckinModel findobjectcheckin_updatevalue(string name)
         {
             CheckinModel tpm = null;
@@ -542,7 +519,6 @@ namespace SeldatMRMS.Management
             }
             return tpm;
         }
-
         public CheckoutModel findobjectcheckout_updatevalue(string name)
         {
             CheckoutModel tpm = null;
@@ -556,8 +532,6 @@ namespace SeldatMRMS.Management
             }
             return tpm;
         }
-
-
         public PathModel findobjecthalfpath_treeview(string name)
 		{
 			bool flag_findpath = false;
@@ -1084,7 +1058,6 @@ namespace SeldatMRMS.Management
 			}
             return false;
 		}
-
 		public bool removeobject_station(StationModel pstation)
 		{
 			System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1129,7 +1102,6 @@ namespace SeldatMRMS.Management
 			}
             return false;
 		}
-
         public bool removeobject_charger(ChargerModel pcharger)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1174,7 +1146,6 @@ namespace SeldatMRMS.Management
             }
             return false;
         }
-
         public bool removeobject_ready(ReadyModel pready)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1219,7 +1190,6 @@ namespace SeldatMRMS.Management
             }
             return false;
         }
-
         public bool  removeobject_checkin(CheckinModel pcheckin)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1264,7 +1234,6 @@ namespace SeldatMRMS.Management
             }
             return false;
         }
-
         public bool  removeobject_checkout(CheckoutModel pcheckout)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1309,8 +1278,6 @@ namespace SeldatMRMS.Management
             }
             return false;
         }
-
-
         public bool  removeobject_robotagent(RobotAgent robotAgent)
 		{
 			System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1394,9 +1361,7 @@ namespace SeldatMRMS.Management
 			}
             return false;
 		}
-
-
-
+        
 		public void SetObjectPath_StartPoint(HalfPoint sP)
 		{
 			this.tempShape_point_sP = sP;
@@ -1429,9 +1394,7 @@ namespace SeldatMRMS.Management
 			RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station = sP;
 			RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected = PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION; ;
 		}
-
-
-
+        
 		public void updatePropertiesInformationPoint()
 		{
 			List<User> users = new List<User>();
@@ -1528,8 +1491,7 @@ namespace SeldatMRMS.Management
             ptreeviewitem_Checkout.Add(ptemptrv_checkout);
 			this.content.trv_checkout.Items.Add(ptemptrv_checkout);
 		}
-
-
+        
         private void Ptemptrv_station_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             //var hit = e.OriginalSource as DependencyObject;
@@ -1557,9 +1519,7 @@ namespace SeldatMRMS.Management
         {
             System.Windows.MessageBox.Show("Nothing to do here!");
         }
-
-
-
+        
         public void updateTreeviewPaths(string name)
 		{
 			TreeViewItem ptemptrv_path = new TreeViewItem();
@@ -1567,7 +1527,6 @@ namespace SeldatMRMS.Management
 			ptreeviewitem_Paths.Add(ptemptrv_path);
 			this.content.trv_paths.Items.Add(ptemptrv_path);
 		}
-
         public void updateTreeviewHighway(string name)
         {
             TreeViewItem ptemptrv_highway = new TreeViewItem();
@@ -1575,7 +1534,6 @@ namespace SeldatMRMS.Management
             //ptreeviewitem_Paths.Add(ptemptrv_path);
             this.content.trv_highway.Items.Add(ptemptrv_highway);
         }
-
         public void updatePropertiesInformationPath()
 		{
 			//try
@@ -1599,10 +1557,7 @@ namespace SeldatMRMS.Management
 			this.tempShape_path.setName(this.tempShape_path.properties.roadName);
 			//catch { }
 		}
-
-
-
-		public void updatePropertiesInformationStation()
+        public void updatePropertiesInformationStation()
 		{
 			List<User> users = new List<User>();
 			users.Add(new User() { Attribude = "Name", Value = this.tempShape_station.props.stationNameID});
@@ -1670,9 +1625,7 @@ namespace SeldatMRMS.Management
             users.Add(new User() { Attribude = "Point Y location", Value = this.tempShape_checkout.props.Y + "" });
             this.content.updateProperties.ItemsSource = users;
         }
-
-
-
+        
         public void updatePropertiesObjStation(StationModel ps)
 		{
 			TextBlock NameObj = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[1]) as TextBlock;
@@ -1743,7 +1696,6 @@ namespace SeldatMRMS.Management
             ps.props.X = Convert.ToDouble(X_location);
             ps.props.Y = Convert.ToDouble(X_location);
         }
-
         public void updatePropertiesObjCheckout(CheckoutModel ps)
         {
             TextBlock NameObj = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[1]) as TextBlock;
@@ -1761,7 +1713,6 @@ namespace SeldatMRMS.Management
             ps.props.X = Convert.ToDouble(X_location);
             ps.props.Y = Convert.ToDouble(X_location);
         }
-
         public void updatePropertiesObjPoint(HalfPoint ph)
 		{
 			TextBlock NameObj = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[0]) as TextBlock;
