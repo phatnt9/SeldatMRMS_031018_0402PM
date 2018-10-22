@@ -156,7 +156,7 @@ namespace SeldatMRMS.Management
 			StationModel tpm = null;
 			for (int i = 0; i < RegistrationAgent.stationRegistrationList.Count; i++)
 			{
-				RegistrationAgent.stationRegistrationList[i].setlabelcolor(Colors.White);
+				RegistrationAgent.stationRegistrationList[i].SetLabelTextColor(Colors.White);
 			}
 			for (int i = 0; i < RegistrationAgent.stationRegistrationList.Count; i++)
 			{
@@ -164,7 +164,7 @@ namespace SeldatMRMS.Management
 				{
 					flag_findstation = true;
 					SetObjectStation(RegistrationAgent.stationRegistrationList[i]);
-					RegistrationAgent.stationRegistrationList[i].setlabelcolor(Colors.Blue);
+					RegistrationAgent.stationRegistrationList[i].SetLabelTextColor(Colors.Blue);
 					updatePropertiesInformationStation();
 					tpm = RegistrationAgent.stationRegistrationList[i];
 					break;
@@ -338,7 +338,7 @@ namespace SeldatMRMS.Management
 				{
 					flag_findstation = true;
 					SetObjectStation(RegistrationAgent.stationRegistrationList[i]);
-					RegistrationAgent.stationRegistrationList[i].setlabelcolor(Colors.Blue);
+					RegistrationAgent.stationRegistrationList[i].SetLabelTextColor(Colors.Blue);
 					updatePropertiesInformationStation();
 					tpm = RegistrationAgent.stationRegistrationList[i];
 					break;
@@ -348,7 +348,7 @@ namespace SeldatMRMS.Management
 			{
 				for (int i = 0; i < RegistrationAgent.stationRegistrationList.Count; i++)
 				{
-					RegistrationAgent.stationRegistrationList[i].setlabelcolor(Colors.White);
+					RegistrationAgent.stationRegistrationList[i].SetLabelTextColor(Colors.White);
 				}
 			}
 			return tpm;
@@ -691,37 +691,37 @@ namespace SeldatMRMS.Management
                 case STATE_INTERFACE.INTERFACE_ADD_STATION_DOCKING:
 					StationModel pstation_docking = null;
 					pstation_docking = new StationModel(this.content, "DOCKING");
-                    pstation_docking.setText("DCK" + RegistrationAgent.stationRegistrationList.Count);
-                    pstation_docking.setName("DCK" + GlobalVariables.EncodeTransmissionTimestamp());
-                    pstation_docking.setStation(pos.X, pos.Y);
+                    pstation_docking.SetKeyAndLabel("DCK" + RegistrationAgent.stationRegistrationList.Count);
+                    pstation_docking.SetNameID("DCK" + GlobalVariables.EncodeTransmissionTimestamp());
+                    pstation_docking.SetPosition(pos.X, pos.Y);
                     //pstation_docking.setid(RegistrationAgent.stationRegistrationList.Count);
                     pstation_docking.CreateCameraAgentD();
                     RegistrationAgent.stationRegistrationList.Add(pstation_docking);
-					updateTreeviewStations(pstation_docking.props.NameKey);
+					updateTreeviewStations(pstation_docking.properties.NameKey);
 					break;
 
 				case STATE_INTERFACE.INTERFACE_ADD_STATION_PUTAWAY:
 					StationModel pstation_putaway = null;
 					pstation_putaway = new StationModel(this.content, "PUTAWAY");
-					pstation_putaway.setText("PAW" + RegistrationAgent.stationRegistrationList.Count);
-					pstation_putaway.setName("PAW" + GlobalVariables.EncodeTransmissionTimestamp());
-					pstation_putaway.setStation(pos.X, pos.Y);
+					pstation_putaway.SetKeyAndLabel("PAW" + RegistrationAgent.stationRegistrationList.Count);
+					pstation_putaway.SetNameID("PAW" + GlobalVariables.EncodeTransmissionTimestamp());
+					pstation_putaway.SetPosition(pos.X, pos.Y);
 					//pstation_putaway.setid(RegistrationAgent.stationRegistrationList.Count);
                     pstation_putaway.CreateCameraAgentP();
                     RegistrationAgent.stationRegistrationList.Add(pstation_putaway);
-					updateTreeviewStations(pstation_putaway.props.NameKey);
+					updateTreeviewStations(pstation_putaway.properties.NameKey);
                     break;
 
                 case STATE_INTERFACE.INTERFACE_ADD_STATION_MIXED:
                     StationModel pstation_mixed = null;
                     pstation_mixed = new StationModel(this.content, "MIXED");
-                    pstation_mixed.setText("MIX" + RegistrationAgent.stationRegistrationList.Count);
-                    pstation_mixed.setName("MIX" + GlobalVariables.EncodeTransmissionTimestamp());
-                    pstation_mixed.setStation(pos.X, pos.Y);
+                    pstation_mixed.SetKeyAndLabel("MIX" + RegistrationAgent.stationRegistrationList.Count);
+                    pstation_mixed.SetNameID("MIX" + GlobalVariables.EncodeTransmissionTimestamp());
+                    pstation_mixed.SetPosition(pos.X, pos.Y);
                     //pstation_mixed.setid(RegistrationAgent.stationRegistrationList.Count);
                     pstation_mixed.CreateCameraAgentM();
                     RegistrationAgent.stationRegistrationList.Add(pstation_mixed);
-                    updateTreeviewStations(pstation_mixed.props.NameKey);
+                    updateTreeviewStations(pstation_mixed.properties.NameKey);
                     break;
 
 				case STATE_INTERFACE.INTERFACE_EDIT_STATION:
@@ -729,8 +729,8 @@ namespace SeldatMRMS.Management
 				case STATE_INTERFACE.INTERFACE_SETING_ROBOTCONFIG:
 					break;
 				case STATE_INTERFACE.INTERFACE_MOVE_STATION:
-					this.tempShape_station.setnewpos(pos.X, pos.Y);
-					this.tempShape_station.updatePathfromNewPosition();
+					this.tempShape_station.SetNewPosition(pos.X, pos.Y);
+					this.tempShape_station.UpdatePathfromNewPosition();
 					break;
 				case STATE_INTERFACE.INTERFACE_MOVE_CHARGER:
 					this.tempShape_charger.setnewpos(pos.X, pos.Y);
@@ -764,7 +764,7 @@ namespace SeldatMRMS.Management
 						Point endpoint_dir_end = new Point();
 						if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION)
 						{
-							startpoint_dir_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.Y);
+							startpoint_dir_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.Y);
 						}
 						else if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_HALFPOINT)
 
@@ -773,7 +773,7 @@ namespace SeldatMRMS.Management
 						}
 						if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_STATION)
 						{
-							endpoint_dir_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.props.Y);
+							endpoint_dir_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.properties.Y);
 						}
 						else if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_HALFPOINT)
 						{
@@ -788,7 +788,7 @@ namespace SeldatMRMS.Management
 					Point startpoint_dir;
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION || RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_STATION)
 					{
-						startpoint_dir = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.Y);
+						startpoint_dir = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.Y);
 						RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].drawdirectpath(startpoint_dir, pxx);
 
 					}
@@ -818,7 +818,7 @@ namespace SeldatMRMS.Management
 					Point endpoint_bz_end = new Point();
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION)
 					{
-						startpoint_bz_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.Y);
+						startpoint_bz_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.Y);
 					}
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_HALFPOINT)
 					{
@@ -826,7 +826,7 @@ namespace SeldatMRMS.Management
 					}
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_STATION)
 					{
-						endpoint_bz_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.props.Y);
+						endpoint_bz_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.properties.Y);
 					}
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_HALFPOINT)
 					{
@@ -841,7 +841,7 @@ namespace SeldatMRMS.Management
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION || RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_STATION)
 					{
 
-						startpoint_bz = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.Y);
+						startpoint_bz = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.Y);
 						RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].drawbezierpath(startpoint_bz, new Point(px.X - 40, px.Y + 100), px);
 
 					}
@@ -915,7 +915,7 @@ namespace SeldatMRMS.Management
 			for (int i = 0; i < RegistrationAgent.stationRegistrationList.Count; i++)
 			{
 				RegistrationAgent.stationRegistrationList[i].remove();
-				RegistrationAgent.stationRegistrationList[i].setStation(RegistrationAgent.stationRegistrationList[i].props.X, RegistrationAgent.stationRegistrationList[i].props.Y);
+				RegistrationAgent.stationRegistrationList[i].SetPosition(RegistrationAgent.stationRegistrationList[i].properties.X, RegistrationAgent.stationRegistrationList[i].properties.Y);
 
 			}
 			for (int i = 0; i < phalfpoint_manager.Count; i++)
@@ -997,12 +997,12 @@ namespace SeldatMRMS.Management
             //rtsp://admin:seldatinc123@192.168.0.3:754/h265/ch1/main/av_stream
             try
             {
-                String url = "rtsp://admin:seldatinc123@" + tempShape_station.props.cam.ip + ":" + tempShape_station.props.cam.port + "/h265/ch1/main/av_stream";
+                String url = "rtsp://admin:seldatinc123@" + tempShape_station.properties.camera.ip + ":" + tempShape_station.properties.camera.port + "/h265/ch1/main/av_stream";
                 //System.Windows.MessageBox.Show(url);
-                if (tempShape_station.props.isConnected)
+                if (tempShape_station.properties.isConnected)
                 {
                     LiveViewForm liveFormStation = new LiveViewForm(url);
-                    liveFormStation.setcam(tempShape_station.props.area, tempShape_station.props.cam.id.ToString());
+                    liveFormStation.setcam(tempShape_station.properties.area, tempShape_station.properties.camera.id.ToString());
                     liveFormStation.ShowDialog();
                 }
                 else
@@ -1070,7 +1070,7 @@ namespace SeldatMRMS.Management
 
 				for (int index1 = 0; index1 < RegistrationAgent.stationRegistrationList.Count; index1++)
 				{
-					if (RegistrationAgent.stationRegistrationList[index1].props.stationNameID.Equals(pstation.props.stationNameID))
+					if (RegistrationAgent.stationRegistrationList[index1].properties.stationNameID.Equals(pstation.properties.stationNameID))
 					{
 						RegistrationAgent.stationRegistrationList.RemoveAt(index1);
 						break;
@@ -1078,7 +1078,7 @@ namespace SeldatMRMS.Management
 				}
 				for (int index2 = 0; index2 < ptreeviewitem_Stations.Count; index2++)
 				{
-					if (ptreeviewitem_Stations[index2].Header.Equals(pstation.props.stationNameID))
+					if (ptreeviewitem_Stations[index2].Header.Equals(pstation.properties.stationNameID))
 					{
 						ptreeviewitem_Stations.RemoveAt(index2);
 						break;
@@ -1088,7 +1088,7 @@ namespace SeldatMRMS.Management
 				{
 
 					TreeViewItem ptemp = this.content.trv_stations.Items.GetItemAt(index3) as TreeViewItem;
-					if (ptemp.Header.Equals(pstation.props.stationNameID))
+					if (ptemp.Header.Equals(pstation.properties.stationNameID))
 					{
 						this.content.trv_stations.Items.RemoveAt(index3);
 						break;
@@ -1546,11 +1546,11 @@ namespace SeldatMRMS.Management
 				if (this.tempShape_path.nodeConnected.startpoint != null)
 					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint.properties.NameID });
 				else if (this.tempShape_path.nodeConnected.startpoint_station != null)
-					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint_station.props.stationNameID});
+					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint_station.properties.stationNameID});
 				if (this.tempShape_path.nodeConnected.endpoint != null)
 					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint.properties.NameID });
 				else if (this.tempShape_path.nodeConnected.endpoint_station != null)
-					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint_station.props.stationNameID });
+					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint_station.properties.stationNameID });
 				users.Add(new User() { Attribude = "Type", Value = "Half Point" });
 				this.content.updateProperties.ItemsSource = users;
 			}
@@ -1560,19 +1560,19 @@ namespace SeldatMRMS.Management
         public void updatePropertiesInformationStation()
 		{
 			List<User> users = new List<User>();
-			users.Add(new User() { Attribude = "Name", Value = this.tempShape_station.props.stationNameID});
-			users.Add(new User() { Attribude = "Length", Value = this.tempShape_station.props.lengthValue + "" });
-			users.Add(new User() { Attribude = "Address", Value = this.tempShape_station.props.addressIP });
-			users.Add(new User() { Attribude = "Port", Value = this.tempShape_station.props.port + "" });
-			users.Add(new User() { Attribude = "Cost", Value = this.tempShape_station.props.costValue + "" });
+			users.Add(new User() { Attribude = "Name", Value = this.tempShape_station.properties.stationNameID});
+			users.Add(new User() { Attribude = "Length", Value = this.tempShape_station.properties.lengthValue + "" });
+			users.Add(new User() { Attribude = "Address", Value = this.tempShape_station.properties.addressIP });
+			users.Add(new User() { Attribude = "Port", Value = this.tempShape_station.properties.port + "" });
+			users.Add(new User() { Attribude = "Cost", Value = this.tempShape_station.properties.costValue + "" });
 			users.Add(new User() { Attribude = "X Model (mm)", Value = "450" });
 			users.Add(new User() { Attribude = "Y Model (mm)", Value = "850" });
-			users.Add(new User() { Attribude = "Point X location", Value = this.tempShape_station.props.X + "" });
-			users.Add(new User() { Attribude = "Point Y location", Value = this.tempShape_station.props.Y + "" });
-			users.Add(new User() { Attribude = "Station Area", Value = this.tempShape_station.props.cam.area + "" });
-			users.Add(new User() { Attribude = "Camera ID", Value = this.tempShape_station.props.cam.id + "" });
-			users.Add(new User() { Attribude = "Camera IP", Value = this.tempShape_station.props.cam.ip + "" });
-			users.Add(new User() { Attribude = "Camera PORT", Value = this.tempShape_station.props.cam.port + "" });
+			users.Add(new User() { Attribude = "Point X location", Value = this.tempShape_station.properties.X + "" });
+			users.Add(new User() { Attribude = "Point Y location", Value = this.tempShape_station.properties.Y + "" });
+			users.Add(new User() { Attribude = "Station Area", Value = this.tempShape_station.properties.camera.area + "" });
+			users.Add(new User() { Attribude = "Camera ID", Value = this.tempShape_station.properties.camera.id + "" });
+			users.Add(new User() { Attribude = "Camera IP", Value = this.tempShape_station.properties.camera.ip + "" });
+			users.Add(new User() { Attribude = "Camera PORT", Value = this.tempShape_station.properties.camera.port + "" });
 			this.content.updateProperties.ItemsSource = users;
 		}
         public void updatePropertiesInformationCharger()
@@ -1637,12 +1637,12 @@ namespace SeldatMRMS.Management
 			TextBlock Y_location = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[7]) as TextBlock;
 
 			//	ps.NameObj = NameObj.Text;
-			ps.props.lengthValue = Convert.ToDouble(length);
-			ps.props.costValue = Convert.ToDouble(cost);
-			ps.props.X_model = Convert.ToDouble(X_model);
-			ps.props.Y_model = Convert.ToDouble(Y_model);
-			ps.props.X = Convert.ToDouble(X_location);
-			ps.props.Y = Convert.ToDouble(X_location);
+			ps.properties.lengthValue = Convert.ToDouble(length);
+			ps.properties.costValue = Convert.ToDouble(cost);
+			ps.properties.X_model = Convert.ToDouble(X_model);
+			ps.properties.Y_model = Convert.ToDouble(Y_model);
+			ps.properties.X = Convert.ToDouble(X_location);
+			ps.properties.Y = Convert.ToDouble(X_location);
 		}
         public void updatePropertiesObjCharger(ChargerModel ps)
         {

@@ -399,7 +399,7 @@ namespace SeldatMRMS
                             {
                                 if(RegistrationAgent.interfacePointer.removeobject_station(ptemp_station))
                                 {
-                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_station.props.stationNameID));
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_station.properties.stationNameID));
                                 }
                                 ptemp_station = null;
                             }
@@ -1744,6 +1744,11 @@ namespace SeldatMRMS
                 ChangeToGuess();
             }
 
+        }
+
+        private void Menu_Exit(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
 
 

@@ -7,7 +7,7 @@ namespace SeldatMRMS.Management.OrderManager
 {
     public class Area
     {
-        String area = "null";
+        string area = "null";
 
 
         int dockAllow = 9999;
@@ -15,22 +15,22 @@ namespace SeldatMRMS.Management.OrderManager
         int mixedAllow = 9999;
 
 
-        public SortedDictionary<String, StationModel> dockingStations = null; //<Docking-"stationNameID">,<Agent>
-        public SortedDictionary<String, StationModel> putAwayStations = null; //<PutAway-"stationNameID">,<Agent>
-        public SortedDictionary<String, StationModel> mixedStations = null; //<PutAway-"stationNameID">,<Agent>
+        public SortedDictionary<string, StationModel> dockingStations = null; //<Docking-"stationNameID">,<Agent>
+        public SortedDictionary<string, StationModel> putAwayStations = null; //<PutAway-"stationNameID">,<Agent>
+        public SortedDictionary<string, StationModel> mixedStations = null; //<PutAway-"stationNameID">,<Agent>
 
 
-        public SortedDictionary<String, OrderLineInfo> DOCKING_LINE_LIST = null; //<stationNameID-lineIndex>,<Info>
-        public SortedDictionary<String, OrderLineInfo> PUTAWAY_LINE_LIST = null; //<stationNameID-lineIndex>,<Info>
+        public SortedDictionary<string, OrderLineInfo> DOCKING_LINE_LIST = null; //<stationNameID-lineIndex>,<Info>
+        public SortedDictionary<string, OrderLineInfo> PUTAWAY_LINE_LIST = null; //<stationNameID-lineIndex>,<Info>
 
-        public Area(String AreaID)
+        public Area(string AreaID)
         {
             this.area = AreaID;
-            DOCKING_LINE_LIST = new SortedDictionary<String, OrderLineInfo>();
-            PUTAWAY_LINE_LIST = new SortedDictionary<String, OrderLineInfo>();
-            dockingStations = new SortedDictionary<String, StationModel>(); // <>
-            putAwayStations = new SortedDictionary<String, StationModel>();
-            mixedStations = new SortedDictionary<String, StationModel>();
+            DOCKING_LINE_LIST = new SortedDictionary<string, OrderLineInfo>();
+            PUTAWAY_LINE_LIST = new SortedDictionary<string, OrderLineInfo>();
+            dockingStations = new SortedDictionary<string, StationModel>(); // <>
+            putAwayStations = new SortedDictionary<string, StationModel>();
+            mixedStations = new SortedDictionary<string, StationModel>();
         }
 
         public class OrderLineInfo
@@ -170,10 +170,10 @@ namespace SeldatMRMS.Management.OrderManager
 
         public bool AddDocking(StationModel station)
         {
-            if (CheckDockingID(station.props.id.ToString()) == true) // There is available slot in this Area
+            if (CheckDockingID(station.properties.id.ToString()) == true) // There is available slot in this Area
             {
-                dockingStations.Add("Docking-" + station.props.stationNameID, station);
-                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.stationNameID + " Station.", "logStation");
+                dockingStations.Add("Docking-" + station.properties.stationNameID, station);
+                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.properties.stationNameID + " Station.", "logStation");
                 return true;
             }
             RegistrationAgent.mainWindowPointer.LogConsole("Can not create Docking Station.", "logStation");
@@ -182,10 +182,10 @@ namespace SeldatMRMS.Management.OrderManager
         
         public bool AddPutAway(StationModel station)
         {
-            if (CheckPutAwayID(station.props.id.ToString()) == true) // There is available slot in this Area
+            if (CheckPutAwayID(station.properties.id.ToString()) == true) // There is available slot in this Area
             {
-                putAwayStations.Add("PutAway-" + station.props.stationNameID, station);
-                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.stationNameID + " Station.", "logStation");
+                putAwayStations.Add("PutAway-" + station.properties.stationNameID, station);
+                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.properties.stationNameID + " Station.", "logStation");
                 return true;
             }
             RegistrationAgent.mainWindowPointer.LogConsole("Can not create Put-Away Station!", "logStation");
@@ -194,17 +194,17 @@ namespace SeldatMRMS.Management.OrderManager
         
         public bool AddMixed(StationModel station)
         {
-            if (CheckMixedID(station.props.id.ToString()) == true) // There is available slot in this Area
+            if (CheckMixedID(station.properties.id.ToString()) == true) // There is available slot in this Area
             {
-                mixedStations.Add("Mixed-" + station.props.stationNameID, station);
-                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.props.stationNameID + " Station.", "logStation");
+                mixedStations.Add("Mixed-" + station.properties.stationNameID, station);
+                RegistrationAgent.mainWindowPointer.LogConsole("Created " + station.properties.stationNameID + " Station.", "logStation");
                 return true;
             }
             RegistrationAgent.mainWindowPointer.LogConsole("Can not create Mixed Station!", "logStation");
             return false;
         }
         
-        private bool CheckDockingID(String stationNameID)
+        private bool CheckDockingID(string stationNameID)
         {
             if (dockingStations.Count < dockAllow)
             {
@@ -218,7 +218,7 @@ namespace SeldatMRMS.Management.OrderManager
             return false;
         }
 
-        private bool CheckPutAwayID(String stationNameID)
+        private bool CheckPutAwayID(string stationNameID)
         {
             if (putAwayStations.Count < putAllow)
             {
@@ -232,7 +232,7 @@ namespace SeldatMRMS.Management.OrderManager
             return false;
         }
 
-        private bool CheckMixedID(String stationNameID)
+        private bool CheckMixedID(string stationNameID)
         {
             if (mixedStations.Count < mixedAllow)
             {
@@ -275,8 +275,8 @@ namespace SeldatMRMS.Management.OrderManager
         private void ProcessDocking(string dockingDictKey)
         {
             string stationNameID = dockingDictKey.Split('-')[1];
-            int NUMBER_OF_LINE = dockingStations[dockingDictKey].props.cam.numLs;
-            int NUMBER_OF_PALLET_PER_LINE = dockingStations[dockingDictKey].props.cam.numPsPL;
+            int NUMBER_OF_LINE = dockingStations[dockingDictKey].properties.camera.no_lines;
+            int NUMBER_OF_PALLET_PER_LINE = dockingStations[dockingDictKey].properties.camera.no_pallet_per_lines;
             for (int lineIndex = 0; lineIndex < NUMBER_OF_LINE; lineIndex++) //Scan all Line
             {
                 string listLineDockingKey = stationNameID + "-" + lineIndex;
@@ -296,11 +296,11 @@ namespace SeldatMRMS.Management.OrderManager
                     };
                     for (int palletIndex = 0; palletIndex < NUMBER_OF_PALLET_PER_LINE; palletIndex++)
                     {
-                        if (dockingStations[dockingDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "yes")
+                        if (dockingStations[dockingDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "yes")
                         {
                             dockLineInfoTemp.palletList.Add(palletIndex);
-                            dockLineInfoTemp.valid = dockingStations[dockingDictKey].props.cam.lineArray[lineIndex.ToString()].valid;
-                            dockLineInfoTemp.palletWarningKey = dockingStations[dockingDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning;
+                            dockLineInfoTemp.valid = dockingStations[dockingDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid;
+                            dockLineInfoTemp.palletWarningKey = dockingStations[dockingDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning;
                             DOCKING_LINE_LIST.Add(listLineDockingKey, dockLineInfoTemp);
                             string addLog = "";
                             for (int i = 0; i < dockLineInfoTemp.palletList.Count(); i++)
@@ -320,7 +320,7 @@ namespace SeldatMRMS.Management.OrderManager
                     List<int> palletList = new List<int>();
                     for (int palletIndex = 0; palletIndex < NUMBER_OF_PALLET_PER_LINE; palletIndex++)
                     {
-                        if (dockingStations[dockingDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "yes")
+                        if (dockingStations[dockingDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "yes")
                         {
                             palletList.Add(palletIndex);
                             string updateLog = "";
@@ -329,11 +329,11 @@ namespace SeldatMRMS.Management.OrderManager
                                 updateLog = updateLog + "[" + palletList[i] + "]";
                             }
                             if ((!DOCKING_LINE_LIST[listLineDockingKey].palletList.SequenceEqual(palletList)) ||
-                                (DOCKING_LINE_LIST[listLineDockingKey].valid != dockingStations[dockingDictKey].props.cam.lineArray[lineIndex.ToString()].valid) ||
-                                (DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey != dockingStations[dockingDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning))
+                                (DOCKING_LINE_LIST[listLineDockingKey].valid != dockingStations[dockingDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid) ||
+                                (DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey != dockingStations[dockingDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning))
                             {
-                                DOCKING_LINE_LIST[listLineDockingKey].valid = dockingStations[dockingDictKey].props.cam.lineArray[lineIndex.ToString()].valid;
-                                DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey = dockingStations[dockingDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning;
+                                DOCKING_LINE_LIST[listLineDockingKey].valid = dockingStations[dockingDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid;
+                                DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey = dockingStations[dockingDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning;
                                 DOCKING_LINE_LIST[listLineDockingKey].palletList = palletList;
                                 updateLog = "Updated line DK: " + listLineDockingKey + "-" + updateLog;
                                 updateLog = updateLog + "-useable: " + DOCKING_LINE_LIST[listLineDockingKey].valid;// + "-palletWarningKey: " + DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey;
@@ -360,8 +360,8 @@ namespace SeldatMRMS.Management.OrderManager
         private void ProcessPutAway(string putAwayDictKey)
         {
             string stationNameID = putAwayDictKey.Split('-')[1];
-            int NUMBER_OF_LINE = putAwayStations[putAwayDictKey].props.cam.numLs;
-            int NUMBER_OF_PALLET_PER_LINE = putAwayStations[putAwayDictKey].props.cam.numPsPL;
+            int NUMBER_OF_LINE = putAwayStations[putAwayDictKey].properties.camera.no_lines;
+            int NUMBER_OF_PALLET_PER_LINE = putAwayStations[putAwayDictKey].properties.camera.no_pallet_per_lines;
             for (int lineIndex = 0; lineIndex < NUMBER_OF_LINE; lineIndex++)
             {
                 string listLinePutAwayKey = stationNameID + "-" + lineIndex;
@@ -381,11 +381,11 @@ namespace SeldatMRMS.Management.OrderManager
                     };
                     for (int palletIndex = NUMBER_OF_PALLET_PER_LINE - 1; palletIndex >= 0; palletIndex--)
                     {
-                        if (putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "no")
+                        if (putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "no")
                         {
                             putLineInfoTemp.palletList.Add(palletIndex);
                         }
-                        else if (putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "yes")
+                        else if (putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "yes")
                         //Chỉ lấy nhũng pallet ở dưới phòng pallet được lấy đi ở đầu hàng
                         {
                             putLineInfoTemp.palletList.Clear();
@@ -395,8 +395,8 @@ namespace SeldatMRMS.Management.OrderManager
                     {
                         putLineInfoTemp.palletList.Sort((a, b) => -1 * a.CompareTo(b)); // Descending sort
                         putLineInfoTemp.palletList = putLineInfoTemp.palletList.Take(1).ToList();
-                        putLineInfoTemp.valid = putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].valid;
-                        putLineInfoTemp.palletWarningKey = putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning;
+                        putLineInfoTemp.valid = putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid;
+                        putLineInfoTemp.palletWarningKey = putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning;
                         PUTAWAY_LINE_LIST.Add(listLinePutAwayKey, putLineInfoTemp);
                         string addLog = "";
                         for (int i = 0; i < putLineInfoTemp.palletList.Count(); i++)
@@ -414,11 +414,11 @@ namespace SeldatMRMS.Management.OrderManager
                     List<int> palletList = new List<int>();
                     for (int palletIndex = NUMBER_OF_PALLET_PER_LINE - 1; palletIndex >= 0; palletIndex--)
                     {
-                        if (putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "no")
+                        if (putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "no")
                         {
                             palletList.Add(palletIndex);
                         }
-                        else if (putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "yes")
+                        else if (putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "yes")
                         //Chỉ lấy nhũng pallet ở dưới phòng pallet được lấy đi ở đầu hàng
                         {
                             palletList.Clear();
@@ -434,11 +434,11 @@ namespace SeldatMRMS.Management.OrderManager
                             updateLog = updateLog + "[" + palletList[i] + "]";
                         }
                         if ((!PUTAWAY_LINE_LIST[listLinePutAwayKey].palletList.SequenceEqual(palletList)) ||
-                            (PUTAWAY_LINE_LIST[listLinePutAwayKey].valid != putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].valid) ||
-                            (PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey != putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning))
+                            (PUTAWAY_LINE_LIST[listLinePutAwayKey].valid != putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid) ||
+                            (PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey != putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning))
                         {
-                            PUTAWAY_LINE_LIST[listLinePutAwayKey].valid = putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].valid;
-                            PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey = putAwayStations[putAwayDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning;
+                            PUTAWAY_LINE_LIST[listLinePutAwayKey].valid = putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid;
+                            PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey = putAwayStations[putAwayDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning;
                             PUTAWAY_LINE_LIST[listLinePutAwayKey].palletList = palletList;
                             updateLog = "Updated line PW: " + listLinePutAwayKey + "-" + updateLog;
                             updateLog = updateLog + "-useable: " + PUTAWAY_LINE_LIST[listLinePutAwayKey].valid;// + "-palletWarningKey: " + PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey;
@@ -464,8 +464,8 @@ namespace SeldatMRMS.Management.OrderManager
         {
 
             string stationNameID = mixedDictKey.Split('-')[1];
-            int NUMBER_OF_LINE = mixedStations[mixedDictKey].props.cam.numLs;
-            int NUMBER_OF_PALLET_PER_LINE = mixedStations[mixedDictKey].props.cam.numPsPL;
+            int NUMBER_OF_LINE = mixedStations[mixedDictKey].properties.camera.no_lines;
+            int NUMBER_OF_PALLET_PER_LINE = mixedStations[mixedDictKey].properties.camera.no_pallet_per_lines;
 
 
             for (int lineIndex = 0; lineIndex < NUMBER_OF_LINE; lineIndex++) //Scan all Line
@@ -487,11 +487,11 @@ namespace SeldatMRMS.Management.OrderManager
                     };
                     for (int palletIndex = 0; palletIndex < NUMBER_OF_PALLET_PER_LINE; palletIndex++)
                     {
-                        if (mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "yes")
+                        if (mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "yes")
                         {
                             dockLineInfoTemp.palletList.Add(palletIndex);
-                            dockLineInfoTemp.valid = mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].valid;
-                            dockLineInfoTemp.palletWarningKey = mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning;
+                            dockLineInfoTemp.valid = mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid;
+                            dockLineInfoTemp.palletWarningKey = mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning;
                             DOCKING_LINE_LIST.Add(listLineDockingKey, dockLineInfoTemp);
                             string addLog = "";
                             for (int i = 0; i < dockLineInfoTemp.palletList.Count(); i++)
@@ -511,7 +511,7 @@ namespace SeldatMRMS.Management.OrderManager
                     List<int> palletList = new List<int>();
                     for (int palletIndex = 0; palletIndex < NUMBER_OF_PALLET_PER_LINE; palletIndex++)
                     {
-                        if (mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "yes")
+                        if (mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "yes")
                         {
                             palletList.Add(palletIndex);
                             string updateLog = "";
@@ -520,11 +520,11 @@ namespace SeldatMRMS.Management.OrderManager
                                 updateLog = updateLog + "[" + palletList[i] + "]";
                             }
                             if ((!DOCKING_LINE_LIST[listLineDockingKey].palletList.SequenceEqual(palletList)) ||
-                                (DOCKING_LINE_LIST[listLineDockingKey].valid != mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].valid) ||
-                                (DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey != mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning))
+                                (DOCKING_LINE_LIST[listLineDockingKey].valid != mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid) ||
+                                (DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey != mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning))
                             {
-                                DOCKING_LINE_LIST[listLineDockingKey].valid = mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].valid;
-                                DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey = mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning;
+                                DOCKING_LINE_LIST[listLineDockingKey].valid = mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid;
+                                DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey = mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning;
                                 DOCKING_LINE_LIST[listLineDockingKey].palletList = palletList;
                                 updateLog = "Updated line DK: " + listLineDockingKey + "-" + updateLog;
                                 updateLog = updateLog + "-useable: " + DOCKING_LINE_LIST[listLineDockingKey].valid;// + "-palletWarningKey: " + DOCKING_LINE_LIST[listLineDockingKey].palletWarningKey;
@@ -567,11 +567,11 @@ namespace SeldatMRMS.Management.OrderManager
                     };
                     for (int palletIndex = NUMBER_OF_PALLET_PER_LINE - 1; palletIndex >= 0; palletIndex--)
                     {
-                        if (mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "no")
+                        if (mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "no")
                         {
                             putLineInfoTemp.palletList.Add(palletIndex);
                         }
-                        else if (mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "yes")
+                        else if (mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "yes")
                         //Chỉ lấy nhũng pallet ở dưới phòng pallet được lấy đi ở đầu hàng
                         {
                             putLineInfoTemp.palletList.Clear();
@@ -581,8 +581,8 @@ namespace SeldatMRMS.Management.OrderManager
                     {
                         putLineInfoTemp.palletList.Sort((a, b) => -1 * a.CompareTo(b)); // Descending sort
                         putLineInfoTemp.palletList = putLineInfoTemp.palletList.Take(1).ToList();
-                        putLineInfoTemp.valid = mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].valid;
-                        putLineInfoTemp.palletWarningKey = mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning;
+                        putLineInfoTemp.valid = mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid;
+                        putLineInfoTemp.palletWarningKey = mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning;
                         PUTAWAY_LINE_LIST.Add(listLinePutAwayKey, putLineInfoTemp);
                         string addLog = "";
                         for (int i = 0; i < putLineInfoTemp.palletList.Count(); i++)
@@ -600,11 +600,11 @@ namespace SeldatMRMS.Management.OrderManager
                     List<int> palletList = new List<int>();
                     for (int palletIndex = NUMBER_OF_PALLET_PER_LINE - 1; palletIndex >= 0; palletIndex--)
                     {
-                        if (mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "no")
+                        if (mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "no")
                         {
                             palletList.Add(palletIndex);
                         }
-                        else if (mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletArray[palletIndex.ToString()] == "yes")
+                        else if (mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].pallets_detail[palletIndex.ToString()] == "yes")
                         //Chỉ lấy nhũng pallet ở dưới phòng pallet được lấy đi ở đầu hàng
                         {
                             palletList.Clear();
@@ -620,11 +620,11 @@ namespace SeldatMRMS.Management.OrderManager
                             updateLog = updateLog + "[" + palletList[i] + "]";
                         }
                         if ((!PUTAWAY_LINE_LIST[listLinePutAwayKey].palletList.SequenceEqual(palletList)) ||
-                            (PUTAWAY_LINE_LIST[listLinePutAwayKey].valid != mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].valid) ||
-                            (PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey != mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning))
+                            (PUTAWAY_LINE_LIST[listLinePutAwayKey].valid != mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid) ||
+                            (PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey != mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning))
                         {
-                            PUTAWAY_LINE_LIST[listLinePutAwayKey].valid = mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].valid;
-                            PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey = mixedStations[mixedDictKey].props.cam.lineArray[lineIndex.ToString()].palletWarning;
+                            PUTAWAY_LINE_LIST[listLinePutAwayKey].valid = mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].valid;
+                            PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey = mixedStations[mixedDictKey].properties.camera.lines_detail[lineIndex.ToString()].palletWarning;
                             PUTAWAY_LINE_LIST[listLinePutAwayKey].palletList = palletList;
                             updateLog = "Updated line PW: " + listLinePutAwayKey + "-" + updateLog;
                             updateLog = updateLog + "-useable: " + PUTAWAY_LINE_LIST[listLinePutAwayKey].valid;// + "-palletWarningKey: " + PUTAWAY_LINE_LIST[listLinePutAwayKey].palletWarningKey;
@@ -651,21 +651,21 @@ namespace SeldatMRMS.Management.OrderManager
             string agentDockingKey = "Docking-" + stationNameID;
             if (dockingStations.ContainsKey(agentDockingKey) == true) //Agent is Docking
             {
-                return dockingStations[agentDockingKey].props.palletStatusArray;
+                return dockingStations[agentDockingKey].properties.pallets_status;
             }
             else
             {
                 string agentPutAwayKey = "PutAway-" + stationNameID;
                 if (putAwayStations.ContainsKey(agentPutAwayKey) == true) //Agent is Put Away
                 {
-                    return putAwayStations[agentPutAwayKey].props.palletStatusArray;
+                    return putAwayStations[agentPutAwayKey].properties.pallets_status;
                 }
                 else
                 {
                     string agentMixedKey = "Mixed-" + stationNameID;
                     if (mixedStations.ContainsKey(agentMixedKey) == true) //Agent is Mixed
                     {
-                        return mixedStations[agentMixedKey].props.palletStatusArray;
+                        return mixedStations[agentMixedKey].properties.pallets_status;
                     }
                     else
                     {

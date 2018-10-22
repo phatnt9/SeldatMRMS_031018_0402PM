@@ -102,14 +102,11 @@
             <Border Grid.Row="0" BorderBrush="LightSlateGray" BorderThickness="1,1,1,0">
                 <Grid>
                     <Menu VerticalAlignment="Top" HorizontalAlignment="Left">
-                        <MenuItem Header="_File"  Foreground="Black" BorderThickness="0" Height="17">
-                            <MenuItem  Header="_New" />
-                            <MenuItem  Header="_Open" />
-                            <MenuItem  Header="_Save" />
-                            <Separator />
+                        <MenuItem Header="_Menu"  Foreground="Black" BorderThickness="0" Height="17">
+                            
                             <MenuItem Name="signinout_menu"  Header="_Sign in" Click="SignInOut_Click"/>
                             <Separator />
-                            <MenuItem  Header="_Exit" />
+                            <MenuItem  Header="_Exit" Click="Menu_Exit"/>
                         </MenuItem>
                         <!--<MenuItem Header="_Edit">
 						<MenuItem Header="_New" />
