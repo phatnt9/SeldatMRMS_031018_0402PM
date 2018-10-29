@@ -14,52 +14,23 @@ using SeldatMRMS.RobotView;
 using SeldatMRMS.Management.TrafficManager;
 using SeldatMRMS.Management.FormManager;
 using System.Net;
+using System.Net.Sockets;
 
 namespace SeldatMRMS
 {
-
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        private Point startPoint;
-        private Point originalPoint;
-        private double slidingScale;
-        private bool MouseMove;
-        private string permission = "guess";
-
-        public bool CheckPermission()
-        {
-            if (permission == "guess")
-                return false;
-            else
-                return true;
-        }
-
-
-        public void ChangeToAdmin()
-        {
-            permission = "admin";
-            signinout_menu.Header = "_Sign out";
-            Normal_mode();
-        }
-        public void ChangeToGuess()
-        {
-            permission = "guess";
-            signinout_menu.Header = "_Sign in";
-            Normal_mode();
-        }
-
+        //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        //=================PUBLIC PARAMETER=====================
+        //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         public string MyImageSource
         {
             get;
             set;
         }
-        List<HalfPoint> halfpoint = new List<HalfPoint>();
-        //public Interface RegistrationAgent.interfacePointer;
         public TasksManagement ptaskManager;
         public enum PATHCHECKED
         {
@@ -72,8 +43,6 @@ namespace SeldatMRMS
             HALFPOINT_CHECKED_CHECKIN,
             HALFPOINT_CHECKED_CHECKOUT,
         }
-        public PATHCHECKED pathchecked = PATHCHECKED.PATH_CHECKED_DIRECT;
-        public HALFPOINTCHECKED halfpointchecked = HALFPOINTCHECKED.HALFPOINT_CHECKED;
         public enum STATECTRL_MOUSEDOWN
         {
             STATECTRL_MOUSEDOWN_NORMAL,
@@ -111,31 +80,33 @@ namespace SeldatMRMS
             STATECTRL_SLIDE_OBJECT,
 
         }
-        public STATECTRL_MOUSEDOWN valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_MOUSEDOWN_NORMAL;
         public STATECTRL_MOUSEMOVE valstatectrl_mm;
-
+        public PATHCHECKED pathchecked = PATHCHECKED.PATH_CHECKED_DIRECT;
+        public HALFPOINTCHECKED halfpointchecked = HALFPOINTCHECKED.HALFPOINT_CHECKED;
+        public STATECTRL_MOUSEDOWN valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_MOUSEDOWN_NORMAL;
+        //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        //=================PRIVATE PARAMETER====================
+        //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        private Point startPoint;
+        private Point originalPoint;
+        //private double slidingScale;
+        private bool mouseMove;
+        private string permission = "guess";
+        //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        //======================FUNCTION========================
+        //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         public MainWindow()
         {
             InitializeComponent();
-            slidingScale = 1;
-            MouseMove = false;
-            string howtogeek = "TRUNGTRAN";
-            /*IPAddress[] addresslist = Dns.GetHostAddresses(howtogeek);
-
-			foreach (IPAddress theaddress in addresslist)
-			{
-				Console.WriteLine(theaddress.ToString());
-			}*/
+            mouseMove = false;
+            //string howtogeek = "TRUNGTRAN";
             RegistrationAgent.mainWindowPointer = this;
             RegistrationAgent.interfacePointer = new Interface(this);
             ptaskManager = new TasksManagement();
             RegistrationAgent.interfacePointer.addANewRobotAgent += ptaskManager.addANewRobotAgent;
             RegistrationAgent.interfacePointer.updateRobotAgentProperties += ptaskManager.UpdateRobotAgentProperties;
             MyImageSource = "C:\\Users\\luat.tran\\source\\repos\\SeldatMRMS\\SeldatMRMS\\Resources\\select_op.png";
-            //LogRegistration.consoleForm.ShowDialog();
-            this.PreviewKeyDown += new KeyEventHandler(HandleEsc);
-            //SignIn signInForm = new SignIn();
-            //signInForm.ShowDialog();
+            PreviewKeyDown += new KeyEventHandler(HandleEsc);
         }
 
         private void HandleEsc(object sender, KeyEventArgs e)
@@ -145,7 +116,6 @@ namespace SeldatMRMS
                 Normal_mode();
             }
         }
-
         public void LogConsole(String txt,string logName)
         {
             try
@@ -218,76 +188,31 @@ namespace SeldatMRMS
             catch { }
         }
 
-
-
-
-
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        public bool CheckPermission()
         {
-            //statectrl_md(e);
+            if (permission == "guess")
+                return false;
+            else
+                return true;
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        public void ChangeToAdmin()
         {
-            // flag_halfpoint =true;
+            permission = "admin";
+            signinout_menu.Header = "_Sign out";
+            Normal_mode();
         }
-
-        private void map_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        public void ChangeToGuess()
         {
-            if (CheckPermission())
-            {
-                var mouseWasDownOn = e.Source as FrameworkElement;
-                if (mouseWasDownOn != null)
-                {
-                    string elementName = mouseWasDownOn.Name;
-                    if (elementName != "")
-                    {
-
-                        HalfPoint ptemp_halfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint(elementName);
-                        PathModel ptemp_pathmodel = RegistrationAgent.interfacePointer.findobjecthalfpath(elementName);
-                        StationModel ptemp_station = RegistrationAgent.interfacePointer.findobjectstation(elementName);
-                        ChargerModel ptemp_charger = RegistrationAgent.interfacePointer.findobjectcharger(elementName);
-                        ReadyModel ptemp_ready = RegistrationAgent.interfacePointer.findobjectready(elementName);
-                        CheckinModel ptemp_checkin = RegistrationAgent.interfacePointer.findobjectcheckin(elementName);
-                        CheckoutModel ptemp_checkout = RegistrationAgent.interfacePointer.findobjectcheckout(elementName);
-                        RobotModel ptemp_rm = RegistrationAgent.interfacePointer.findRobotModel(elementName);
-                        Point ep = e.GetPosition(map);
-
-                        if (ptemp_station != null)
-                        {
-                            //MessageBox.Show("get "+ ptemp_station.properties.NameID);
-                            RegistrationAgent.interfacePointer.SetObjectStation(ptemp_station);
-                            showContextMenuStation(ptemp_station);
-                        }
-                        else if (ptemp_charger != null)
-                        {
-                            showContextMenuCharger(ptemp_charger);
-                            RegistrationAgent.interfacePointer.SetObjectCharger(ptemp_charger);
-                        }
-                        else if (ptemp_ready != null)
-                        {
-                            showContextMenuReady(ptemp_ready);
-                            RegistrationAgent.interfacePointer.SetObjectReady(ptemp_ready);
-                        }
-                        else if (ptemp_checkin != null)
-                        {
-                            showContextMenuCheckin(ptemp_checkin);
-                            RegistrationAgent.interfacePointer.SetObjectCheckin(ptemp_checkin);
-                        }
-                        else if (ptemp_checkout != null)
-                        {
-                            showContextMenuCheckout(ptemp_checkout);
-                            RegistrationAgent.interfacePointer.SetObjectCheckout(ptemp_checkout);
-                        }
-                        else if (ptemp_rm != null)
-                        {
-                            showContextMenuRobotinStore();
-                        }
-
-                    }
-                }
-            }
+            permission = "guess";
+            signinout_menu.Header = "_Sign in";
+            Normal_mode();
         }
 
+        public void showContextMenuRobot(RobotAgent pr)
+        {
+            ContextMenu cm = this.FindResource("TYPE-CANVAS_ROBOT") as ContextMenu;
+            cm.IsOpen = true;
+        }
         public void showContextMenuStation(StationModel ps)
         {
             ContextMenu cm = this.FindResource("TYPE-CANVAS_STATION") as ContextMenu;
@@ -332,7 +257,7 @@ namespace SeldatMRMS
 
             }
         }
-        void Menu_Click(object sender, RoutedEventArgs e)
+        private void Menu_Click(object sender, RoutedEventArgs e)
         {
             var menuItem = sender as MenuItem;
             RobotAgent pr = RegistrationAgent.robotAgentRegisteredList[menuItem.Header + ""];
@@ -340,13 +265,6 @@ namespace SeldatMRMS
             robotControl.ShowDialog();
             //here comes your code
         }
-
-        public void showContextMenuRobot(RobotAgent pr)
-        {
-            ContextMenu cm = this.FindResource("TYPE-CANVAS_ROBOT") as ContextMenu;
-            cm.IsOpen = true;
-        }
-
         private void callcanvas_editStation_Click(object sender, RoutedEventArgs e)
         {
             RegistrationAgent.interfacePointer.modeEditStation();
@@ -367,101 +285,19 @@ namespace SeldatMRMS
         {
             RegistrationAgent.interfacePointer.modeEditCheckout();
         }
-
         private void callcanvas_viewStation_Click(object sender, RoutedEventArgs e)
         {
             RegistrationAgent.interfacePointer.modeViewStation();
         }
-
         private void callcanvas_propRobot_Click(object sender, RoutedEventArgs e)
         {
             RegistrationAgent.interfacePointer.modeEditStation();
         }
-
         private void callcanvas_controlRobot_Click(object sender, RoutedEventArgs e)
         {
             //RegistrationAgent.interfacePointer.modeViewStation();
         }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
-
-
-        }
-        private Canvas DrawArrow(Point StartPoint, Point EndPoint, Color myColor)
-        {
-            System.Windows.Shapes.Line _Line = new System.Windows.Shapes.Line();
-            System.Windows.Shapes.Line Head = new System.Windows.Shapes.Line();
-
-            _Line.X1 = StartPoint.X;
-            _Line.Y1 = StartPoint.Y;
-            _Line.X2 = EndPoint.X;
-            _Line.Y2 = EndPoint.Y;
-            _Line.StrokeThickness = 1;
-            _Line.Stroke = new SolidColorBrush(myColor);
-            if (EndPoint.X == StartPoint.X)
-            {
-                if (EndPoint.Y > StartPoint.Y)
-                {
-                    Head.Y1 = EndPoint.Y - 1;
-                    Head.Y2 = EndPoint.Y;
-                }
-                else
-                {
-                    Head.Y1 = EndPoint.Y + 1;
-                    Head.Y2 = EndPoint.Y;
-                }
-                Head.X1 = Head.X2 = EndPoint.X;
-            }
-            else
-            {
-                Int32 d;
-                if (EndPoint.X > StartPoint.X)
-                {
-                    Head.X1 = EndPoint.X - 1;
-                    Head.X2 = EndPoint.X;
-                    d = 1;
-                }
-                else
-                {
-                    Head.X1 = EndPoint.X + 1;
-                    Head.X2 = EndPoint.X;
-                    d = -1;
-                }
-                Head.Y1 = getArrowYByX(d, StartPoint, EndPoint);
-                Head.Y2 = EndPoint.Y;
-            }
-
-            Head.StrokeEndLineCap = PenLineCap.Triangle;
-            Head.StrokeThickness = 10;
-            Head.Stroke = new SolidColorBrush(myColor);
-            Canvas myCv = new Canvas();
-
-            //myCv.Children.Add(_Line);
-            myCv.Children.Add(Head);
-
-            return myCv;
-        }
-        double getArrowYByX(double d, Point pStart, Point pEnd)
-        {
-            return pStart.Y + (pEnd.X - pStart.X - d) * (pEnd.Y - pStart.Y) / (pEnd.X - pStart.X);
-        }
-
-        PathModel pp;
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-
-        }
-        int nep = 100;
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-
-
-        }
-
-
-        void statectrl_md(MouseButtonEventArgs e)
+        private void statectrl_md(MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
             {
@@ -563,7 +399,7 @@ namespace SeldatMRMS
                             {
                                 if(RegistrationAgent.interfacePointer.removeobject_station(ptemp_station))
                                 {
-                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_station.props.stationNameID));
+                                    mTreeView.Items.Remove(mTreeView.FindName(ptemp_station.properties.stationNameID));
                                 }
                                 ptemp_station = null;
                             }
@@ -742,8 +578,7 @@ namespace SeldatMRMS
                     break;
             }
         }
-
-        void statectrl_mm(MouseEventArgs e)
+        private void statectrl_mm(MouseEventArgs e)
         {
             Point pp = e.GetPosition(map);
             var mouseWasDownOn = e.Source as FrameworkElement;
@@ -831,107 +666,94 @@ namespace SeldatMRMS
         {
             RegistrationAgent.interfacePointer.updateRobotProperties(pr);
         }
-        public string SourceUri
-        {
-            get
-            {
-                return Directory.GetCurrentDirectory() + "\\Resources\\load_op.png";
-            }
-        }
-
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-            //TcpServer tcpip = new TcpServer(2000);
-        }
-
-        private void btn_selecthalfpoint_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-
         private void trv_points_Selected(object sender, RoutedEventArgs e)
         {
 
             TreeViewItem tv_points = ((TreeViewItem)e.Source);
             RegistrationAgent.interfacePointer.findobjecthalfpoint_treeview(tv_points.Header.ToString());
         }
-
         private void trv_vehclies_Selected(object sender, RoutedEventArgs e)
         {
 
             TreeViewItem tv_robot = ((TreeViewItem)e.Source);
             RegistrationAgent.interfacePointer.findobjectrobot_treeview(tv_robot.Header.ToString());
         }
-
         private void trv_paths_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem tv_paths = ((TreeViewItem)e.Source);
             RegistrationAgent.interfacePointer.findobjecthalfpath_treeview(tv_paths.Header.ToString());
         }
-
         private void trv_stations_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem tv_station = ((TreeViewItem)e.Source);
             RegistrationAgent.interfacePointer.findobjectstation_treeview(tv_station.Header.ToString());
         }
-
         private void trv_charger_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem tv_charger = ((TreeViewItem)e.Source);
             RegistrationAgent.interfacePointer.findobjectcharger_treeview(tv_charger.Header.ToString());
         }
-
         private void trv_ready_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem tv_ready = ((TreeViewItem)e.Source);
             RegistrationAgent.interfacePointer.findobjectready_treeview(tv_ready.Header.ToString());
         }
-
         private void trv_checkin_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem tv_checkin = ((TreeViewItem)e.Source);
             RegistrationAgent.interfacePointer.findobjectcheckin_treeview(tv_checkin.Header.ToString());
         }
-
         private void trv_checkout_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem tv_checkout = ((TreeViewItem)e.Source);
             RegistrationAgent.interfacePointer.findobjectcheckout_treeview(tv_checkout.Header.ToString());
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void putaway_selected_Click(object sender, RoutedEventArgs e)
         {
-            /*  Station ps = new Station(map);
-			  ps.setStation(10, 10);
-
-			  pa = new HalfPoint(map);
-			  pa.sethalfpoint(10,10,80,100,Colors.Aquamarine);
-			  pa.setName("haha");*/
-
-            // PathModel pp = new PathModel(map);
-            //pp.drawbezierpath(new Point(10, 30), new Point(40, 80), new Point(100, 30));
+            MoveToggle(false);
+            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_PUTAWAYAREA;
+            ProgramStatus.Text = "Add Put-away Station";
         }
-
-        private void contentmap_MouseMove(object sender, MouseEventArgs e)
+        private void dockingarea_selected_Click(object sender, RoutedEventArgs e)
         {
-            if (CheckPermission())
-            {
-            }
+            MoveToggle(false);
+            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_DOCKINGAREA;
+            ProgramStatus.Text = "Add Docking Station";
         }
-
-        private void halfpointOP_Click_1(object sender, RoutedEventArgs e)
+        private void mixedarea_selected_Click(object sender, RoutedEventArgs e)
         {
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_HALFPOINT;
+            MoveToggle(false);
+            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_MIXEDAREA;
+            ProgramStatus.Text = "Add Mixed Station";
         }
-
+        private void batterycharge_selected_Click(object sender, RoutedEventArgs e)
+        {
+            MoveToggle(false);
+            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_CHARGER;
+            ProgramStatus.Text = "Add Charger Station";
+        }
+        private void ready_selected_Click(object sender, RoutedEventArgs e)
+        {
+            MoveToggle(false);
+            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_READY;
+            ProgramStatus.Text = "Add Ready Station";
+        }
+        private void checkin_selected_Click(object sender, RoutedEventArgs e)
+        {
+            MoveToggle(false);
+            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_CHECKIN;
+            ProgramStatus.Text = "Add Checkin Station";
+        }
+        private void checkout_selected_Click(object sender, RoutedEventArgs e)
+        {
+            MoveToggle(false);
+            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_CHECKOUT;
+            ProgramStatus.Text = "Add Checkout Station";
+        }
         private void componets_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void AddHalfpointOP_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -942,7 +764,6 @@ namespace SeldatMRMS
                 valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_HALFPOINT;
             }
         }
-
         private void AddPath_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -952,7 +773,6 @@ namespace SeldatMRMS
                 cm.IsOpen = true;
             }
         }
-
         private void AddStation_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -962,7 +782,6 @@ namespace SeldatMRMS
                 cm.IsOpen = true;
             }
         }
-
         private void Selectmode_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -971,16 +790,13 @@ namespace SeldatMRMS
                 Select_mode();
             }
         }
-
         private void typepoints_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void typestations_Click(object sender, RoutedEventArgs e)
         {
         }
-
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem item = sender as MenuItem;
@@ -990,76 +806,6 @@ namespace SeldatMRMS
                 MessageBox.Show("correct");
             }
         }
-
-        private void putaway_selected_Click(object sender, RoutedEventArgs e)
-        {
-            MoveToggle(false);
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_PUTAWAYAREA;
-            ProgramStatus.Text = "Add Put-away Station";
-        }
-
-        private void dockingarea_selected_Click(object sender, RoutedEventArgs e)
-        {
-            MoveToggle(false);
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_DOCKINGAREA;
-            ProgramStatus.Text = "Add Docking Station";
-        }
-
-        private void mixedarea_selected_Click(object sender, RoutedEventArgs e)
-        {
-            MoveToggle(false);
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_MIXEDAREA;
-            ProgramStatus.Text = "Add Mixed Station";
-        }
-
-        private void batterycharge_selected_Click(object sender, RoutedEventArgs e)
-        {
-            MoveToggle(false);
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_CHARGER;
-            ProgramStatus.Text = "Add Charger Station";
-        }
-
-        private void ready_selected_Click(object sender, RoutedEventArgs e)
-        {
-            MoveToggle(false);
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_READY;
-            ProgramStatus.Text = "Add Ready Station";
-        }
-
-        private void checkin_selected_Click(object sender, RoutedEventArgs e)
-        {
-            MoveToggle(false);
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_CHECKIN;
-            ProgramStatus.Text = "Add Checkin Station";
-        }
-
-        private void checkout_selected_Click(object sender, RoutedEventArgs e)
-        {
-            MoveToggle(false);
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_STATION_CHECKOUT;
-            ProgramStatus.Text = "Add Checkout Station";
-        }
-
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(Directory.GetCurrentDirectory() + "\\Resources\\load_op.png");
-        }
-
-        private void removeobject_Click(object sender, RoutedEventArgs e)
-        {
-            valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_REMOVE_OBJECT;
-        }
-
-        private void parent_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void map_MouseLeave(object sender, MouseEventArgs e)
-        {
-            txt_location.Text = "";
-        }
-
         private void loadmodel_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -1069,7 +815,6 @@ namespace SeldatMRMS
                 p.ParseInfo();
             }
         }
-
         private void savemodel_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -1077,27 +822,23 @@ namespace SeldatMRMS
                 SaveModel.savedata();
             }
         }
-
         private void load3dmap_Click(object sender, RoutedEventArgs e)
         {
             
             RegistrationAgent.robotview3dPointer.Show();
         }
-
         private void pathdirect_Click(object sender, RoutedEventArgs e)
         {
             RegistrationAgent.interfacePointer.STATESETTING = Interface.STATE_INTERFACE.INTERFACE_GET_STARTPOINT_DIRECT;
             valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_GET_PATH_STARTPOINT;
             pathchecked = PATHCHECKED.PATH_CHECKED_DIRECT;
         }
-
         private void pathBezier_Click(object sender, RoutedEventArgs e)
         {
             RegistrationAgent.interfacePointer.STATESETTING = Interface.STATE_INTERFACE.INTERFACE_GET_STARTPOINT_BEZIERSEGMENT;
             valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_GET_PATH_STARTPOINT;
             pathchecked = PATHCHECKED.PATH_CHECKED_BEZIER;
         }
-
         private void addrobotconfig_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -1105,64 +846,6 @@ namespace SeldatMRMS
                 RegistrationAgent.interfacePointer.setRobotProperties();
             }
         }
-
-
-
-        private void updateProperties_CurrentCellChanged(object sender, EventArgs e)
-        {
-            /*TextBlock NameObj = updateProperties.Columns[1].GetCellContent(updateProperties.Items[0]) as TextBlock;
-			if (NameObj != null)
-			{
-				HalfPoint ptemp_halfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint(NameObj.Text);
-				PathModel ptemp_pathmodel = RegistrationAgent.interfacePointer.findobjecthalfpath(NameObj.Text);
-				Station ptemp_station = RegistrationAgent.interfacePointer.findobjectstation(NameObj.Text);
-				if (ptemp_halfpoint != null)
-				{
-					MessageBox.Show("HaftPoint");
-				}
-				else if (ptemp_pathmodel != null)
-				{
-					MessageBox.Show("Path");
-				}
-				else if (ptemp_station != null)
-				{
-					RegistrationAgent.interfacePointer.updatePropertiesObjStation(ptemp_station);
-				}
-			}*/
-            /*	string elementName = mouseWasDownOn.Name;
-				if (elementName != "")
-				{
-					//MessageBox.Show("dds" + elementName);
-					HalfPoint ptemp_halfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint(elementName);
-					PathModel ptemp_pathmodel = RegistrationAgent.interfacePointer.findobjecthalfpath(elementName);
-					Station ptemp_station = RegistrationAgent.interfacePointer.findobjectstation(elementName);
-					if (ptemp_halfpoint != null)
-					{
-						RegistrationAgent.interfacePointer.removeobject(ptemp_halfpoint);
-						ptemp_halfpoint = null;
-					}
-					else if (ptemp_pathmodel != null)
-					{
-
-					}
-					else if (ptemp_station != null)
-					{
-
-					}
-				}*/
-
-        }
-
-        private void updateProperties_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void updateProperties_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            MessageBox.Show("");
-        }
-
         private void EditObject()
         {
 
@@ -1217,21 +900,80 @@ namespace SeldatMRMS
             }
             catch { }
         }
+        private void contentmap_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (CheckPermission())
+            {
+            }
+        }
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //statectrl_md(e);
+        }
+        private void map_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (CheckPermission())
+            {
+                var mouseWasDownOn = e.Source as FrameworkElement;
+                if (mouseWasDownOn != null)
+                {
+                    string elementName = mouseWasDownOn.Name;
+                    if (elementName != "")
+                    {
 
-        public void updatePropertiesObjStation(StationModel ps)
+                        HalfPoint ptemp_halfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint(elementName);
+                        PathModel ptemp_pathmodel = RegistrationAgent.interfacePointer.findobjecthalfpath(elementName);
+                        StationModel ptemp_station = RegistrationAgent.interfacePointer.findobjectstation(elementName);
+                        ChargerModel ptemp_charger = RegistrationAgent.interfacePointer.findobjectcharger(elementName);
+                        ReadyModel ptemp_ready = RegistrationAgent.interfacePointer.findobjectready(elementName);
+                        CheckinModel ptemp_checkin = RegistrationAgent.interfacePointer.findobjectcheckin(elementName);
+                        CheckoutModel ptemp_checkout = RegistrationAgent.interfacePointer.findobjectcheckout(elementName);
+                        RobotModel ptemp_rm = RegistrationAgent.interfacePointer.findRobotModel(elementName);
+                        Point ep = e.GetPosition(map);
+
+                        if (ptemp_station != null)
+                        {
+                            //MessageBox.Show("get "+ ptemp_station.properties.NameID);
+                            RegistrationAgent.interfacePointer.SetObjectStation(ptemp_station);
+                            showContextMenuStation(ptemp_station);
+                        }
+                        else if (ptemp_charger != null)
+                        {
+                            showContextMenuCharger(ptemp_charger);
+                            RegistrationAgent.interfacePointer.SetObjectCharger(ptemp_charger);
+                        }
+                        else if (ptemp_ready != null)
+                        {
+                            showContextMenuReady(ptemp_ready);
+                            RegistrationAgent.interfacePointer.SetObjectReady(ptemp_ready);
+                        }
+                        else if (ptemp_checkin != null)
+                        {
+                            showContextMenuCheckin(ptemp_checkin);
+                            RegistrationAgent.interfacePointer.SetObjectCheckin(ptemp_checkin);
+                        }
+                        else if (ptemp_checkout != null)
+                        {
+                            showContextMenuCheckout(ptemp_checkout);
+                            RegistrationAgent.interfacePointer.SetObjectCheckout(ptemp_checkout);
+                        }
+                        else if (ptemp_rm != null)
+                        {
+                            showContextMenuRobotinStore();
+                        }
+
+                    }
+                }
+            }
+        }
+        private void parent_MouseMove(object sender, MouseEventArgs e)
         {
 
         }
-
-        private void datagridValue_MouseLeave(object sender, MouseEventArgs e)
+        private void map_MouseLeave(object sender, MouseEventArgs e)
         {
-
+            txt_location.Text = "";
         }
-
-        private void DataGridTextColumn_MouseLeave(object sender, MouseEventArgs e)
-        {
-        }
-
         private void trv_paths_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
@@ -1257,7 +999,6 @@ namespace SeldatMRMS
                 }
             }
         }
-
         private void trv_points_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
@@ -1278,7 +1019,6 @@ namespace SeldatMRMS
                 }
             }
         }
-
         private void trv_stations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
@@ -1297,9 +1037,6 @@ namespace SeldatMRMS
                 }
             }
         }
-
-
-
         private void trv_ready_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
@@ -1318,7 +1055,6 @@ namespace SeldatMRMS
                 }
             }
         }
-
         private void trv_checkin_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
@@ -1337,7 +1073,6 @@ namespace SeldatMRMS
                 }
             }
         }
-
         private void trv_checkout_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
@@ -1356,7 +1091,6 @@ namespace SeldatMRMS
                 }
             }
         }
-
         private void trv_charger_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
@@ -1375,15 +1109,10 @@ namespace SeldatMRMS
                 }
             }
         }
-
-
-        
-
         private void Window_Closed(object sender, EventArgs e)
         {
             Environment.Exit(0);
         }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
            
@@ -1397,7 +1126,6 @@ namespace SeldatMRMS
                 return;
             }
         }
-
         private void ipscan_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -1406,7 +1134,6 @@ namespace SeldatMRMS
                 pp.ShowDialog();
             }
         }
-
         private void setting_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -1414,32 +1141,26 @@ namespace SeldatMRMS
                 ptaskManager.ShowDialog();
             }
         }
-
-
         private void checkinpoint_Click(object sender, RoutedEventArgs e)
         {
 
             valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_CHECKINPOINT;
         }
-
         private void checkoutpoint_Click(object sender, RoutedEventArgs e)
         {
 
             valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_CHECKOUTPOINT;
         }
-
         private void halfpoint_Click(object sender, RoutedEventArgs e)
         {
             valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_HALFPOINT;
 
         }
-
         private void oderManager_Click(object sender, RoutedEventArgs e)
         {
             //CreateAreaAgent pcreateAreaAgent = new CreateAreaAgent();
             //pcreateAreaAgent.ShowDialog();
         }
-
         private void iprun_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -1448,7 +1169,6 @@ namespace SeldatMRMS
                 ptf.ShowDialog();
             }
         }
-
         private void groupbox_Click(object sender, RoutedEventArgs e)
         {
             if (CheckPermission())
@@ -1456,24 +1176,20 @@ namespace SeldatMRMS
                 RegistrationAgent.groupModelPointer.ShowDialog();
             }
         }
-
         private void loadtask_Click(object sender, RoutedEventArgs e)
         {
             //TaskRegistration p = new TaskRegistration(RegistrationAgent.interfacePointer);
             //p.ShowDialog();
         }
-
         private void btn_group_Click(object sender, RoutedEventArgs e)
         {
             GroupPathModels groupPathModel = new GroupPathModels();
             groupPathModel.ShowDialog();
         }
-
         private void autoScrollLog_Checked(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void clearLog_Clicked(object sender, RoutedEventArgs e)
         {
             TabItem ti = tabControl_main.SelectedItem as TabItem;
@@ -1498,7 +1214,6 @@ namespace SeldatMRMS
                 warningConsole.Document.Blocks.Clear();
             }
         }
-
         private void clipBorder_MouseWheel(object sender, MouseWheelEventArgs e)
         {
 
@@ -1511,7 +1226,6 @@ namespace SeldatMRMS
             //}
             ////LogConsole(zoomDirection + "--slidingScale: " + slidingScale + "--ScaleX: " + canvasScaleTransform.ScaleX + "--ScaleY: " + canvasScaleTransform.ScaleY);
         }
-
         private void map_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -1527,14 +1241,13 @@ namespace SeldatMRMS
                 statectrl_md(e);
             }
         }
-
         private void map_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
                 map.ReleaseMouseCapture();
         }
         private void map_MouseMove(object sender, MouseEventArgs e)
         {
-            if (MouseMove)
+            if (mouseMove)
             {
                 if (!map.IsMouseCaptured) return;
                 //RobotStore
@@ -1588,31 +1301,22 @@ namespace SeldatMRMS
             }
 
             //LogConsole("StartPoint: " + startPoint + "--MoveVector: " + moveVector + "--Canvas:" + canvasTranslateTransform.X.ToString() + ":" + canvasTranslateTransform.Y.ToString() + "--Original:" + originalPoint.X.ToString() + ":" + originalPoint.Y.ToString());
-            if (!MouseMove)
+            if (!mouseMove)
             {
                 statectrl_mm(e);
             }
         }
-
-        private void AddPutAway_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
         private void move_click(object sender, RoutedEventArgs e)
         {
             Normal_mode();
-            MouseMove = !MouseMove;
-            MoveToggle(MouseMove);
+            mouseMove = !mouseMove;
+            MoveToggle(mouseMove);
         }
-
-
-        void MoveToggle(bool move)
+        private void MoveToggle(bool move)
         {
 
-            MouseMove = move;
-            if (MouseMove)
+            mouseMove = move;
+            if (mouseMove)
             {
                 var uriSource = new Uri("pack://siteoforigin:,,,/Resources/phat_handclose.png");
                 moveHand.Source = new BitmapImage(uriSource);
@@ -1625,23 +1329,18 @@ namespace SeldatMRMS
 
             }
         }
-
         public void Select_mode()
         {
             valstatectrl_mm = STATECTRL_MOUSEMOVE.STATECTRL_SLIDE_OBJECT;
             valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_KEEP_IN_OBJECT;
             ProgramStatus.Text = "Ready";
         }
-
         public void Normal_mode()
         {
             valstatectrl_mm = STATECTRL_MOUSEMOVE.STATECTRL_MOVE_NORMAL;
             valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_MOUSEDOWN_NORMAL;
             ProgramStatus.Text = "Ready";
         }
-
-
-
         private void SelectedClick(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             //TreeViewItem selectedItem = mTreeView.SelectedItem as TreeViewItem;
@@ -1692,35 +1391,24 @@ namespace SeldatMRMS
             //    }
             //}
         }
-
-        void OptionClick(object sender, RoutedEventArgs e)
-        {
-            //Code 5
-        }
-
         private void trv_highway_Selected(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void trv_highway_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
             {
             }
         }
-
         private void higwayadd_Click(object sender, RoutedEventArgs e)
         {
             RegistrationAgent.interfacePointer.addHighWay();
         }
-
-
         private void treeviewmenu_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void Properties_selected_Click(object sender, RoutedEventArgs e)
         {
             TreeViewItem tempTrv = mTreeView.SelectedItem as TreeViewItem;
@@ -1818,7 +1506,6 @@ namespace SeldatMRMS
 
 
         }
-
         private void Control_selected_Click(object sender, RoutedEventArgs e)
         {
             TreeViewItem tempTrv = mTreeView.SelectedItem as TreeViewItem;
@@ -1838,7 +1525,6 @@ namespace SeldatMRMS
                     }
             }
         }
-
         private void Delete_selected_Click(object sender, RoutedEventArgs e)
         {
             TreeViewItem tempTrv = mTreeView.SelectedItem as TreeViewItem;
@@ -1978,9 +1664,6 @@ namespace SeldatMRMS
                     }
             }
         }
-
-
-
         private void trv_items_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (CheckPermission())
@@ -2010,7 +1693,6 @@ namespace SeldatMRMS
                 }
             }
         }
-
         private void Dynamic_menu_option_enable(object sender, ContextMenuEventArgs e)
         {
             TreeViewItem tempTrv = mTreeView.SelectedItem as TreeViewItem;
@@ -2033,25 +1715,23 @@ namespace SeldatMRMS
             }
 
         }
-
-        private void statistic_Click(object sender, RoutedEventArgs e)
+        private void statistic_Click(object sender, RoutedEventArgs ex)
         {
-            if (CheckPermission())
+
+            try
             {
-                try
+                string howtogeek = "phat.local";
+                IPAddress[] addresslist = Dns.GetHostAddresses(howtogeek);
+
+                foreach (IPAddress theaddress in addresslist)
                 {
-                    string howtogeek = "[n/a]";
-                    IPAddress[] addresslist = Dns.GetHostAddresses(howtogeek);
-
-                    foreach (IPAddress theaddress in addresslist)
-                    {
-                        Console.WriteLine(theaddress.ToString());
-                    }
+                    Console.WriteLine(theaddress.ToString());
                 }
-                catch { }
             }
-        }
+            catch { }
 
+        
+        }
         private void SignInOut_Click(object sender, RoutedEventArgs e)
         {
             if (signinout_menu.Header.ToString() == "_Sign in")
@@ -2065,9 +1745,205 @@ namespace SeldatMRMS
             }
 
         }
+
+        private void Menu_Exit(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+
+        //void OptionClick(object sender, RoutedEventArgs e)
+        //{
+        //    //Code 5
+        //}
+        //private void AddPutAway_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+        //private void datagridValue_MouseLeave(object sender, MouseEventArgs e)
+        //{
+
+        //}
+
+        //private void DataGridTextColumn_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //}
+        //public void updatePropertiesObjStation(StationModel ps)
+        //{
+
+        //}
+        //     private void updateProperties_CurrentCellChanged(object sender, EventArgs e)
+        //     {
+        //         /*TextBlock NameObj = updateProperties.Columns[1].GetCellContent(updateProperties.Items[0]) as TextBlock;
+        //if (NameObj != null)
+        //{
+        //	HalfPoint ptemp_halfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint(NameObj.Text);
+        //	PathModel ptemp_pathmodel = RegistrationAgent.interfacePointer.findobjecthalfpath(NameObj.Text);
+        //	Station ptemp_station = RegistrationAgent.interfacePointer.findobjectstation(NameObj.Text);
+        //	if (ptemp_halfpoint != null)
+        //	{
+        //		MessageBox.Show("HaftPoint");
+        //	}
+        //	else if (ptemp_pathmodel != null)
+        //	{
+        //		MessageBox.Show("Path");
+        //	}
+        //	else if (ptemp_station != null)
+        //	{
+        //		RegistrationAgent.interfacePointer.updatePropertiesObjStation(ptemp_station);
+        //	}
+        //}*/
+        //         /*	string elementName = mouseWasDownOn.Name;
+        //	if (elementName != "")
+        //	{
+        //		//MessageBox.Show("dds" + elementName);
+        //		HalfPoint ptemp_halfpoint = RegistrationAgent.interfacePointer.findobjecthalfpoint(elementName);
+        //		PathModel ptemp_pathmodel = RegistrationAgent.interfacePointer.findobjecthalfpath(elementName);
+        //		Station ptemp_station = RegistrationAgent.interfacePointer.findobjectstation(elementName);
+        //		if (ptemp_halfpoint != null)
+        //		{
+        //			RegistrationAgent.interfacePointer.removeobject(ptemp_halfpoint);
+        //			ptemp_halfpoint = null;
+        //		}
+        //		else if (ptemp_pathmodel != null)
+        //		{
+
+        //		}
+        //		else if (ptemp_station != null)
+        //		{
+
+        //		}
+        //	}*/
+
+        //     }
+        //     private void updateProperties_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //     {
+
+        //     }
+        //     private void updateProperties_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //     {
+        //         MessageBox.Show("");
+        //     }
+        //private void Button_Click_6(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show(Directory.GetCurrentDirectory() + "\\Resources\\load_op.png");
+        //}
+
+        //private void removeobject_Click(object sender, RoutedEventArgs e)
+        //{
+        //    valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_REMOVE_OBJECT;
+        //}
+        //   private void Button_Click(object sender, RoutedEventArgs e)
+        //   {
+        //       /*  Station ps = new Station(map);
+        //ps.setStation(10, 10);
+
+        //pa = new HalfPoint(map);
+        //pa.sethalfpoint(10,10,80,100,Colors.Aquamarine);
+        //pa.setName("haha");*/
+
+        //       // PathModel pp = new PathModel(map);
+        //       //pp.drawbezierpath(new Point(10, 30), new Point(40, 80), new Point(100, 30));
+        //   }
+        //private void halfpointOP_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    valstatectrl_md = STATECTRL_MOUSEDOWN.STATECTRL_ADD_HALFPOINT;
+        //}
+        //public string SourceUri
+        //{
+        //    get
+        //    {
+        //        return Directory.GetCurrentDirectory() + "\\Resources\\load_op.png";
+        //    }
+        //}
+
+
+        //private void Button_Click_5(object sender, RoutedEventArgs e)
+        //{
+        //    //TcpServer tcpip = new TcpServer(2000);
+        //}
+
+        //private void btn_selecthalfpoint_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+        //private void Button_Click_2(object sender, RoutedEventArgs e)
+        //{
+
+
+
+        //}
+        //private Canvas DrawArrow(Point StartPoint, Point EndPoint, Color myColor)
+        //{
+        //    System.Windows.Shapes.Line _Line = new System.Windows.Shapes.Line();
+        //    System.Windows.Shapes.Line Head = new System.Windows.Shapes.Line();
+
+        //    _Line.X1 = StartPoint.X;
+        //    _Line.Y1 = StartPoint.Y;
+        //    _Line.X2 = EndPoint.X;
+        //    _Line.Y2 = EndPoint.Y;
+        //    _Line.StrokeThickness = 1;
+        //    _Line.Stroke = new SolidColorBrush(myColor);
+        //    if (EndPoint.X == StartPoint.X)
+        //    {
+        //        if (EndPoint.Y > StartPoint.Y)
+        //        {
+        //            Head.Y1 = EndPoint.Y - 1;
+        //            Head.Y2 = EndPoint.Y;
+        //        }
+        //        else
+        //        {
+        //            Head.Y1 = EndPoint.Y + 1;
+        //            Head.Y2 = EndPoint.Y;
+        //        }
+        //        Head.X1 = Head.X2 = EndPoint.X;
+        //    }
+        //    else
+        //    {
+        //        Int32 d;
+        //        if (EndPoint.X > StartPoint.X)
+        //        {
+        //            Head.X1 = EndPoint.X - 1;
+        //            Head.X2 = EndPoint.X;
+        //            d = 1;
+        //        }
+        //        else
+        //        {
+        //            Head.X1 = EndPoint.X + 1;
+        //            Head.X2 = EndPoint.X;
+        //            d = -1;
+        //        }
+        //        Head.Y1 = getArrowYByX(d, StartPoint, EndPoint);
+        //        Head.Y2 = EndPoint.Y;
+        //    }
+
+        //    Head.StrokeEndLineCap = PenLineCap.Triangle;
+        //    Head.StrokeThickness = 10;
+        //    Head.Stroke = new SolidColorBrush(myColor);
+        //    Canvas myCv = new Canvas();
+
+        //    //myCv.Children.Add(_Line);
+        //    myCv.Children.Add(Head);
+
+        //    return myCv;
+        //}
+        //double getArrowYByX(double d, Point pStart, Point pEnd)
+        //{
+        //    return pStart.Y + (pEnd.X - pStart.X - d) * (pEnd.Y - pStart.Y) / (pEnd.X - pStart.X);
+        //}
+
+        //PathModel pp;
+        //private void Button_Click_3(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+        //int nep = 100;
+        //private void Button_Click_4(object sender, RoutedEventArgs e)
+        //{
+
+
+        //}
     }
-
-
     public class User
     {
         public String Attribude { get; set; }
@@ -2075,5 +1951,4 @@ namespace SeldatMRMS
         public string Value { get; set; }
 
     }
-
 }

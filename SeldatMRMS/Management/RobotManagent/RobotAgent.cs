@@ -29,8 +29,9 @@ namespace SeldatMRMS.Management
 
         private void setProperties()
         {
+            dGV_properties.Rows.Clear();
             dGV_properties.Rows.Add("Name", NameID);
-            dGV_properties.Rows.Add("Label", "");
+            dGV_properties.Rows.Add("Label", label);
             dGV_properties.Rows.Add("IP", "192.168.1.8");
             dGV_properties.Rows.Add("Port", "9090");
             dGV_properties.Rows.Add("Critical Energy At(%)", "23.9");
@@ -890,6 +891,11 @@ namespace SeldatMRMS.Management
 
         private void btn_update_Click_1(object sender, EventArgs e)
         {
+         
+        }
+
+        private void dGV_properties_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
             try
             {
                 NameID = getName();
@@ -899,14 +905,11 @@ namespace SeldatMRMS.Management
                 CriticalEnergyAt = Convert.ToDouble(getCriticalEngery());
                 GoodEnergyAt = Convert.ToDouble(getGoodEngery());
                 RegistrationAgent.interfacePointer.updatePropertiesInformationrobot(this);
-                this.Hide();
             }
-            catch { System.Windows.Forms.MessageBox.Show("Error Format Data "); }
-        }
-
-        private void dGV_properties_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-
+            catch
+            {
+                RegistrationAgent.mainWindowPointer.LogConsole("Error format data.", "errorConsole");
+            }
         }
 
         private void btn_cancel_Click(object sender, EventArgs e)

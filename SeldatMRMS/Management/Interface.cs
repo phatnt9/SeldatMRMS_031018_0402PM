@@ -25,44 +25,32 @@ namespace SeldatMRMS.Management
 		public List<RobotAgent> pRobotAgentConfig_Manager;
 		public List<TreeViewItem> ptreeviewitem_Points;
 		public List<TreeViewItem> ptreeviewitem_Paths;
-
 		public List<TreeViewItem> ptreeviewitem_Stations;
 		public List<TreeViewItem> ptreeviewitem_Charger;
 		public List<TreeViewItem> ptreeviewitem_Ready;
 		public List<TreeViewItem> ptreeviewitem_Checkin;
 		public List<TreeViewItem> ptreeviewitem_Checkout;
-
 		public List<TreeViewItem> ptreeviewitem_robotconfig;
-
 		public List<Shape> pshape;
 		public HalfPoint tempShape_point;
 		public HalfPoint tempShape_point_sP;
 		public HalfPoint tempShape_point_eP;
-
 		public StationModel tempShape_station_sP;
 		public StationModel tempShape_station_eP;
-
         public ChargerModel tempShape_charger_sP;
 		public ChargerModel tempShape_charger_eP;
-
         public ReadyModel tempShape_ready_sP;
 		public ReadyModel tempShape_ready_eP;
-
         public CheckinModel tempShape_checkin_sP;
 		public CheckinModel tempShape_checkin_eP;
-
         public CheckoutModel tempShape_checkout_sP;
 		public CheckoutModel tempShape_checkout_eP;
-        
 		public PathModel tempShape_path;
-
-
 		public StationModel tempShape_station;
 		public ChargerModel tempShape_charger;
 		public ReadyModel tempShape_ready;
 		public CheckinModel tempShape_checkin;
 		public CheckoutModel tempShape_checkout;
-
 		public delegate void AddANewRobotAgent(RobotAgent pr);
 		public AddANewRobotAgent addANewRobotAgent;
 		public delegate void UpdateRobotAgentProperties(RobotAgent pr);
@@ -140,119 +128,35 @@ namespace SeldatMRMS.Management
 			pshape = new List<Shape>();
 		}
 
-		public HalfPoint findobjecthalfpoint(string name)
-		{
-			bool flag_findhalfpoint = false;
-			HalfPoint temphp = null;
-			for (int i = 0; i < phalfpoint_manager.Count; i++)
-			{
-				if (phalfpoint_manager[i].FindName(name))
-				{
-					flag_findhalfpoint = true;
-					phalfpoint_manager[i].setcolor(Colors.Blue);
-					SetObjectPoint(phalfpoint_manager[i]);
-					updatePropertiesInformationPoint();
-					temphp = phalfpoint_manager[i];
-
-					break;
-				}
-			}
-			if (!flag_findhalfpoint)
-			{
-				for (int i = 0; i < phalfpoint_manager.Count; i++)
-				{
-					phalfpoint_manager[i].setcolor((Color)ColorConverter.ConvertFromString("#FFF0F0F0"));
-				}
-			}
-			return temphp;
-		}
-		public RobotModel findRobotModel(String name)
-		{
-			RobotModel rm = null;
-            try
+        public HalfPoint findobjecthalfpoint_treeview(string name)
+        {
+            bool flag_findhalfpoint = false;
+            HalfPoint temphp = null;
+            for (int i = 0; i < phalfpoint_manager.Count; i++)
             {
-                if (pRobotModel.properties.name.Equals(name))
+                phalfpoint_manager[i].setcolor((Color)ColorConverter.ConvertFromString("#FFF0F0F0"));
+            }
+            for (int i = 0; i < phalfpoint_manager.Count; i++)
+            {
+                if (phalfpoint_manager[i].FindName(name))
                 {
-                    rm = pRobotModel;
+                    flag_findhalfpoint = true;
+                    phalfpoint_manager[i].setcolor(Colors.Blue);
+                    SetObjectPoint(phalfpoint_manager[i]);
+                    updatePropertiesInformationPoint();
+                    temphp = phalfpoint_manager[i];
+                    break;
                 }
             }
-            catch
-            {
-
-            }
-			return rm;
-		}
-        
-
-		public HalfPoint findobjecthalfpoint_updatevalue(string name)
-		{
-			HalfPoint temphp = null;
-			for (int i = 0; i < phalfpoint_manager.Count; i++)
-			{
-				if (phalfpoint_manager[i].FindName(name))
-				{
-					temphp = phalfpoint_manager[i];
-					break;
-				}
-			}
-			return temphp;
-		}
-		public HalfPoint findobjecthalfpoint_treeview(string name)
-		{
-			bool flag_findhalfpoint = false;
-			HalfPoint temphp = null;
-			for (int i = 0; i < phalfpoint_manager.Count; i++)
-			{
-				phalfpoint_manager[i].setcolor((Color)ColorConverter.ConvertFromString("#FFF0F0F0"));
-			}
-			for (int i = 0; i < phalfpoint_manager.Count; i++)
-			{
-				if (phalfpoint_manager[i].FindName(name))
-				{
-					flag_findhalfpoint = true;
-					phalfpoint_manager[i].setcolor(Colors.Blue);
-					SetObjectPoint(phalfpoint_manager[i]);
-					updatePropertiesInformationPoint();
-					temphp = phalfpoint_manager[i];
-					break;
-				}
-			}
-			return temphp;
-		}
-		public PathModel findobjecthalfpath(string name)
-		{
-			bool flag_findpath = false;
-			PathModel tpm = null;
-			for (int i = 0; i < RegistrationAgent.pathRegistrationList.Count; i++)
-			{
-				if (RegistrationAgent.pathRegistrationList[i].FindName(name))
-				{
-					flag_findpath = true;
-					RegistrationAgent.pathRegistrationList[i].setcolor(Colors.Red);
-					SetObjectPath(RegistrationAgent.pathRegistrationList[i]);
-					updatePropertiesInformationPath();
-					tpm = RegistrationAgent.pathRegistrationList[i];
-					break;
-				}
-			}
-			if (!flag_findpath)
-			{
-				for (int i = 0; i < RegistrationAgent.pathRegistrationList.Count; i++)
-				{
-					RegistrationAgent.pathRegistrationList[i].setcolor(Colors.Black);
-				}
-			}
-			return tpm;
-		}
-
-
-		public StationModel findobjectstation_treeview(string name)
+            return temphp;
+        }
+        public StationModel findobjectstation_treeview(string name)
 		{
 			bool flag_findstation = false;
 			StationModel tpm = null;
 			for (int i = 0; i < RegistrationAgent.stationRegistrationList.Count; i++)
 			{
-				RegistrationAgent.stationRegistrationList[i].setlabelcolor(Colors.White);
+				RegistrationAgent.stationRegistrationList[i].SetLabelTextColor(Colors.White);
 			}
 			for (int i = 0; i < RegistrationAgent.stationRegistrationList.Count; i++)
 			{
@@ -260,7 +164,7 @@ namespace SeldatMRMS.Management
 				{
 					flag_findstation = true;
 					SetObjectStation(RegistrationAgent.stationRegistrationList[i]);
-					RegistrationAgent.stationRegistrationList[i].setlabelcolor(Colors.Blue);
+					RegistrationAgent.stationRegistrationList[i].SetLabelTextColor(Colors.Blue);
 					updatePropertiesInformationStation();
 					tpm = RegistrationAgent.stationRegistrationList[i];
 					break;
@@ -312,7 +216,6 @@ namespace SeldatMRMS.Management
 			}
 			return tpm;
 		}
-
         public CheckinModel findobjectcheckin_treeview(string name)
         {
             bool flag_findstation = false;
@@ -335,7 +238,6 @@ namespace SeldatMRMS.Management
             }
             return tpm;
         }
-
         public CheckoutModel findobjectcheckout_treeview(string name)
         {
             bool flag_findstation = false;
@@ -359,6 +261,73 @@ namespace SeldatMRMS.Management
             return tpm;
         }
 
+        public RobotModel findRobotModel(String name)
+        {
+            RobotModel rm = null;
+            try
+            {
+                if (pRobotModel.properties.name.Equals(name))
+                {
+                    rm = pRobotModel;
+                }
+            }
+            catch
+            {
+
+            }
+            return rm;
+        }
+        public HalfPoint findobjecthalfpoint(string name)
+        {
+            bool flag_findhalfpoint = false;
+            HalfPoint temphp = null;
+            for (int i = 0; i < phalfpoint_manager.Count; i++)
+            {
+                if (phalfpoint_manager[i].FindName(name))
+                {
+                    flag_findhalfpoint = true;
+                    phalfpoint_manager[i].setcolor(Colors.Blue);
+                    SetObjectPoint(phalfpoint_manager[i]);
+                    updatePropertiesInformationPoint();
+                    temphp = phalfpoint_manager[i];
+
+                    break;
+                }
+            }
+            if (!flag_findhalfpoint)
+            {
+                for (int i = 0; i < phalfpoint_manager.Count; i++)
+                {
+                    phalfpoint_manager[i].setcolor((Color)ColorConverter.ConvertFromString("#FFF0F0F0"));
+                }
+            }
+            return temphp;
+        }
+        public PathModel findobjecthalfpath(string name)
+        {
+            bool flag_findpath = false;
+            PathModel tpm = null;
+            for (int i = 0; i < RegistrationAgent.pathRegistrationList.Count; i++)
+            {
+                if (RegistrationAgent.pathRegistrationList[i].FindName(name))
+                {
+                    flag_findpath = true;
+                    RegistrationAgent.pathRegistrationList[i].setcolor(Colors.Red);
+                    SetObjectPath(RegistrationAgent.pathRegistrationList[i]);
+                    updatePropertiesInformationPath();
+                    tpm = RegistrationAgent.pathRegistrationList[i];
+                    break;
+                }
+            }
+            if (!flag_findpath)
+            {
+                for (int i = 0; i < RegistrationAgent.pathRegistrationList.Count; i++)
+                {
+                    RegistrationAgent.pathRegistrationList[i].setcolor(Colors.Black);
+                }
+            }
+            return tpm;
+        }
         public StationModel findobjectstation(string name)
 		{
 			bool flag_findstation = false;
@@ -369,7 +338,7 @@ namespace SeldatMRMS.Management
 				{
 					flag_findstation = true;
 					SetObjectStation(RegistrationAgent.stationRegistrationList[i]);
-					RegistrationAgent.stationRegistrationList[i].setlabelcolor(Colors.Blue);
+					RegistrationAgent.stationRegistrationList[i].SetLabelTextColor(Colors.Blue);
 					updatePropertiesInformationStation();
 					tpm = RegistrationAgent.stationRegistrationList[i];
 					break;
@@ -379,7 +348,7 @@ namespace SeldatMRMS.Management
 			{
 				for (int i = 0; i < RegistrationAgent.stationRegistrationList.Count; i++)
 				{
-					RegistrationAgent.stationRegistrationList[i].setlabelcolor(Colors.White);
+					RegistrationAgent.stationRegistrationList[i].SetLabelTextColor(Colors.White);
 				}
 			}
 			return tpm;
@@ -409,7 +378,6 @@ namespace SeldatMRMS.Management
 			}
 			return tpm;
 		}
-
 		public ReadyModel findobjectready(string name)
 		{
 			bool flag_findready = false;
@@ -435,7 +403,6 @@ namespace SeldatMRMS.Management
 			}
 			return tpm;
 		}
-
         public CheckinModel findobjectcheckin(string name)
         {
             bool flag_findcheckin = false;
@@ -461,7 +428,6 @@ namespace SeldatMRMS.Management
             }
             return tpm;
         }
-
         public CheckoutModel findobjectcheckout(string name)
         {
             bool flag_findcheckout = false;
@@ -488,7 +454,19 @@ namespace SeldatMRMS.Management
             return tpm;
         }
 
-
+        public HalfPoint findobjecthalfpoint_updatevalue(string name)
+        {
+            HalfPoint temphp = null;
+            for (int i = 0; i < phalfpoint_manager.Count; i++)
+            {
+                if (phalfpoint_manager[i].FindName(name))
+                {
+                    temphp = phalfpoint_manager[i];
+                    break;
+                }
+            }
+            return temphp;
+        }
         public StationModel findobjectstation_updatevalue(string name)
 		{
 			StationModel tpm = null;
@@ -528,7 +506,6 @@ namespace SeldatMRMS.Management
 			}
 			return tpm;
 		}
-
         public CheckinModel findobjectcheckin_updatevalue(string name)
         {
             CheckinModel tpm = null;
@@ -542,7 +519,6 @@ namespace SeldatMRMS.Management
             }
             return tpm;
         }
-
         public CheckoutModel findobjectcheckout_updatevalue(string name)
         {
             CheckoutModel tpm = null;
@@ -556,8 +532,6 @@ namespace SeldatMRMS.Management
             }
             return tpm;
         }
-
-
         public PathModel findobjecthalfpath_treeview(string name)
 		{
 			bool flag_findpath = false;
@@ -717,37 +691,37 @@ namespace SeldatMRMS.Management
                 case STATE_INTERFACE.INTERFACE_ADD_STATION_DOCKING:
 					StationModel pstation_docking = null;
 					pstation_docking = new StationModel(this.content, "DOCKING");
-                    pstation_docking.setText("DCK" + RegistrationAgent.stationRegistrationList.Count);
-                    pstation_docking.setName("DCK" + GlobalVariables.EncodeTransmissionTimestamp());
-                    pstation_docking.setStation(pos.X, pos.Y);
+                    pstation_docking.SetKeyAndLabel("DCK" + RegistrationAgent.stationRegistrationList.Count);
+                    pstation_docking.SetNameID("DCK" + GlobalVariables.EncodeTransmissionTimestamp());
+                    pstation_docking.SetPosition(pos.X, pos.Y);
                     //pstation_docking.setid(RegistrationAgent.stationRegistrationList.Count);
                     pstation_docking.CreateCameraAgentD();
                     RegistrationAgent.stationRegistrationList.Add(pstation_docking);
-					updateTreeviewStations(pstation_docking.props.NameKey);
+					updateTreeviewStations(pstation_docking.properties.NameKey);
 					break;
 
 				case STATE_INTERFACE.INTERFACE_ADD_STATION_PUTAWAY:
 					StationModel pstation_putaway = null;
 					pstation_putaway = new StationModel(this.content, "PUTAWAY");
-					pstation_putaway.setText("PAW" + RegistrationAgent.stationRegistrationList.Count);
-					pstation_putaway.setName("PAW" + GlobalVariables.EncodeTransmissionTimestamp());
-					pstation_putaway.setStation(pos.X, pos.Y);
+					pstation_putaway.SetKeyAndLabel("PAW" + RegistrationAgent.stationRegistrationList.Count);
+					pstation_putaway.SetNameID("PAW" + GlobalVariables.EncodeTransmissionTimestamp());
+					pstation_putaway.SetPosition(pos.X, pos.Y);
 					//pstation_putaway.setid(RegistrationAgent.stationRegistrationList.Count);
                     pstation_putaway.CreateCameraAgentP();
                     RegistrationAgent.stationRegistrationList.Add(pstation_putaway);
-					updateTreeviewStations(pstation_putaway.props.NameKey);
+					updateTreeviewStations(pstation_putaway.properties.NameKey);
                     break;
 
                 case STATE_INTERFACE.INTERFACE_ADD_STATION_MIXED:
                     StationModel pstation_mixed = null;
                     pstation_mixed = new StationModel(this.content, "MIXED");
-                    pstation_mixed.setText("MIX" + RegistrationAgent.stationRegistrationList.Count);
-                    pstation_mixed.setName("MIX" + GlobalVariables.EncodeTransmissionTimestamp());
-                    pstation_mixed.setStation(pos.X, pos.Y);
+                    pstation_mixed.SetKeyAndLabel("MIX" + RegistrationAgent.stationRegistrationList.Count);
+                    pstation_mixed.SetNameID("MIX" + GlobalVariables.EncodeTransmissionTimestamp());
+                    pstation_mixed.SetPosition(pos.X, pos.Y);
                     //pstation_mixed.setid(RegistrationAgent.stationRegistrationList.Count);
                     pstation_mixed.CreateCameraAgentM();
                     RegistrationAgent.stationRegistrationList.Add(pstation_mixed);
-                    updateTreeviewStations(pstation_mixed.props.NameKey);
+                    updateTreeviewStations(pstation_mixed.properties.NameKey);
                     break;
 
 				case STATE_INTERFACE.INTERFACE_EDIT_STATION:
@@ -755,8 +729,8 @@ namespace SeldatMRMS.Management
 				case STATE_INTERFACE.INTERFACE_SETING_ROBOTCONFIG:
 					break;
 				case STATE_INTERFACE.INTERFACE_MOVE_STATION:
-					this.tempShape_station.setnewpos(pos.X, pos.Y);
-					this.tempShape_station.updatePathfromNewPosition();
+					this.tempShape_station.SetNewPosition(pos.X, pos.Y);
+					this.tempShape_station.UpdatePathfromNewPosition();
 					break;
 				case STATE_INTERFACE.INTERFACE_MOVE_CHARGER:
 					this.tempShape_charger.setnewpos(pos.X, pos.Y);
@@ -790,7 +764,7 @@ namespace SeldatMRMS.Management
 						Point endpoint_dir_end = new Point();
 						if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION)
 						{
-							startpoint_dir_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.Y);
+							startpoint_dir_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.Y);
 						}
 						else if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_HALFPOINT)
 
@@ -799,7 +773,7 @@ namespace SeldatMRMS.Management
 						}
 						if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_STATION)
 						{
-							endpoint_dir_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.props.Y);
+							endpoint_dir_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.properties.Y);
 						}
 						else if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_HALFPOINT)
 						{
@@ -814,7 +788,7 @@ namespace SeldatMRMS.Management
 					Point startpoint_dir;
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION || RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_STATION)
 					{
-						startpoint_dir = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.Y);
+						startpoint_dir = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.Y);
 						RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].drawdirectpath(startpoint_dir, pxx);
 
 					}
@@ -844,7 +818,7 @@ namespace SeldatMRMS.Management
 					Point endpoint_bz_end = new Point();
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION)
 					{
-						startpoint_bz_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.Y);
+						startpoint_bz_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.Y);
 					}
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_HALFPOINT)
 					{
@@ -852,7 +826,7 @@ namespace SeldatMRMS.Management
 					}
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_STATION)
 					{
-						endpoint_bz_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.props.Y);
+						endpoint_bz_end = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.endpoint_station.properties.Y);
 					}
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_HALFPOINT)
 					{
@@ -867,7 +841,7 @@ namespace SeldatMRMS.Management
 					if (RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected == PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION || RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.backNodeConnected == PathModel.NODECONNECTED.BACKNODE_CONNECTED_STATION)
 					{
 
-						startpoint_bz = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.props.Y);
+						startpoint_bz = new Point(RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.X, RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station.properties.Y);
 						RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].drawbezierpath(startpoint_bz, new Point(px.X - 40, px.Y + 100), px);
 
 					}
@@ -941,7 +915,7 @@ namespace SeldatMRMS.Management
 			for (int i = 0; i < RegistrationAgent.stationRegistrationList.Count; i++)
 			{
 				RegistrationAgent.stationRegistrationList[i].remove();
-				RegistrationAgent.stationRegistrationList[i].setStation(RegistrationAgent.stationRegistrationList[i].props.X, RegistrationAgent.stationRegistrationList[i].props.Y);
+				RegistrationAgent.stationRegistrationList[i].SetPosition(RegistrationAgent.stationRegistrationList[i].properties.X, RegistrationAgent.stationRegistrationList[i].properties.Y);
 
 			}
 			for (int i = 0; i < phalfpoint_manager.Count; i++)
@@ -1023,12 +997,12 @@ namespace SeldatMRMS.Management
             //rtsp://admin:seldatinc123@192.168.0.3:754/h265/ch1/main/av_stream
             try
             {
-                String url = "rtsp://admin:seldatinc123@" + tempShape_station.props.cam.ip + ":" + tempShape_station.props.cam.port + "/h265/ch1/main/av_stream";
+                String url = "rtsp://admin:seldatinc123@" + tempShape_station.properties.camera.ip + ":" + tempShape_station.properties.camera.port + "/h265/ch1/main/av_stream";
                 //System.Windows.MessageBox.Show(url);
-                if (tempShape_station.props.isConnected)
+                if (tempShape_station.properties.isConnected)
                 {
                     LiveViewForm liveFormStation = new LiveViewForm(url);
-                    liveFormStation.setcam(tempShape_station.props.area, tempShape_station.props.cam.id.ToString());
+                    liveFormStation.setcam(tempShape_station.properties.area, tempShape_station.properties.camera.id.ToString());
                     liveFormStation.ShowDialog();
                 }
                 else
@@ -1084,7 +1058,6 @@ namespace SeldatMRMS.Management
 			}
             return false;
 		}
-
 		public bool removeobject_station(StationModel pstation)
 		{
 			System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1097,7 +1070,7 @@ namespace SeldatMRMS.Management
 
 				for (int index1 = 0; index1 < RegistrationAgent.stationRegistrationList.Count; index1++)
 				{
-					if (RegistrationAgent.stationRegistrationList[index1].props.stationNameID.Equals(pstation.props.stationNameID))
+					if (RegistrationAgent.stationRegistrationList[index1].properties.stationNameID.Equals(pstation.properties.stationNameID))
 					{
 						RegistrationAgent.stationRegistrationList.RemoveAt(index1);
 						break;
@@ -1105,7 +1078,7 @@ namespace SeldatMRMS.Management
 				}
 				for (int index2 = 0; index2 < ptreeviewitem_Stations.Count; index2++)
 				{
-					if (ptreeviewitem_Stations[index2].Header.Equals(pstation.props.stationNameID))
+					if (ptreeviewitem_Stations[index2].Header.Equals(pstation.properties.stationNameID))
 					{
 						ptreeviewitem_Stations.RemoveAt(index2);
 						break;
@@ -1115,7 +1088,7 @@ namespace SeldatMRMS.Management
 				{
 
 					TreeViewItem ptemp = this.content.trv_stations.Items.GetItemAt(index3) as TreeViewItem;
-					if (ptemp.Header.Equals(pstation.props.stationNameID))
+					if (ptemp.Header.Equals(pstation.properties.stationNameID))
 					{
 						this.content.trv_stations.Items.RemoveAt(index3);
 						break;
@@ -1129,7 +1102,6 @@ namespace SeldatMRMS.Management
 			}
             return false;
 		}
-
         public bool removeobject_charger(ChargerModel pcharger)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1174,7 +1146,6 @@ namespace SeldatMRMS.Management
             }
             return false;
         }
-
         public bool removeobject_ready(ReadyModel pready)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1219,7 +1190,6 @@ namespace SeldatMRMS.Management
             }
             return false;
         }
-
         public bool  removeobject_checkin(CheckinModel pcheckin)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1264,7 +1234,6 @@ namespace SeldatMRMS.Management
             }
             return false;
         }
-
         public bool  removeobject_checkout(CheckoutModel pcheckout)
         {
             System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1309,8 +1278,6 @@ namespace SeldatMRMS.Management
             }
             return false;
         }
-
-
         public bool  removeobject_robotagent(RobotAgent robotAgent)
 		{
 			System.Windows.Forms.DialogResult pwarming = System.Windows.Forms.MessageBox.Show("Do you want to delete this element?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -1394,9 +1361,7 @@ namespace SeldatMRMS.Management
 			}
             return false;
 		}
-
-
-
+        
 		public void SetObjectPath_StartPoint(HalfPoint sP)
 		{
 			this.tempShape_point_sP = sP;
@@ -1429,9 +1394,7 @@ namespace SeldatMRMS.Management
 			RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.startpoint_station = sP;
 			RegistrationAgent.pathRegistrationList[RegistrationAgent.pathRegistrationList.Count - 1].nodeConnected.frontNodeConnected = PathModel.NODECONNECTED.FRONTNODE_CONNECTED_STATION; ;
 		}
-
-
-
+        
 		public void updatePropertiesInformationPoint()
 		{
 			List<User> users = new List<User>();
@@ -1528,8 +1491,7 @@ namespace SeldatMRMS.Management
             ptreeviewitem_Checkout.Add(ptemptrv_checkout);
 			this.content.trv_checkout.Items.Add(ptemptrv_checkout);
 		}
-
-
+        
         private void Ptemptrv_station_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             //var hit = e.OriginalSource as DependencyObject;
@@ -1557,9 +1519,7 @@ namespace SeldatMRMS.Management
         {
             System.Windows.MessageBox.Show("Nothing to do here!");
         }
-
-
-
+        
         public void updateTreeviewPaths(string name)
 		{
 			TreeViewItem ptemptrv_path = new TreeViewItem();
@@ -1567,7 +1527,6 @@ namespace SeldatMRMS.Management
 			ptreeviewitem_Paths.Add(ptemptrv_path);
 			this.content.trv_paths.Items.Add(ptemptrv_path);
 		}
-
         public void updateTreeviewHighway(string name)
         {
             TreeViewItem ptemptrv_highway = new TreeViewItem();
@@ -1575,7 +1534,6 @@ namespace SeldatMRMS.Management
             //ptreeviewitem_Paths.Add(ptemptrv_path);
             this.content.trv_highway.Items.Add(ptemptrv_highway);
         }
-
         public void updatePropertiesInformationPath()
 		{
 			//try
@@ -1588,36 +1546,33 @@ namespace SeldatMRMS.Management
 				if (this.tempShape_path.nodeConnected.startpoint != null)
 					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint.properties.NameID });
 				else if (this.tempShape_path.nodeConnected.startpoint_station != null)
-					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint_station.props.stationNameID});
+					users.Add(new User() { Attribude = "Start Component", Value = "" + this.tempShape_path.nodeConnected.startpoint_station.properties.stationNameID});
 				if (this.tempShape_path.nodeConnected.endpoint != null)
 					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint.properties.NameID });
 				else if (this.tempShape_path.nodeConnected.endpoint_station != null)
-					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint_station.props.stationNameID });
+					users.Add(new User() { Attribude = "End Component", Value = "" + this.tempShape_path.nodeConnected.endpoint_station.properties.stationNameID });
 				users.Add(new User() { Attribude = "Type", Value = "Half Point" });
 				this.content.updateProperties.ItemsSource = users;
 			}
 			this.tempShape_path.setName(this.tempShape_path.properties.roadName);
 			//catch { }
 		}
-
-
-
-		public void updatePropertiesInformationStation()
+        public void updatePropertiesInformationStation()
 		{
 			List<User> users = new List<User>();
-			users.Add(new User() { Attribude = "Name", Value = this.tempShape_station.props.stationNameID});
-			users.Add(new User() { Attribude = "Length", Value = this.tempShape_station.props.lengthValue + "" });
-			users.Add(new User() { Attribude = "Address", Value = this.tempShape_station.props.addressIP });
-			users.Add(new User() { Attribude = "Port", Value = this.tempShape_station.props.port + "" });
-			users.Add(new User() { Attribude = "Cost", Value = this.tempShape_station.props.costValue + "" });
+			users.Add(new User() { Attribude = "Name", Value = this.tempShape_station.properties.stationNameID});
+			users.Add(new User() { Attribude = "Length", Value = this.tempShape_station.properties.lengthValue + "" });
+			users.Add(new User() { Attribude = "Address", Value = this.tempShape_station.properties.addressIP });
+			users.Add(new User() { Attribude = "Port", Value = this.tempShape_station.properties.port + "" });
+			users.Add(new User() { Attribude = "Cost", Value = this.tempShape_station.properties.costValue + "" });
 			users.Add(new User() { Attribude = "X Model (mm)", Value = "450" });
 			users.Add(new User() { Attribude = "Y Model (mm)", Value = "850" });
-			users.Add(new User() { Attribude = "Point X location", Value = this.tempShape_station.props.X + "" });
-			users.Add(new User() { Attribude = "Point Y location", Value = this.tempShape_station.props.Y + "" });
-			users.Add(new User() { Attribude = "Station Area", Value = this.tempShape_station.props.cam.area + "" });
-			users.Add(new User() { Attribude = "Camera ID", Value = this.tempShape_station.props.cam.id + "" });
-			users.Add(new User() { Attribude = "Camera IP", Value = this.tempShape_station.props.cam.ip + "" });
-			users.Add(new User() { Attribude = "Camera PORT", Value = this.tempShape_station.props.cam.port + "" });
+			users.Add(new User() { Attribude = "Point X location", Value = this.tempShape_station.properties.X + "" });
+			users.Add(new User() { Attribude = "Point Y location", Value = this.tempShape_station.properties.Y + "" });
+			users.Add(new User() { Attribude = "Station Area", Value = this.tempShape_station.properties.camera.area + "" });
+			users.Add(new User() { Attribude = "Camera ID", Value = this.tempShape_station.properties.camera.id + "" });
+			users.Add(new User() { Attribude = "Camera IP", Value = this.tempShape_station.properties.camera.ip + "" });
+			users.Add(new User() { Attribude = "Camera PORT", Value = this.tempShape_station.properties.camera.port + "" });
 			this.content.updateProperties.ItemsSource = users;
 		}
         public void updatePropertiesInformationCharger()
@@ -1670,9 +1625,7 @@ namespace SeldatMRMS.Management
             users.Add(new User() { Attribude = "Point Y location", Value = this.tempShape_checkout.props.Y + "" });
             this.content.updateProperties.ItemsSource = users;
         }
-
-
-
+        
         public void updatePropertiesObjStation(StationModel ps)
 		{
 			TextBlock NameObj = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[1]) as TextBlock;
@@ -1684,12 +1637,12 @@ namespace SeldatMRMS.Management
 			TextBlock Y_location = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[7]) as TextBlock;
 
 			//	ps.NameObj = NameObj.Text;
-			ps.props.lengthValue = Convert.ToDouble(length);
-			ps.props.costValue = Convert.ToDouble(cost);
-			ps.props.X_model = Convert.ToDouble(X_model);
-			ps.props.Y_model = Convert.ToDouble(Y_model);
-			ps.props.X = Convert.ToDouble(X_location);
-			ps.props.Y = Convert.ToDouble(X_location);
+			ps.properties.lengthValue = Convert.ToDouble(length);
+			ps.properties.costValue = Convert.ToDouble(cost);
+			ps.properties.X_model = Convert.ToDouble(X_model);
+			ps.properties.Y_model = Convert.ToDouble(Y_model);
+			ps.properties.X = Convert.ToDouble(X_location);
+			ps.properties.Y = Convert.ToDouble(X_location);
 		}
         public void updatePropertiesObjCharger(ChargerModel ps)
         {
@@ -1743,7 +1696,6 @@ namespace SeldatMRMS.Management
             ps.props.X = Convert.ToDouble(X_location);
             ps.props.Y = Convert.ToDouble(X_location);
         }
-
         public void updatePropertiesObjCheckout(CheckoutModel ps)
         {
             TextBlock NameObj = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[1]) as TextBlock;
@@ -1761,7 +1713,6 @@ namespace SeldatMRMS.Management
             ps.props.X = Convert.ToDouble(X_location);
             ps.props.Y = Convert.ToDouble(X_location);
         }
-
         public void updatePropertiesObjPoint(HalfPoint ph)
 		{
 			TextBlock NameObj = this.content.updateProperties.Columns[1].GetCellContent(this.content.updateProperties.Items[0]) as TextBlock;

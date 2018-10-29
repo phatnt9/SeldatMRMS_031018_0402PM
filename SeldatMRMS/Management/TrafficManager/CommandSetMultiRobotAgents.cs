@@ -43,7 +43,7 @@ namespace SeldatMRMS.Management.TrafficManager
 			dynamic docking = new JObject();
 			dynamic checkin = new JObject();
 			dynamic checkout = new JObject();
-			docking.key = pstation.props.stationNameID;
+			docking.key = pstation.properties.stationNameID;
 			checkin.key = pstation.checkInPoint.properties.key;
 			checkout.key = pstation.checkOutPoint.properties.key;
 			docking.checkin = checkin;
@@ -57,7 +57,7 @@ namespace SeldatMRMS.Management.TrafficManager
 			dynamic putaway = new JObject();
 			dynamic checkin = new JObject();
 			dynamic checkout = new JObject();
-			putaway.key = pstation.props.stationNameID;
+			putaway.key = pstation.properties.stationNameID;
 			checkin.key = pstation.checkInPoint.properties.key;
 			checkout.key = pstation.checkOutPoint.properties.key;
 			putaway.checkin = checkin;
@@ -93,11 +93,11 @@ namespace SeldatMRMS.Management.TrafficManager
 			dynamic JArrayhighway = new JArray();
 			foreach (StationModel s in RegistrationAgent.stationRegistrationList)
 			{
-				if (s.props.typeName == "DOCKING")
+				if (s.properties.typeName == "DOCKING")
 				{
 					JArraydocking.Add(addADocking(s));
 				}
-				else if (s.props.typeName == "PUTAWAY")
+				else if (s.properties.typeName == "PUTAWAY")
 				{
 					JArrayputaway.Add(addAPutAway(s));
 				}

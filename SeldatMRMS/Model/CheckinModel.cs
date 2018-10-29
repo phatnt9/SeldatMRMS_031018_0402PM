@@ -363,6 +363,7 @@ namespace SeldatMRMS.Model
         {
             this.Hide();
         }
+        
 
         private void dGV_properties_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

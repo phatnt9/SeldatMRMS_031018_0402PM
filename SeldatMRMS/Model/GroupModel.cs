@@ -167,28 +167,28 @@ namespace SeldatMRMS.Model
             }
             foreach (StationModel temp in RegistrationAgent.stationRegistrationList)
             {
-                if (temp.props.typeName == "DOCKING")
+                if (temp.properties.typeName == "DOCKING")
                 {
                     dynamic tempitem = new JObject();
-                    tempitem.name = temp.props.NameKey;
+                    tempitem.name = temp.properties.NameKey;
                     contentDockingArray.Add(tempitem);
                 }
             }
             foreach (StationModel temp in RegistrationAgent.stationRegistrationList)
             {
-                if (temp.props.typeName == "PUTAWAY")
+                if (temp.properties.typeName == "PUTAWAY")
                 {
                     dynamic tempitem = new JObject();
-                    tempitem.name = temp.props.NameKey;
+                    tempitem.name = temp.properties.NameKey;
                     contentPutawayArray.Add(tempitem);
                 }
             }
             foreach (StationModel temp in RegistrationAgent.stationRegistrationList)
             {
-                if (temp.props.typeName == "MIXED")
+                if (temp.properties.typeName == "MIXED")
                 {
                     dynamic tempitem = new JObject();
-                    tempitem.name = temp.props.NameKey;
+                    tempitem.name = temp.properties.NameKey;
                     contentMixedArray.Add(tempitem);
                 }
             }
@@ -431,9 +431,9 @@ namespace SeldatMRMS.Model
                             {
                                 foreach (StationModel item in RegistrationAgent.stationRegistrationList)
                                 {
-                                    if (!CallRecursive(treeView1, item.props.NameKey))
+                                    if (!CallRecursive(treeView1, item.properties.NameKey))
                                     {
-                                        cb_item.Items.Add(item.props.NameKey);
+                                        cb_item.Items.Add(item.properties.NameKey);
                                     }
                                 }
                             }

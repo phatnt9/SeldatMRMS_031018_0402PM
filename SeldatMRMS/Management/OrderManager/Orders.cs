@@ -9,7 +9,7 @@ namespace SeldatMRMS.Management.OrderManager
 {
     public class Orders
     {
-        public delegate void RequestToReadyArea(String msg);
+        public delegate void RequestToReadyArea(string msg);
         public RequestToReadyArea requestToReadyArea;
         public void addReadyAreaDepends(ReadyArea readyArea)
         {
@@ -18,10 +18,10 @@ namespace SeldatMRMS.Management.OrderManager
         }
 
 
-        public String[] RequestDockingOrderLine(int area, string robotID)
+        public string[] RequestDockingOrderLine(int area, string robotID)
         {
             RegistrationAgent.mainWindowPointer.LogConsole("In RequestDockingOrderLine", "logOrder");
-            String[] data = null;
+            string[] data = null;
             try
             {
                 string areaID = area.ToString();
@@ -32,7 +32,7 @@ namespace SeldatMRMS.Management.OrderManager
                     int lposdk = Int32.Parse(listLineDockingKey.Split('-')[1]);
                     if (RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.ContainsKey(listLineDockingKey))
                     {
-                        data = new String[3];
+                        data = new string[3];
                         data[0] = RegistrationAgent.areaList["0"].dockingStations["Docking-" + stationNameID].lineInfo.jsonLine(area, "DOCKING", stationNameID, lposdk);
                         //data[0] = DataTranformation.jsonDockingLine(area, stationNameID, lposdk);
                         data[1] = stationNameID.ToString();
@@ -52,10 +52,10 @@ namespace SeldatMRMS.Management.OrderManager
             return data;
         }
 
-        public String[] RequestDockingOrderPallet(int area, string robotID, string stationNameID, string line)
+        public string[] RequestDockingOrderPallet(int area, string robotID, string stationNameID, string line)
         {
             RegistrationAgent.mainWindowPointer.LogConsole("In RequestDockingOrderPallet", "logOrder");
-            String[] data = null;
+            string[] data = null;
             try
             {
                 string areaID = area.ToString();
@@ -63,7 +63,7 @@ namespace SeldatMRMS.Management.OrderManager
                 if (RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST.ContainsKey(stationNameID + "-" + line) &&
                    RegistrationAgent.areaList[areaID].DOCKING_LINE_LIST[stationNameID + "-" + line].GetPallet(palletnumsdk))
                 {
-                    data = new String[4];
+                    data = new string[4];
                     data[0] = RegistrationAgent.areaList["0"].dockingStations["Docking-" + stationNameID].lineInfo.jsonPallet(area, "DOCKING", stationNameID, int.Parse(line), palletnumsdk.First());
                     //data[0] = DataTranformation.jsonDockingPallet(area, Int32.Parse(stationNameID), Int32.Parse(line), palletnumsdk.First());
                     data[1] = stationNameID.ToString();
@@ -81,10 +81,10 @@ namespace SeldatMRMS.Management.OrderManager
             return data;
         }
 
-        public String[] RequestPutAwayOrderLine(int area, string robotID)
+        public string[] RequestPutAwayOrderLine(int area, string robotID)
         {
             RegistrationAgent.mainWindowPointer.LogConsole("In RequestPutAwayOrderLine", "logOrder");
-            String[] data = null;
+            string[] data = null;
             try
             {
                 string areaID = area.ToString();
@@ -95,7 +95,7 @@ namespace SeldatMRMS.Management.OrderManager
                     int lpospw = Int32.Parse(listLinePutAwayKey.Split('-')[1]);
                     if (RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.ContainsKey(listLinePutAwayKey))
                     {
-                        data = new String[3];
+                        data = new string[3];
                         data[0] = RegistrationAgent.areaList["0"].putAwayStations["PutAway-" + stationNameID].lineInfo.jsonLine(area, "PUTAWAY", stationNameID, lpospw);
                         //data[0] = DataTranformation.jsonPutAwayLine(area, stationNameID, lpospw);
                         data[1] = stationNameID.ToString();
@@ -116,10 +116,10 @@ namespace SeldatMRMS.Management.OrderManager
         }
 
 
-        public String[] RequestPutAwayOrderPallet(int area, string robotID, string stationNameID, string line)
+        public string[] RequestPutAwayOrderPallet(int area, string robotID, string stationNameID, string line)
         {
             RegistrationAgent.mainWindowPointer.LogConsole("In RequestPutAwayOrderPallet", "logOrder");
-            String[] data = null;
+            string[] data = null;
             try
             {
                 string areaID = area.ToString();
@@ -127,7 +127,7 @@ namespace SeldatMRMS.Management.OrderManager
                 if (RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST.ContainsKey(stationNameID + "-" + line) &&
                    RegistrationAgent.areaList[areaID].PUTAWAY_LINE_LIST[stationNameID + "-" + line].GetPallet(palletnumspw))
                 {
-                    data = new String[4];
+                    data = new string[4];
                     data[0] = RegistrationAgent.areaList["0"].putAwayStations["PutAway-" + stationNameID].lineInfo.jsonPallet(area, "PUTAWAY", stationNameID, int.Parse(line), palletnumspw.First());
                     //data[0] = DataTranformation.jsonPutAwayPallet(area, Convert.ToInt32(stationNameID), Convert.ToInt32(line), palletnumspw.First());
                     data[1] = stationNameID.ToString();
