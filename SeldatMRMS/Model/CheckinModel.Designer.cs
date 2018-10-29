@@ -45,6 +45,7 @@
             // btn_lineInfo
             // 
             this.btn_lineInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_lineInfo.Enabled = false;
             this.btn_lineInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btn_lineInfo.Location = new System.Drawing.Point(3, 50);
             this.btn_lineInfo.Name = "btn_lineInfo";
@@ -68,6 +69,7 @@
             this.dGV_properties.Name = "dGV_properties";
             this.dGV_properties.Size = new System.Drawing.Size(378, 355);
             this.dGV_properties.TabIndex = 50;
+            this.dGV_properties.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_properties_CellContentClick);
             // 
             // txt_properties
             // 

@@ -56,6 +56,10 @@ namespace SeldatMRMS.Management
             product.haftpoints = product_point;
             product.paths = product_path;
             product.stations = product_station;
+            product.checkins = product_checkin;
+            product.checkouts = product_checkout;
+            product.readys = product_ready;
+            product.chargers= product_charger;
             product.robotconfig = product_robotconfig;
             product.groupPath = RegistrationAgent.groupModelPointer.createJsonstring();
             SaveFileDialog saveFileDialog = new SaveFileDialog();
