@@ -46,11 +46,14 @@ namespace SeldatMRMS.Model
             setColorLabel(Colors.Red);
             this.content.map.Children.Add(plabel);
             lineInfo = new LineInfo();
+            dgvProperties_setting();
         }
 
         private void CheckinModel_Load(object sender, EventArgs e)
         {
-            dgvProperties_setting();
+           
+           setCheckinNAME(this.props.NameID);
+           setCheckinLB(this.props.label);
         }
 
         void dgvProperties_setting()
@@ -62,9 +65,9 @@ namespace SeldatMRMS.Model
                 dGV_properties.Rows.Add("Label", props.label);
                 dGV_properties.Rows.Add("Position");
                 dGV_properties.Rows[2].DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
-                dGV_properties.Rows.Add("Position X", "");
-                dGV_properties.Rows.Add("Position Y", "");
-                dGV_properties.Rows.Add("Angle", "");
+                dGV_properties.Rows.Add("Position X");
+                dGV_properties.Rows.Add("Position Y");
+                dGV_properties.Rows.Add("Angle");
             }
         }
 
@@ -310,9 +313,9 @@ namespace SeldatMRMS.Model
             product.Type = props.type;
             product.posX = props.X;
             product.posY = props.Y;
-            product.realposX = dGV_properties.Rows[3].ToString();
-            product.realposY = dGV_properties.Rows[4].ToString();
-            product.realangle = dGV_properties.Rows[5].ToString();
+            product.realposX = dGV_properties.Rows[3].Cells[1].Value;
+            product.realposY = dGV_properties.Rows[4].Cells[1].Value;
+            product.realangle = dGV_properties.Rows[5].Cells[1].Value;
             return product;
 
         }
@@ -330,8 +333,7 @@ namespace SeldatMRMS.Model
 
         private void CheckinModel_Shown(object sender, EventArgs e)
         {
-            setCheckinNAME(this.props.NameID);
-            setCheckinLB(this.props.label);
+            
         }
 
         public bool Connect()
@@ -362,6 +364,11 @@ namespace SeldatMRMS.Model
             this.Hide();
         }
         
+
+        private void dGV_properties_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
 
         private void btn_update_Click(object sender, EventArgs e)
         {

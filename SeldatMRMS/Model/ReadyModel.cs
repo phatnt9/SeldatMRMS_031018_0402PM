@@ -36,11 +36,12 @@ namespace SeldatMRMS.Model
             setColorLabel(Colors.Red);
             this.content.map.Children.Add(plabel);
             lineInfo = new LineInfo();
+            dgvProperties_setting();
         }
 
         private void Ready_Load(object sender, EventArgs e)
         {
-            dgvProperties_setting();
+            
         }
 
         void dgvProperties_setting()
@@ -290,8 +291,8 @@ namespace SeldatMRMS.Model
             product.Type = props.TypeName;
             product.posX = props.X;
             product.posY = props.Y;
+            product.lineInfo = lineInfo.save(props.NameKey);
             return product;
-
         }
 
         public bool Connection()

@@ -46,11 +46,12 @@ namespace SeldatMRMS.Model
             setColorLabel(Colors.Red);
             this.content.map.Children.Add(plabel);
             lineInfo = new LineInfo();
+            dgvProperties_setting();
         }
 
         private void CheckoutModel_Load(object sender, EventArgs e)
         {
-            dgvProperties_setting();
+           
         }
 
         void dgvProperties_setting()
@@ -313,9 +314,9 @@ namespace SeldatMRMS.Model
             product.Type = props.type;
             product.posX = props.X;
             product.posY = props.Y;
-            product.realposX = dGV_properties.Rows[3].ToString();
-            product.realposY = dGV_properties.Rows[4].ToString();
-            product.realangle = dGV_properties.Rows[5].ToString();
+            product.realposX = dGV_properties.Rows[3].Cells[1].Value;
+            product.realposY = dGV_properties.Rows[4].Cells[1].Value;
+            product.realangle = dGV_properties.Rows[5].Cells[1].Value;
             return product;
 
         }
