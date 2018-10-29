@@ -558,12 +558,12 @@ namespace SeldatMRMS.Model
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(lineInfo.jsonLine(0, props.type, props.stationNameID, 0));
+            MessageBox.Show(lineInfo.jsonLine(0, properties.typeName, properties.stationNameID, 0));
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(lineInfo.jsonPallet(0, props.type, props.stationNameID, 0,1));
+            MessageBox.Show(lineInfo.jsonPallet(0, properties.typeName, properties.stationNameID, 0,1));
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
